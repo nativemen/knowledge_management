@@ -64,6 +64,8 @@ jobs:
 
       - name: Commit and push PDF
         if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+        env:
+          ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
@@ -76,7 +78,7 @@ jobs:
           git add ${{ env.OUTPUT_DIR }}/${{ env.MAIN_FILE }}_v${VERSION}.pdf
 
           git commit -m "📄 自动更新PDF文档 (v${VERSION})" || echo "No changes to commit"
-          git push
+          git push https://x-access-token:${{ secrets.ACTIONS_DEPLOY_KEY }}@github.com/${{ github.repository }}.git HEAD:main
 
       - name: Create issue on failure
         if: failure()
