@@ -37,7 +37,7 @@ jobs:
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v2
         with:
-          root_file: ${{ env.SOURCE_DIR }}/${{ env.MAIN_FILE }}.tex
+          root_file: ${{ env.MAIN_FILE }}.tex
           working_directory: ${{ env.SOURCE_DIR }}
           compiler: xelatex
           args: -pdf -file-line-error -halt-on-error -interaction=nonstopmode
