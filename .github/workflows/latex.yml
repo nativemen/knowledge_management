@@ -1,80 +1,55 @@
-# 工作流名称
 name: Build and Deploy LaTeX Documents
 
-# 触发条件
 on:
   push:
     paths:
-      - 'math/matrix_algebra/matrix_algebra_learning_notes/**.tex'	# tex源文件目录
+      - 'math/matrix_algebra/matrix_algebra_learning_notes/**.tex'
       - '.github/workflows/latex.yml'
-    branches: 
-      - main
-      - master
-  pull_request:	# 也在PR时触发检查
     branches:
       - main
       - master
-  # 允许手动触发
+  pull_request:
+    branches:
+      - main
+      - master
   workflow_dispatch:
 
-# 环境变量
 env:
-  MAIN_FILE: matrix_algebra_learning_notes				# 主tex文件名（不带.tex后缀）
-  OUTPUT_DIR: math/matrix_algebra/matrix_algebra_learning_notes/build	# 输出目录
-  SOURCE_DIR: math/matrix_algebra/matrix_algebra_learning_notes		# 源文件目录
+  MAIN_FILE: matrix_algebra_learning_notes
+  OUTPUT_DIR: math/matrix_algebra/matrix_algebra_learning_notes/build
+  SOURCE_DIR: math/matrix_algebra/matrix_algebra_learning_notes
 
 jobs:
   build_latex:
     runs-on: ubuntu-latest
-    
+
     steps:
-      # 检出代码
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0    # 获取完整历史以支持版本号生成
+          fetch-depth: 0
 
-      # 配置缓存以加速编译
-      - name: Cache LaTeX packages
-        uses: actions/cache@v3
-        with:
-          path: |
-            /tmp/texlive
-            /tmp/texmf
-          key: cache-texlive-${{ runner.os }}-${{ hashFiles('**/*.tex') }}
-          restore-keys: |
-            cache-texlive-${{ runner.os }}-
+      - name: Install TeX Live
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y texlive-full
 
-      # 编译LaTeX文档
+      - name: Install Chinese support
+        run: |
+          sudo tlmgr install collection-langchinese
+
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v2
         with:
           root_file: ${{ env.SOURCE_DIR }}/${{ env.MAIN_FILE }}.tex
-          working_directory: .
-          compiler: xelatex  # 使用xelatex以更好地支持中文
+          compiler: xelatex
           args: -pdf -file-line-error -halt-on-error -interaction=nonstopmode
-          extra_system_packages: |
-            texlive-lang-chinese
-            texlive-latex-extra
-            texlive-fonts-recommended
-            texlive-science       # 科学/数学包
-            texlive-publishers    # 出版商模板
-            texlive-pictures     # 图形包
-            texlive-bibtex-extra # 参考文献
-            texlive-humanities   # 人文学科包
-            fonts-recommended    # 推荐字体
-            latexmk
-            make
-            ghostscript
-            cm-super
 
-      # 创建输出目录
       - name: Create output directory
         run: |
           mkdir -p ${{ env.OUTPUT_DIR }}
-          cp ${{ env.MAIN_FILE }}.pdf ${{ env.OUTPUT_DIR }}/
+          cp ${{ env.SOURCE_DIR }}/${{ env.MAIN_FILE }}.pdf ${{ env.OUTPUT_DIR }}/
 
-      # 检查PDF是否生成成功
       - name: Verify PDF generation
         run: |
           if [ ! -f "${{ env.OUTPUT_DIR }}/${{ env.MAIN_FILE }}.pdf" ]; then
@@ -83,7 +58,6 @@ jobs:
           fi
           echo "PDF file was generated successfully!"
 
-      # 上传PDF作为构建产物
       - name: Upload PDF artifact
         uses: actions/upload-artifact@v3
         with:
@@ -91,28 +65,22 @@ jobs:
           path: ${{ env.OUTPUT_DIR }}/${{ env.MAIN_FILE }}.pdf
           if-no-files-found: error
 
-      # 提交PDF到仓库（仅在主分支上）
       - name: Commit and push PDF
         if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          
-          # 获取当前时间作为版本号
+
           VERSION=$(date +'%Y%m%d_%H%M%S')
-          
-          # 移动PDF到版本化的文件名
+
           cp ${{ env.OUTPUT_DIR }}/${{ env.MAIN_FILE }}.pdf ${{ env.OUTPUT_DIR }}/${{ env.MAIN_FILE }}_v${VERSION}.pdf
-          
-          # 添加到git
+
           git add ${{ env.OUTPUT_DIR }}/${{ env.MAIN_FILE }}.pdf
           git add ${{ env.OUTPUT_DIR }}/${{ env.MAIN_FILE }}_v${VERSION}.pdf
-          
-          # 提交更改
+
           git commit -m "📄 自动更新PDF文档 (v${VERSION})" || echo "No changes to commit"
           git push
 
-      # 如果编译失败，通过GitHub Issues通知
       - name: Create issue on failure
         if: failure()
         uses: actions/github-script@v6
