@@ -34,11 +34,6 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y texlive-full
 
-      - name: Install Chinese support
-        run: |
-          sudo tlmgr init-usertree
-          sudo tlmgr install collection-langchinese
-
       - name: Compile LaTeX document
         uses: xu-cheng/latex-action@v2
         with:
