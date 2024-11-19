@@ -18,6 +18,7 @@
 \usepackage{multirow}       % 合并单元格
 \usepackage{caption}        % 表格标题
 \usepackage{makecell}
+\usepackage{natbib}         % 推荐的参考文献宏包
 \tcbuselibrary{theorems,skins,breakable}
 
 \usetikzlibrary{calc,arrows.meta,bending}
@@ -2456,7 +2457,13 @@
 }
 
 \section{Matrix diagonalization}{
-
+    \defn{Matrix diagonalization}{
+        define $\mathbf{S}$ to be the matrix whose columns are the eigenvectors of $\mathbf{A}$, and $\Lambda$ to be the diagonal matrix with eigenvalues down the diagonal. Then for any n-by-n matrix with n linearly independent eigenvectors, we have
+        $$\mathbf{A}\mathbf{S}=\mathbf{S}\Lambda$$
+        where $\mathbf{S}$ is an invertible matrix. Multiplying both sides on the right or the left by $\mathbf{S}^{-1}$, we derive the relations
+        $$\mathbf{A}=\mathbf{S}\Lambda\mathbf{S}^{-1}\text{ and }\Lambda=\mathbf{S}^{-1}\mathbf{A}\mathbf{S}$$
+        To remember the order of the $\mathbf{S}$ and $\mathbf{S}^{-1}$ matrices in these formulas, just remember that $\mathbf{A}$ should be multiplied on the right by the eigenvectors placed in the columns of $\mathbf{S}$.
+    }
 }
 
 % \rmk{
@@ -2474,5 +2481,8 @@
 %     \includegraphics[scale=0.1]{img/loo.jpg}
 %     \caption{Waterloo, ON}
 % \end{figure}
+
+\bibliographystyle{plain}  % 参考文献样式，可选：plain, unsrt, alpha, abbrv
+\bibliography{matrix_algebra_learning_notes}  % 引用 references.bib 文件
 
 \end{document}
