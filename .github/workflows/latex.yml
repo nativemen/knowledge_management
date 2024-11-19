@@ -75,15 +75,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          VERSION=$(date +'%Y%m%d_%H%M%S')
-          cp ${{ env.OUTPUT_DIR }}/${{ env.MAIN_FILE }}.pdf ${{ env.OUTPUT_DIR }}/${{ env.MAIN_FILE }}_v${VERSION}.pdf
-
-          git pull origin ${{ github.ref_name }} --rebase
-
           git add ${{ env.OUTPUT_DIR }}/${{ env.MAIN_FILE }}.pdf
-          git add ${{ env.OUTPUT_DIR }}/${{ env.MAIN_FILE }}_v${VERSION}.pdf
 
-          git commit -m "📄 Update PDF documentation with TOC" || echo "No changes to commit"
+          git commit -m "Update PDF documentation with TOC" || echo "No changes to commit"
 
           git push "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" HEAD:${{ github.ref_name }}
 
