@@ -39,6 +39,10 @@ jobs:
         run: |
           # First pass - generates aux files
           xelatex -interaction=nonstopmode ${{ env.MAIN_FILE }}
+          # Generate bibliography if you have citations
+          if [ -f "${{ env.MAIN_FILE }}.bib" ]; then
+            bibtex ${{ env.MAIN_FILE }}
+          fi
           # Second pass - generates TOC
           xelatex -interaction=nonstopmode ${{ env.MAIN_FILE }}
           # Final pass - ensures all references are correct
