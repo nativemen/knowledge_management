@@ -78,7 +78,9 @@ jobs:
           git add ${{ env.OUTPUT_DIR }}/${{ env.MAIN_FILE }}_v${VERSION}.pdf
 
           git commit -m "📄 自动更新PDF文档 (v${VERSION})" || echo "No changes to commit"
-          git push https://x-access-token:${{ secrets.ACTIONS_DEPLOY_KEY }}@github.com/${{ github.repository }}.git HEAD:main
+
+          git remote set-url origin https://x-access-token:${{ secrets.ACTIONS_DEPLOY_KEY }}@github.com/${{ github.repository }}.git
+          git push origin HEAD:main
 
       - name: Create issue on failure
         if: failure()
