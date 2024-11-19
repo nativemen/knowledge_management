@@ -235,7 +235,7 @@
 }
 
 \subsection{Diagonal matrix}{
-    \defn{Identity matrix}{
+    \defn{Diagonal matrix}{
         A diagonal matrix has its only nonzero elements on the diagonal.\\
         Usually it is a \textbf{square matrix}, but it can also be \textbf{rectangular}.
         $$\mathbf{D}=
@@ -244,6 +244,26 @@
                 0      & d_{2}  & \cdots & 0\\
                 \vdots & \vdots & \ddots & \vdots\\
                 0      & 0      & \cdots & d_{n}
+            \end{pmatrix}$$
+        A square matrix $\mathbf{D}$ is called a diagonal matrix if $d_{ij}=0$ whenever $i \neq j$.
+    }
+
+    \cor{
+        If a diagonal matrix
+        $$\mathbf{D}=
+            \begin{pmatrix}
+                d_{1}  & 0      & \cdots & 0\\
+                0      & d_{2}  & \cdots & 0\\
+                \vdots & \vdots & \ddots & \vdots\\
+                0      & 0      & \cdots & d_{n}
+            \end{pmatrix}$$
+        then,
+        $$\mathbf{D}^{p}=
+            \begin{pmatrix}
+                d_{1}^{p}  & 0         & \cdots & 0\\
+                0          & d_{2}^{p} & \cdots & 0\\
+                \vdots     & \vdots    & \ddots & \vdots\\
+                0          & 0         & \cdots & d_{n}^{p}
             \end{pmatrix}$$
     }
 
@@ -2440,7 +2460,11 @@
         These n eigenvalues are real and can be distinct or have repeated values.
     }
 
-    \fact{
+    \cor{
+        Eigenvectors of a symmetric matrix are orthogonal, but only for distinct eigenvalues.
+    }
+
+    \cor{
         Let $\mathbf{A}_{n \times n}$ be an ${n \times n}$ matrix.\\
         The number 0 is an eigenvalue of $\mathbf{A}_{n \times n}$ if and only if $\mathbf{A}_{n \times n}$ is not invertible.
     }
@@ -2457,6 +2481,20 @@
         \end{align}
         $\mathbf{v}$ cannot be both nonzero and zero.
     }
+
+    \cor{
+        If $\mathbf{A}_{n \times n}$ is a ${n \times n}$ triangular matrix – upper triangular, lower triangular or diagonal, the eigenvalues of $\mathbf{A}_{n \times n}$ are the diagonal entries of $\mathbf{A}_{n \times n}$.
+    }
+
+    \cor{
+        Let $\mathbf{A}_{n \times n}$ be an ${n \times n}$ matrix. Then $\mathbf{A}_{n \times n}$ and $\mathbf{A}_{n \times n}^{\mathbf{T}}$  have the same eigenvalues.
+    }
+
+    \cor{
+        $\lvert\det(\mathbf{A}_{n \times n})\rvert$ is the product of the absolute values of the eigenvalues of $\mathbf{A}_{n \times n}$.\\
+        Let $\lambda_{1},\lambda_{2},\cdots,\lambda_{n}$ be the eigenvalues of $\mathbf{A}_{n \times n}$, then
+        $$\lvert\det(\mathbf{A}_{n \times n})\rvert=\lvert\lambda_{1}\rvert\lvert\lambda_{2}\rvert\cdots\lvert\lambda_{n}\rvert$$
+    }
 }
 
 \section{Matrix diagonalization}{
@@ -2467,23 +2505,27 @@
         $$\mathbf{A}=\mathbf{S}\Lambda\mathbf{S}^{-1}\text{ and }\Lambda=\mathbf{S}^{-1}\mathbf{A}\mathbf{S}$$
         To remember the order of the $\mathbf{S}$ and $\mathbf{S}^{-1}$ matrices in these formulas, just remember that $\mathbf{A}$ should be multiplied on the right by the eigenvectors placed in the columns of $\mathbf{S}$.
     }
+
+    \clm{Diagonalization process}{
+        \begin{enumerate}
+            \item \textbf{Find the Eigenvalues}: Solve the characteristic equation $\det(\mathbf{A}_{n \times n}-\lambda\mathbf{I}_{n \times n})=0$  to find the eigenvalues $\lambda$ of $\mathbf{A}$.
+            \item \textbf{Find the Eigenvectors}: For each eigenvalue $\lambda$, solve the equation $(\mathbf{A}_{n \times n}-\lambda\mathbf{I}_{n \times n})\mathbf{x}=0$ to find the corresponding eigenvectors and normalize them.
+            \item \textbf{Form the Matrix $\mathbf{S}_{n \times n}$}: Construct the matrix $\mathbf{S}_{n \times n}$ using the eigenvectors of $\mathbf{A}_{n \times n}$ as its columns.
+            \item \textbf{Form the Diagonal Matrix $\Lambda_{n \times n}$}: Construct the diagonal matrix $\Lambda_{n \times n}$ with the eigenvalues of $\mathbf{A}_{n \times n}$ on its diagonal.
+        \end{enumerate}
+        Thus,
+        $$\Lambda_{n \times n}=\mathbf{S}_{n \times n}^{-1}\mathbf{A}_{n \times n}\mathbf{S}_{n \times n}$$
+    }
 }
 
-% \rmk{
-%     Some remark.
-% }
-
-% \rmkb{
-%     Some more remark.
-% }
-
-% \section{Multiplication of matrices}
-
-% \begin{figure}[H]
-%     \center
-%     \includegraphics[scale=0.1]{img/loo.jpg}
-%     \caption{Waterloo, ON}
-% \end{figure}
+\section{Powers of a matrix}{
+    \defn{Powers of a matrix}{
+        Diagonalizing a matrix facilitates finding powers of that matrix. For instance,
+        $$\mathbf{A}_{n \times n}^{2}=(\mathbf{S}_{n \times n}\Lambda_{n \times n}\mathbf{S}_{n \times n}^{-1})(\mathbf{S}_{n \times n}\Lambda_{n \times n}\mathbf{S}_{n \times n}^{-1})=\mathbf{S}_{n \times n}\Lambda_{n \times n}^{2}\mathbf{S}_{n \times n}^{-1}$$
+        More generally, for p a positive integer,
+        $$\mathbf{A}_{n \times n}^{p}=\mathbf{S}_{n \times n}\Lambda_{n \times n}^{p}\mathbf{S}_{n \times n}^{-1}$$
+    }
+}
 
 \bibliographystyle{plain}  % 参考文献样式，可选：plain, unsrt, alpha, abbrv
 \bibliography{matrix_algebra_learning_notes}  % 引用 references.bib 文件
