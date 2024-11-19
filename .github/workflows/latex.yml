@@ -62,14 +62,20 @@ jobs:
           path: ${{ env.OUTPUT_DIR }}/${{ env.MAIN_FILE }}.pdf
           if-no-files-found: error
 
-      - name: Commit and push PDF
-        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+      - name: Configure Git to use the access token
         env:
           ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
         run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git remote set-url origin https://x-access-token:${{ secrets.ACTIONS_DEPLOY_KEY }}@github.com/${{ github.repository_owner }}/${{ github.event.repository.name }}.git
 
+      - name: Debug Git remote URL
+        run: git remote -v
+
+      - name: Commit and push PDF
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+        run: |
           VERSION=$(date +'%Y%m%d_%H%M%S')
 
           cp ${{ env.OUTPUT_DIR }}/${{ env.MAIN_FILE }}.pdf ${{ env.OUTPUT_DIR }}/${{ env.MAIN_FILE }}_v${VERSION}.pdf
@@ -78,8 +84,6 @@ jobs:
           git add ${{ env.OUTPUT_DIR }}/${{ env.MAIN_FILE }}_v${VERSION}.pdf
 
           git commit -m "📄 自动更新PDF文档 (v${VERSION})" || echo "No changes to commit"
-
-          git remote set-url origin https://x-access-token:${{ secrets.ACTIONS_DEPLOY_KEY }}@github.com/${{ github.repository }}.git
           git push origin HEAD:main
 
       - name: Create issue on failure
