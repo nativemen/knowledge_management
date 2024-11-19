@@ -23,11 +23,25 @@ jobs:
   build_latex:
     runs-on: ubuntu-latest
 
+    # Add concurrency to prevent multiple workflows from running simultaneously
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+
+      # Add caching for TeX Live installation
+      - name: Cache TeX Live
+        uses: actions/cache@v3
+        with:
+          path: /tmp/texlive
+          key: texlive-${{ runner.os }}-${{ hashFiles('**/*.tex') }}
+          restore-keys: |
+            texlive-${{ runner.os }}-
 
       - name: Install TeX Live
         run: |
@@ -42,7 +56,7 @@ jobs:
           compiler: xelatex
           args: -pdf -file-line-error -halt-on-error -interaction=nonstopmode
 
-      - name: Create output directory
+      - name: Create output directory and copy PDF
         run: |
           mkdir -p ${{ env.OUTPUT_DIR }}
           cp ${{ env.SOURCE_DIR }}/${{ env.MAIN_FILE }}.pdf ${{ env.OUTPUT_DIR }}/
@@ -50,50 +64,77 @@ jobs:
       - name: Verify PDF generation
         run: |
           if [ ! -f "${{ env.OUTPUT_DIR }}/${{ env.MAIN_FILE }}.pdf" ]; then
-            echo "PDF file was not generated successfully!"
+            echo "::error::PDF file was not generated successfully!"
             exit 1
           fi
-          echo "PDF file was generated successfully!"
+          echo "::notice::PDF file was generated successfully!"
 
       - name: Upload PDF artifact
         uses: actions/upload-artifact@v3
         with:
-          name: PDF
+          name: PDF-${{ github.sha }}
           path: ${{ env.OUTPUT_DIR }}/${{ env.MAIN_FILE }}.pdf
           if-no-files-found: error
+          retention-days: 30  # Add retention period
 
-      - name: Configure Git to use the access token
+      # Add environment check before git operations
+      - name: Check deployment conditions
+        id: check-conditions
+        run: |
+          if [ "${{ github.ref }}" != "refs/heads/main" ] && [ "${{ github.ref }}" != "refs/heads/master" ]; then
+            echo "::notice::Skipping deployment - not on main/master branch"
+            echo "should_deploy=false" >> $GITHUB_OUTPUT
+          else
+            echo "should_deploy=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Configure Git
+        if: steps.check-conditions.outputs.should_deploy == 'true'
         env:
-          ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
-          git remote set-url origin https://x-access-token:${{ secrets.ACTIONS_DEPLOY_KEY }}@github.com/${{ github.repository_owner }}/${{ github.event.repository.name }}.git
-
-      - name: Debug Git remote URL
-        run: git remote -v
 
       - name: Commit and push PDF
-        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+        if: steps.check-conditions.outputs.should_deploy == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           VERSION=$(date +'%Y%m%d_%H%M%S')
-
           cp ${{ env.OUTPUT_DIR }}/${{ env.MAIN_FILE }}.pdf ${{ env.OUTPUT_DIR }}/${{ env.MAIN_FILE }}_v${VERSION}.pdf
-
           git add ${{ env.OUTPUT_DIR }}/${{ env.MAIN_FILE }}.pdf
           git add ${{ env.OUTPUT_DIR }}/${{ env.MAIN_FILE }}_v${VERSION}.pdf
 
-          git commit -m "📄 自动更新PDF文档 (v${VERSION})" || echo "No changes to commit"
-          git push origin HEAD:main
+          # More descriptive commit message
+          git commit -m "📄 Update PDF documentation
+
+          Version: ${VERSION}
+          Commit: ${{ github.sha }}
+          Triggered by: ${{ github.event_name }}" || echo "No changes to commit"
+
+          git push origin HEAD:${{ github.ref_name }}
 
       - name: Create issue on failure
         if: failure()
         uses: actions/github-script@v6
         with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            github.rest.issues.create({
+            const issueBody = `
+            # LaTeX Compilation Failed
+
+            - Commit: [\`${context.sha.substring(0, 7)}\`](${context.payload.repository.html_url}/commit/${context.sha})
+            - Workflow: [${context.workflow}](${context.payload.repository.html_url}/actions/runs/${context.runId})
+            - Branch: \`${context.ref}\`
+
+            Please check the [workflow logs](${context.payload.repository.html_url}/actions/runs/${context.runId}) for detailed error information.
+            `;
+
+            await github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: '❌ LaTeX编译失败',
-              body: `编译失败的提交: ${context.sha}\n请检查日志以获取详细信息。`
-            })
+              title: '❌ LaTeX Compilation Failed',
+              body: issueBody,
+              labels: ['bug', 'documentation']
+            });
