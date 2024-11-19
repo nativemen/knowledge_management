@@ -22,41 +22,29 @@ env:
 jobs:
   build_latex:
     runs-on: ubuntu-latest
-
-    # Add concurrency to prevent multiple workflows from running simultaneously
-    concurrency:
-      group: ${{ github.workflow }}-${{ github.ref }}
-      cancel-in-progress: true
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      # Add caching for TeX Live installation
-      - name: Cache TeX Live
-        uses: actions/cache@v3
-        with:
-          path: /tmp/texlive
-          key: texlive-${{ runner.os }}-${{ hashFiles('**/*.tex') }}
-          restore-keys: |
-            texlive-${{ runner.os }}-
-
       - name: Install TeX Live
         run: |
           sudo apt-get update
           sudo apt-get install -y texlive-full
 
+      # Modified to support multiple compilation passes
       - name: Compile LaTeX document
-        uses: xu-cheng/latex-action@v2
-        with:
-          root_file: ${{ env.MAIN_FILE }}.tex
-          working_directory: ${{ env.SOURCE_DIR }}
-          compiler: xelatex
-          args: -pdf -file-line-error -halt-on-error -interaction=nonstopmode
+        working-directory: ${{ env.SOURCE_DIR }}
+        run: |
+          # First pass - generates aux files
+          xelatex -interaction=nonstopmode ${{ env.MAIN_FILE }}
+          # Second pass - generates TOC
+          xelatex -interaction=nonstopmode ${{ env.MAIN_FILE }}
+          # Final pass - ensures all references are correct
+          xelatex -interaction=nonstopmode ${{ env.MAIN_FILE }}
 
-      - name: Create output directory and copy PDF
+      - name: Create output directory
         run: |
           mkdir -p ${{ env.OUTPUT_DIR }}
           cp ${{ env.SOURCE_DIR }}/${{ env.MAIN_FILE }}.pdf ${{ env.OUTPUT_DIR }}/
@@ -64,77 +52,49 @@ jobs:
       - name: Verify PDF generation
         run: |
           if [ ! -f "${{ env.OUTPUT_DIR }}/${{ env.MAIN_FILE }}.pdf" ]; then
-            echo "::error::PDF file was not generated successfully!"
+            echo "PDF file was not generated successfully!"
             exit 1
           fi
-          echo "::notice::PDF file was generated successfully!"
+          echo "PDF file was generated successfully!"
 
       - name: Upload PDF artifact
         uses: actions/upload-artifact@v3
         with:
-          name: PDF-${{ github.sha }}
+          name: PDF
           path: ${{ env.OUTPUT_DIR }}/${{ env.MAIN_FILE }}.pdf
           if-no-files-found: error
-          retention-days: 30  # Add retention period
-
-      # Add environment check before git operations
-      - name: Check deployment conditions
-        id: check-conditions
-        run: |
-          if [ "${{ github.ref }}" != "refs/heads/main" ] && [ "${{ github.ref }}" != "refs/heads/master" ]; then
-            echo "::notice::Skipping deployment - not on main/master branch"
-            echo "should_deploy=false" >> $GITHUB_OUTPUT
-          else
-            echo "should_deploy=true" >> $GITHUB_OUTPUT
-          fi
 
       - name: Configure Git
-        if: steps.check-conditions.outputs.should_deploy == 'true'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
         run: |
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
 
       - name: Commit and push PDF
-        if: steps.check-conditions.outputs.should_deploy == 'true'
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           VERSION=$(date +'%Y%m%d_%H%M%S')
           cp ${{ env.OUTPUT_DIR }}/${{ env.MAIN_FILE }}.pdf ${{ env.OUTPUT_DIR }}/${{ env.MAIN_FILE }}_v${VERSION}.pdf
+
+          git pull origin ${{ github.ref_name }} --rebase
+
           git add ${{ env.OUTPUT_DIR }}/${{ env.MAIN_FILE }}.pdf
           git add ${{ env.OUTPUT_DIR }}/${{ env.MAIN_FILE }}_v${VERSION}.pdf
 
-          # More descriptive commit message
-          git commit -m "📄 Update PDF documentation
+          git commit -m "📄 Update PDF documentation with TOC" || echo "No changes to commit"
 
-          Version: ${VERSION}
-          Commit: ${{ github.sha }}
-          Triggered by: ${{ github.event_name }}" || echo "No changes to commit"
-
-          git push origin HEAD:${{ github.ref_name }}
+          git push "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" HEAD:${{ github.ref_name }}
 
       - name: Create issue on failure
         if: failure()
         uses: actions/github-script@v6
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const issueBody = `
-            # LaTeX Compilation Failed
-
-            - Commit: [\`${context.sha.substring(0, 7)}\`](${context.payload.repository.html_url}/commit/${context.sha})
-            - Workflow: [${context.workflow}](${context.payload.repository.html_url}/actions/runs/${context.runId})
-            - Branch: \`${context.ref}\`
-
-            Please check the [workflow logs](${context.payload.repository.html_url}/actions/runs/${context.runId}) for detailed error information.
-            `;
-
-            await github.rest.issues.create({
+            github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
               title: '❌ LaTeX Compilation Failed',
-              body: issueBody,
-              labels: ['bug', 'documentation']
-            });
+              body: `Failed commit: ${context.sha}\nPlease check the logs for details.`
+            })
