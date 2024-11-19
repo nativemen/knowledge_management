@@ -35,7 +35,7 @@
 % Variables
 \def\notetitle{Matrix Algebra}
 \def\noteauthor{
-    \textbf{Learner} \\ 
+    \textbf{Learner}\\
     {\LaTeX} by Xin Wang\\
     }
 \def\notedate{Notes}
@@ -276,7 +276,7 @@
 
 \subsection{Triangular matrix}{
     \defn{Triangular matrix}{
-        An upper or lower triangular matrix is a \textbf{square matrix} that has zero elements below or above the diagonal. 
+        An upper or lower triangular matrix is a \textbf{square matrix} that has zero elements below or above the diagonal.
             $$\mathbf{U}=
                 \begin{pmatrix}
                     a_{11} & a_{12} & \cdots & a_{1(n-1)}     & a_{1n}\\
@@ -322,7 +322,7 @@
                 \vdots & \vdots & \ddots & \vdots\\
                 a_{m1} & a_{m2} & \cdots & a_{mn}\\
             \end{pmatrix}
-        ,\ then\ 
+        ,\ then\
         \mathbf{A}^{\mathbf{T}}=
             \begin{pmatrix}
                 a_{11} & a_{21} & \cdots & a_{m1}\\
@@ -332,7 +332,7 @@
             \end{pmatrix}$$
         In other words, we write
             $$a^{\mathbf{T}}_{ij}=a_{ji}$$
-        Evidently, if $\mathbf{A}$ is m-by-n then $\mathbf{A}^{\mathbf{T}}$ is n-by-m. 
+        Evidently, if $\mathbf{A}$ is m-by-n then $\mathbf{A}^{\mathbf{T}}$ is n-by-m.
     }
 
     \cor{
@@ -357,7 +357,7 @@
         \begin{align}
             [(\mathbf{A}_{m \times p}\mathbf{B}_{p \times n})^{\mathbf{T}}]_{ij}&=[\mathbf{A}_{m \times p}\mathbf{B}_{p \times n}]ji\\
                                      &=\sum_{k=1}^{p}a_{jk}b_{ki}\\
-                                     &=\sum_{k=1}^{p}(b_{ik})^{\mathbf{T}}(a_{kj})^{\mathbf{T}}\\ 
+                                     &=\sum_{k=1}^{p}(b_{ik})^{\mathbf{T}}(a_{kj})^{\mathbf{T}}\\
                                      &=[(\mathbf{B}_{p \times n})^{\mathbf{T}}(\mathbf{A}_{m \times p})^{\mathbf{T}}]_{ij}
         \end{align}
     }
@@ -367,13 +367,13 @@
     \defn{Symmetric}{
         If $\mathbf{A}$ is a square matrix, and $\mathbf{A}^{\mathbf{T}}_{n \times n}=\mathbf{A}_{n \times n}$, then we say that $\mathbf{A}$ is symmetric.
     }
-    
+
     \defn{Skew symmetric}{
         If $\mathbf{A}$ is a square matrix, and $\mathbf{A}^{\mathbf{T}}_{n \times n}=-\mathbf{A}_{n \times n}$, then we say that $\mathbf{A}$ is skew symmetric.
     }
 
     \cor{
-        If $\mathbf{A}$ is a square matrix, then the square matrix $\mathbf{A}+\mathbf{A}^{\mathbf{T}}$ is symmetric, and the square matrix $\mathbf{A}-\mathbf{A}^{\mathbf{T}}$ is skew symmetric. 
+        If $\mathbf{A}$ is a square matrix, then the square matrix $\mathbf{A}+\mathbf{A}^{\mathbf{T}}$ is symmetric, and the square matrix $\mathbf{A}-\mathbf{A}^{\mathbf{T}}$ is skew symmetric.
         $$\mathbf{A}_{n \times n}=\frac{1}{2}(\mathbf{A}_{n \times n}+(\mathbf{A}_{n \times n})^{\mathbf{T}})+\frac{1}{2}(\mathbf{A}_{n \times n}-(\mathbf{A}_{n \times n})^{\mathbf{T}})$$
     }
 
@@ -406,7 +406,7 @@
         \end{pmatrix}
     $$
 
-    
+
     \defn{Inner product or dot product or scalar product}{
         The inner product (or dot product or scalar product) between two vectors is obtained from the matrix product of a row vector times a column vector. A row vector can be obtained from a column vector by the transpose operator.
         \begin{align}
@@ -442,24 +442,24 @@
                 \pgfmathsetmacro{\rv}{5} % 向量v长度
                 \pgfmathsetmacro{\alpha}{15} % 向量v与横轴夹角 ψ
                 \pgfmathsetmacro{\delta}{30} % 向量v和u的夹角 θ
-                
+
                 % 计算坐标
                 \pgfmathsetmacro{\xv}{\rv * cos(\alpha)}
                 \pgfmathsetmacro{\yv}{\rv * sin(\alpha)}
                 \pgfmathsetmacro{\xu}{\ru * cos(\alpha + \delta)}
                 \pgfmathsetmacro{\yu}{\ru * sin(\alpha + \delta)}
-                
+
                 % 绘制第一个向量v
                 \draw[->,>=latex, ultra thick, black] (0, 0) -- (\xv, \yv);
-                
+
                 % 绘制第二个向量u
                 \draw[->,>=latex, ultra thick, black] (0, 0) -- (\xu, \yu);
                 % 绘制第三个向量v-u
                 \draw[->,>=latex, ultra thick, black] (\xu, \yu) -- (\xv, \yv);
-                
+
                 % 标注角度 θ
                 \draw[<->,thick,black,{Latex[length=2mm]}-{Latex[length=2mm]}] (1cm,0.25cm) arc [start angle=\alpha, end angle=\alpha+\delta, radius=1cm] node[midway, above right] {$\theta$};
-                
+
                 % 标注向量长度
                 \node at (\xu/2, \yu/2) [above left] {$\mathbf{u}$};
                 \node at (\xv/2, \yv/2) [below right] {$\mathbf{v}$};
@@ -482,12 +482,12 @@
         \begin{align}
             \|\mathbf{v-u}\|^{2}&=\|\mathbf{u}\|^{2}+\|\mathbf{v}\|^{2}-2\|\mathbf{u}\|\|\mathbf{v}\|\mathbf{cos\theta}\\            \|\mathbf{v}\|^{2}-2\mathbf{u}\cdot\mathbf{v}+\|\mathbf{u}\|^{2}&=\|\mathbf{u}\|^{2}+\|\mathbf{v}\|^{2}-2\|\mathbf{u}\|\|\mathbf{v}\|\mathbf{cos\theta}\\
             -2\mathbf{u}\cdot\mathbf{v}&=-2\|\mathbf{u}\|\|\mathbf{v}\|\mathbf{cos\theta}\\
-            \mathbf{u}\cdot\mathbf{v}&=\|\mathbf{u}\|\|\mathbf{v}\|\mathbf{cos\theta}      
+            \mathbf{u}\cdot\mathbf{v}&=\|\mathbf{u}\|\|\mathbf{v}\|\mathbf{cos\theta}
         \end{align}
     }
 
     \defn{Orthogonal Vector}{
-        If the inner product between two nonzero vectors is zero, we say that the vectors are orthogonal. 
+        If the inner product between two nonzero vectors is zero, we say that the vectors are orthogonal.
         $$\langle \mathbf{u}\mathbf{v} \rangle=\mathbf{u} \cdot \mathbf{v}=\mathbf{u}^{\mathbf{T}}\mathbf{v}=\mathbf{0}$$
     }
 
@@ -496,7 +496,7 @@
     }
 
     \defn{Normalized Vector}{
-        If the norm of a vector is equal to one, we say that the vector is normalized. 
+        If the norm of a vector is equal to one, we say that the vector is normalized.
         $$\|\mathbf{u}\|=1$$
     }
 
@@ -531,7 +531,7 @@
 
     \defn{The trace of a square matrix}{
         The trace of a square matrix $\mathbf{A}$, denoted as $\operatorname{Tr}\mathbf{A}$, is the sum of the diagonal elements of $\mathbf{A}$.
-        
+
     }
 
     \cor{
@@ -651,7 +651,7 @@
     }
 
     \cor{
-        An n-by-n matrix is invertible if and only if its determinant is nonzero. 
+        An n-by-n matrix is invertible if and only if its determinant is nonzero.
         \[\det(\mathbf{A})=\sum_{j=1}^n(-1)^{i+j}a_{ij}\det(\mathbf{A}_{ij})\] where $\mathbf{A}_{ij}$ is the (n-1)×(n-1) submatrix obtained by removing the i-th row and j-th column.
     }
 
@@ -674,9 +674,9 @@
 
         Therefore, an equivalent definition of an orthogonal matrix is a square matrix with real entries whose columns (and also rows) form a set of orthonormal vectors.
 
-        There is a third equivalent definition of an orthogonal matrix. Let $\mathbf{Q}$ be an n-by-n orthogonal matrix, and let $\mathbf{x}$ be an n-by-one column vector. Then the length squared of the vector $\mathbf{Qx}$ is given by 
+        There is a third equivalent definition of an orthogonal matrix. Let $\mathbf{Q}$ be an n-by-n orthogonal matrix, and let $\mathbf{x}$ be an n-by-one column vector. Then the length squared of the vector $\mathbf{Qx}$ is given by
         $$\|\mathbf{Qx}\|^2=\mathbf{(Qx)^T(Qx)}=\mathbf{x^TQ^TQx}=\mathbf{x^TIx}=\mathbf{x^Tx}=\|\mathbf{x}\|^2$$
-        The length of $\mathbf{Qx}$ is therefore equal to the length of $\mathbf{x}$, and we say that an orthogonal matrix is a matrix that preserves lengths. 
+        The length of $\mathbf{Qx}$ is therefore equal to the length of $\mathbf{x}$, and we say that an orthogonal matrix is a matrix that preserves lengths.
     }
 }
 
@@ -701,33 +701,33 @@
                 \pgfmathsetmacro{\r}{5} % 向量长度
                 \pgfmathsetmacro{\alpha}{30} % 向量 (x,y) 与横轴夹角 ψ
                 \pgfmathsetmacro{\delta}{15} % 向量 (x,y) 和 (x',y') 的夹角 θ
-                
+
                 % 计算坐标
                 \pgfmathsetmacro{\x}{\r * cos(\alpha)}
                 \pgfmathsetmacro{\y}{\r * sin(\alpha)}
                 \pgfmathsetmacro{\xp}{\r * cos(\alpha + \delta)}
                 \pgfmathsetmacro{\yp}{\r * sin(\alpha + \delta)}
-                
+
                 % 绘制x轴和y轴
                 \draw[->] (-1, 0) -- (5, 0) node[right] {};
                 \draw[->] (0, -1) -- (0, 5) node[above] {};
-                
+
                 % 绘制第一个向量 (x, y)
                 \draw[->, thick, black] (0, 0) -- (\x, \y) node[above left] {$(x, y)$};
                 % 绘制第一个向量在轴上的投影
                 \draw[dashed] (\x, \y) -- (\x, 0) node[below] {$x$};
                 \draw[dashed] (\x, \y) -- (0, \y) node[left] {$y$};
-                
+
                 % 绘制第二个向量 (x', y')
                 \draw[->, thick, black] (0, 0) -- (\xp, \yp) node[above left] {$(x', y')$};
                 % 绘制第二个向量在轴上的投影
                 \draw[dashed] (\xp, \yp) -- (\xp, 0) node[below] {$x'$};
                 \draw[dashed] (\xp, \yp) -- (0, \yp) node[left] {$y'$};
-                
+
                 % 标注角度 ψ 和 θ
                 \draw[<->,thick,black,{Latex[length=2mm]}-{Latex[length=2mm]}] (1cm,0cm) arc [start angle=0, end angle=\alpha, radius=1cm] node[midway, right]{$\psi$};
                 \draw[<->,thick,black,{Latex[length=2mm]}-{Latex[length=2mm]}] (1.75cm,1cm) arc [start angle=\alpha, end angle=\alpha+\delta, radius=2cm] node[midway, above right] {$\theta$};
-                
+
                 % 标注向量长度
                 \node at (\x/2, \y/2) [below right] {$r$};
                 \node at (\xp/2, \yp/2) [above left] {$r$};
@@ -794,7 +794,7 @@
     \defn{Permutation matrix}{
         A permutation matrix is a \textbf{square matrix} obtained by permuting the rows or columns of an \textbf{identity matrix}.\\
         A permutation matrix is a \textbf{square matrix} that has exactly one entry of 1 in each row and each column with all other entries 0.
-        
+
 
     }
 
@@ -823,14 +823,14 @@
                 0 & 1 & 0\\
                 0 & 0 & 1
             \end{pmatrix}
-        ,\ 
+        ,\
         \mathbf{P}_{132}=
             \begin{pmatrix}
                 1 & 0 & 0\\
                 0 & 0 & 1\\
                 0 & 1 & 0
             \end{pmatrix}
-        ,\ 
+        ,\
         \mathbf{P}_{213}=
             \begin{pmatrix}
                 0 & 1 & 0\\
@@ -844,20 +844,20 @@
                 1 & 0 & 0\\
                 0 & 1 & 0
             \end{pmatrix}
-        ,\ 
+        ,\
         \mathbf{P}_{312}=
             \begin{pmatrix}
                 0 & 1 & 0\\
                 0 & 0 & 1\\
                 1 & 0 & 0
-            \end{pmatrix}        
-        ,\ 
+            \end{pmatrix}
+        ,\
         \mathbf{P}_{321}=
             \begin{pmatrix}
                 0 & 0 & 1\\
                 0 & 1 & 0\\
                 1 & 0 & 0
-            \end{pmatrix}        
+            \end{pmatrix}
         $$
         The inverses of all three-by-three permutation matrices(Since they are all orthogonal matrices, $\mathbf{P}^{-1}=\mathbf{P}^{\mathbf{T}}$):
         $$(\mathbf{P}_{123})^{-1}=(\mathbf{P}_{123})^{\mathbf{T}}
@@ -1021,7 +1021,7 @@
     }
 
     \cor{
-         Gaussian elimination can be used on any rectangular matrix $\mathbf{A_{m \times n}}$. 
+         Gaussian elimination can be used on any rectangular matrix $\mathbf{A_{m \times n}}$.
     }
 }
 
@@ -1050,7 +1050,7 @@
         The first nonzero in each row of $\operatorname{rref}(\mathbf{A})$ is called a pivot.
     }
     \defn{Pivot column}{
-        Each column that contains a pivot in $\operatorname{rref}(\mathbf{A})$ is called a pivot column. 
+        Each column that contains a pivot in $\operatorname{rref}(\mathbf{A})$ is called a pivot column.
     }
 
     \cor{
@@ -1107,7 +1107,7 @@
 
 \section{Elementary matrices}{
     \defn{Elementary matrix}{
-        An elementary matrix $\mathbf{E}$ is a \textbf{square matrix} obtained from the application of a single elementary row operation to the \textbf{identity matrix}. 
+        An elementary matrix $\mathbf{E}$ is a \textbf{square matrix} obtained from the application of a single elementary row operation to the \textbf{identity matrix}.
     }
 
     \cor{
@@ -1123,7 +1123,7 @@
 \section{LU decomposition}{
     \defn{LU decomposition}{
         A procedure for decomposing an matrix $\mathbf{A}$ into a product of a lower triangular matrix $\mathbf{L}$ and an upper triangular matrix $\mathbf{U}$,
-        $$\mathbf{LU=A}$$ 
+        $$\mathbf{LU=A}$$
     }
 
     \ex{
@@ -1239,7 +1239,7 @@
         Observe that $\mathbf{u}_{2}$ is equal to $\mathbf{v}_{2}$ minus the component of $\mathbf{v}_{2}$ that is parallel to $\mathbf{u}_{1}$. By multiplying both sides of this equation with $\mathbf{u}_{1}^{\mathbf{T}}$, it is easy to see that $\mathbf{u}_{1}^{\mathbf{T}}\mathbf{u}_{2}=0$ so that these two vectors are orthogonal.
         The next orthogonal vector in the new basis can be found from
         $$\mathbf{u}_{3}=\mathbf{v}_{3}-\frac{(\mathbf{u}_{1}^{\mathbf{T}}\mathbf{v}_{3})\mathbf{u}_{1}}{\mathbf{u}_{1}^{\mathbf{T}}\mathbf{u}_{1}}-\frac{(\mathbf{u}_{2}^{\mathbf{T}}\mathbf{v}_{3})\mathbf{u}_{2}}{\mathbf{u}_{2}^{\mathbf{T}}\mathbf{u}_{2}}$$
-        Here, $\mathbf{u}_{3}$ is equal to $\mathbf{v}_{3}$ minus the components of $\mathbf{v}_{3}$ that are parallel to $\mathbf{u}_{1}$ and $\mathbf{u}_{2}$. We can continue in this fashion to construct n orthogonal basis vectors. 
+        Here, $\mathbf{u}_{3}$ is equal to $\mathbf{v}_{3}$ minus the components of $\mathbf{v}_{3}$ that are parallel to $\mathbf{u}_{1}$ and $\mathbf{u}_{2}$. We can continue in this fashion to construct n orthogonal basis vectors.
         $$\mathbf{u}_{k}=\mathbf{v}_{k}-\sum_{i=1}^{k-1}\frac{(\mathbf{u}_{i}^{\mathbf{T}}\mathbf{v}_{n})\mathbf{u}_{i}}{\mathbf{u}_{i}^{\mathbf{T}}\mathbf{u}_{i}}$$
         These vectors can then be normalized via
         $$\mathbf{u}_{k}=\frac{\mathbf{u}_{k}}{(\mathbf{u}_{k}^{\mathbf{T}}\mathbf{u}_{k})^{1/2}}\text{, etc.}$$
@@ -1255,7 +1255,7 @@
         For a matrix $\mathbf{A}\in\mathbb{R}^{m \times n}$, the null space of A is:
         $$\operatorname{Null}(\mathbf{A})=\{\mathbf{x}\in\mathbb{R}^{n}\mid\mathbf{Ax=0}\}$$
     }
-    
+
     \cor{
         Clearly, if $\mathbf{x}$ and $\mathbf{y}$ are in the null space of $\mathbf{A}$, then so is $\mathbf{ax+by}$ so that the null space is closed under vector addition and scalar multiplication.
     }
@@ -1354,7 +1354,7 @@
         $$\operatorname{LeftNull}(\mathbf{A})=\operatorname{Null}(\mathbf{A}^{\mathbf{T}})$$
         $$\operatorname{LeftNull}(\mathbf{A}^{\mathbf{T}})=\operatorname{Null}((\mathbf{A}^{\mathbf{T}})^{\mathbf{T}})=\operatorname{Null}(\mathbf{A})$$
     }
-    
+
     \defn{Row space}{
         The column space of $\mathbf{A}^{\mathbf{T}}$, which are called the row space.\\
         For a matrix $\mathbf{A}\in\mathbb{R}^{m \times n}$, the row space of $\mathbf{A}$ is:
@@ -1370,7 +1370,7 @@
 
     \cor{
         $$\operatorname{Row}(\mathbf{A})=\operatorname{Col}(\mathbf{A}^{\mathbf{T}})$$
-        $$\operatorname{Row}(\mathbf{A}^{\mathbf{T}})=\operatorname{Col}((\mathbf{A}^{\mathbf{T}})^{\mathbf{T}})=\operatorname{Col}(\mathbf{A})$$        
+        $$\operatorname{Row}(\mathbf{A}^{\mathbf{T}})=\operatorname{Col}((\mathbf{A}^{\mathbf{T}})^{\mathbf{T}})=\operatorname{Col}(\mathbf{A})$$
     }
 
     \defn{Basis for row space}{
@@ -1387,7 +1387,7 @@
     }
 
     \cor{
-        A basis for the row space of a matrix can be found from computing rref(A), and is found to be rows of rref(A) (written as column vectors) with pivot columns. The dimension of the row space of A is therefore equal to the number of pivot columns, while the dimension of the null space of A is equal to the number of nonpivot columns. 
+        A basis for the row space of a matrix can be found from computing rref(A), and is found to be rows of rref(A) (written as column vectors) with pivot columns. The dimension of the row space of A is therefore equal to the number of pivot columns, while the dimension of the null space of A is equal to the number of nonpivot columns.
         $$\operatorname{Null}(\mathbf{A})=\operatorname{Null}(\operatorname{rref}(\mathbf{A}))$$
         $$\operatorname{Row}(\mathbf{A})=\operatorname{Row}(\operatorname{rref}(\mathbf{A}))$$
         The union of these two subspaces make up the vector space of all n-by-one matrices and we say that these subspaces are orthogonal complements of each other.
@@ -1440,7 +1440,7 @@
     }
 
     \defn{Non-zero Determinant}{
-        
+
     }
 
     \cor{
@@ -1668,7 +1668,10 @@
             \mathbf{b}_{proj_{\operatorname{Col}(\mathbf{A})}}&=\mathbf{A}\mathbf{x}\\
                                                               &=\mathbf{A}(\mathbf{A}^{\mathbf{T}}\mathbf{A})^{-1}\mathbf{A}^{\mathbf{T}}\mathbf{b}
         \end{align}
-        Notice that the \textbf{projection matrix} $\mathbf{P}=\mathbf{A}(\mathbf{A}^{\mathbf{T}}\mathbf{A})^{-1}\mathbf{A}^{\mathbf{T}}$ satisfies $\mathbf{P}^{2}=\mathbf{P}$, that is, two projections is the same as one.
+    }
+
+    \defn{Projection matrix}{
+        Notice that the projection matrix $\mathbf{P}=\mathbf{A}(\mathbf{A}^{\mathbf{T}}\mathbf{A})^{-1}\mathbf{A}^{\mathbf{T}}$ satisfies $\mathbf{P}^{2}=\mathbf{P}$, that is, two projections is the same as one.
         \begin{align}
             \mathbf{P}^{2}&=(\mathbf{A}(\mathbf{A}^{\mathbf{T}}\mathbf{A})^{-1}\mathbf{A}^{\mathbf{T}})(\mathbf{A}(\mathbf{A}^{\mathbf{T}}\mathbf{A})^{-1}\mathbf{A}^{\mathbf{T}})\\
                           &=\mathbf{A}\left[(\mathbf{A}^{\mathbf{T}}\mathbf{A})^{-1}(\mathbf{A}^{\mathbf{T}}\mathbf{A})\right](\mathbf{A}^{\mathbf{T}}\mathbf{A})^{-1}\mathbf{A}^{\mathbf{T}}\\
@@ -1755,7 +1758,7 @@
         $\Longleftrightarrow$0 is an eigenvalue of $\mathbf{A}_{n \times n}$
         \begin{itemize}
             \item equivalently, the characteristic equation $\det(\mathbf{A}_{n \times n}-\lambda\mathbf{I})=0$ has $\lambda=0$ as a root
-        \end{itemize}        
+        \end{itemize}
     }
 
     \cor{
@@ -1765,21 +1768,695 @@
 }
 
 \section{Laplace expansion}{
+    \defn{Laplace expansion or cofactor expansion or expansion by minors}{
+        For an $n \times n$ square matrix $\mathbf{A}$, the determinant $\det(\mathbf{A}_{n \times n})$ can be computed using Laplace expansion along the i-th row as follows:
+        $$\det(\mathbf{A}_{n \times n})=\sum_{j=1}^{n}(-1)^{i+j}a_{ij}\det(\mathbf{A}_{ij})$$
+        \begin{itemize}
+            \item $a_{ij}$ is the element in the i-th row and j-th column of $\mathbf{A}$.
+            \item $\mathbf{A}_{ij}$ is the $(n-1)\times(n-1)$ submatrix formed by removing the i-th row and the j-th column from $\mathbf{A}_{n \times n}$.
+            \item $(-1)^{i+j}$ is the cofactor sign, which alternates in a checkerboard pattern.
+        \end{itemize}
+        Similarly, the Laplace expansion can be performed along the j-th column:
+        $$\det(\mathbf{A}_{n \times n})=\sum_{i=1}^{n}(-1)^{i+j}a_{ij}\det(\mathbf{A}_{ij})$$
+    }
 
+    \cor{
+        In fact, this expansion by minors can be done across any row or down any column. The sign of each term in the expansion is given by $(-1)^{i+j}$ when the number multiplying each minor is drawn from the i-th row and j-th column. An easy way to remember the signs is to form a checkerboard pattern, exhibited here for the matrix:
+        \begin{equation}
+            \begin{pmatrix}
+                +      & -      & +      & \cdots\\
+                -      & +      & -      & \cdots\\
+                +      & -      & +      & \cdots\\
+                \vdots & \vdots & \vdots & \ddots
+            \end{pmatrix}
+        \end{equation}
+    }
+
+    \cor{
+        The Laplace expansion is computationally inefficient for high-dimension matrices, with a time complexity in big $\mathbf{O}$ notation of $\mathbf{O}(n!)$. Alternatively, using a decomposition into triangular matrices as in the $\mathbf{LU}$ decomposition can yield determinants with a time complexity of $\mathbf{O}(n3)$
+    }
 }
 
 \section{Leibniz formula}{
+    \defn{Leibniz formula}{
+        For an $n \times n$ matrix $\mathbf{A}$, the determinant is defined by:
+        $$\det(\mathbf{A})=\sum_{\tau\in\mathbf{S}_{n}}\operatorname{sgn}(\tau)\prod_{i=1}^{n} a_{i,\tau(i)}=\sum_{\sigma\in\mathbf{S}_{n}}\operatorname{sgn}(\sigma)\prod_{i=1}^{n} a_{\sigma(i),i}$$
+        \begin{itemize}
+            \item $\tau$ or $\sigma$ represents a permutation of the set $\{1,2,\cdots,n\}$
+            \item $\mathbf{S}_{n}$ is the set of all permutations of $\{1,2,\cdots,n\}$
+            \item $\operatorname{sgn}(\tau)$ or $\operatorname{sgn}(\sigma)$ is the sign of the permutation, which is $+1$ for even permutations and $-1$ for odd permutations.
+            \item $a_{i,\tau(i)}$ is the matrix element in the i-th row and $\tau(i)$-th column.
+            \item $a_{\sigma(i),i}$ is the matrix element in the $\sigma(i)$-th row and i-th column.
+        \end{itemize}
+        The Leibniz formula involves summing over all possible permutations of the matrix indices, where each term in the sum is the product of matrix elements, one from each row and each column, and is multiplied by the sign of the permutation.
+    }
 
+    \clm{Comparison of Laplace Expansion, Leibniz Formula, and LU Decomposition}{
+        \begin{table}[H]
+            \centering
+            \begin{tabular}{|>{\raggedright\arraybackslash}m{2cm}|>{\centering\arraybackslash}m{2cm}|>{\raggedright\arraybackslash}m{2cm}|>{\raggedright\arraybackslash}m{4cm}|>{\raggedright\arraybackslash}m{4cm}|}
+                \hline
+                \multicolumn{1}{|c|}{\textbf{Method}} & \multicolumn{1}{c|}{\textbf{Complexity}} & \multicolumn{1}{c|}{\textbf{Best For}} & \multicolumn{1}{c|}{\textbf{Advantages}} & \multicolumn{1}{c|}{\textbf{Disadvantages}}\\
+                \hline
+                Laplace Expansion &
+                \(O(n!)\) &
+                Small matrices &
+                Intuitive, easy to understand, useful for small sizes &
+                Very inefficient for large matrices, high computational cost\\
+                \hline
+                Leibniz Formula &
+                \(O(n!)\) &
+                Theoretical analysis &
+                Provides a fundamental definition of determinants &
+                Computationally impractical for large matrices\\
+                \hline
+                LU Decomposition &
+                \(O(n^3)\) &
+                Large matrices, practical applications &
+                Efficient, widely used in numerical analysis, scalable &
+                Requires matrix factorization, which can be complex\\
+                \hline
+            \end{tabular}
+            \caption{Comparison of Determinant Calculation Methods}
+            \label{tab:determinant_methods}
+        \end{table}
+    }
 }
 
 \section{Properties of a determinant}{
-    \clm{Properties of a determinant}{
-        The determinant is a function that maps a \textbf{square matrix} to a scalar. It is uniquely defined by the following three properties:\\
-        \textbf{Property 1}: The determinant of the identity matrix is one;
-        $$\det\mathbf{I_{n \times n}=}=1$$
-        \textbf{Property 2}: The determinant changes sign under row interchange;\\
-        \textbf{Property 3}: The determinant is a linear function of the first row, holding all other rows fixed.
+    \clm{Property 1}{
+        The determinant of the identity matrix is one:
+            $$\det(\mathbf{I_{n \times n}})=
+                \begin{vmatrix}
+                    1      & 0      & \cdots & 0\\
+                    0      & 1      & \cdots & 0\\
+                    \vdots & \vdots & \ddots & \vdots\\
+                    0      & 0      & \cdots & 1
+                \end{vmatrix}
+                =1$$
     }
+
+    \clm{Property 2A}{
+        The determinant changes sign under row interchange;
+        \begin{equation}
+            \begin{vmatrix}
+                a_{11} & a_{12} & \cdots & a_{1n}\\
+                \vdots & \vdots & \ddots & \vdots\\
+                a_{i1} & a_{i2} & \cdots & a_{in}\\
+                \vdots & \vdots & \ddots & \vdots\\
+                a_{j1} & a_{j2} & \cdots & a_{jn}\\
+                \vdots & \vdots & \ddots & \vdots\\
+                a_{n1} & a_{n2} & \cdots & a_{nn}
+            \end{vmatrix}
+            =-
+            \begin{vmatrix}
+                a_{11} & a_{12} & \cdots & a_{1n}\\
+                \vdots & \vdots & \ddots & \vdots\\
+                a_{j1} & a_{j2} & \cdots & a_{jn}\\
+                \vdots & \vdots & \ddots & \vdots\\
+                a_{i1} & a_{i2} & \cdots & a_{in}\\
+                \vdots & \vdots & \ddots & \vdots\\
+                a_{n1} & a_{n2} & \cdots & a_{nn}
+            \end{vmatrix}
+        \end{equation}
+    }
+
+    \clm{Property 2B}{
+        The determinant changes sign under column interchange;
+        \begin{equation}
+            \begin{vmatrix}
+                a_{11} & \cdots & a_{1i} & \cdots & a_{1j} & \cdots & a_{1n}\\
+                a_{21} & \cdots & a_{2i} & \cdots & a_{2j} & \cdots & a_{2n}\\
+                \vdots & \ddots & \vdots & \ddots & \vdots & \ddots & \vdots\\
+                a_{n1} & \cdots & a_{ni} & \cdots & a_{nj} & \cdots & a_{nn}
+            \end{vmatrix}
+            =-
+            \begin{vmatrix}
+                a_{11} & \cdots & a_{1j} & \cdots & a_{1i} & \cdots & a_{1n}\\
+                a_{21} & \cdots & a_{2j} & \cdots & a_{2i} & \cdots & a_{2n}\\
+                \vdots & \ddots & \vdots & \ddots & \vdots & \ddots & \vdots\\
+                a_{n1} & \cdots & a_{nj} & \cdots & a_{ni} & \cdots & a_{nn}
+            \end{vmatrix}
+        \end{equation}
+    }
+
+    \clm{Property 3A}{
+        The determinant is a linear function of the first row, holding all other rows fixed;
+        \begin{equation}
+            \begin{vmatrix}
+                ka_{11} & ka_{12} & \cdots & ka_{1n}\\
+                a_{21}  & a_{22}  & \cdots & a_{2n}\\
+                \vdots  & \vdots  & \ddots & \vdots\\
+                a_{n1}  & a_{n2}  & \cdots & a_{nn}
+            \end{vmatrix}
+            =k
+            \begin{vmatrix}
+                a_{11} & a_{12} & \cdots & a_{1n}\\
+                a_{21} & a_{22} & \cdots & a_{2n}\\
+                \vdots & \vdots & \ddots & \vdots\\
+                a_{n1} & a_{n2} & \cdots & a_{nn}
+            \end{vmatrix}
+        \end{equation}
+        and
+        \begin{equation}
+            \begin{vmatrix}
+                a_{11}+a_{11}^{'} & a_{12}+a_{21}^{'} & \cdots & a_{1n}+a_{1n}^{'}\\
+                a_{21}            & a_{22}            & \cdots & a_{2n}\\
+                \vdots            & \vdots            & \ddots & \vdots\\
+                a_{n1}            & a_{n2}            & \cdots & a_{nn}
+            \end{vmatrix}
+            =
+            \begin{vmatrix}
+                a_{11} & a_{12} & \cdots & a_{1n}\\
+                a_{21} & a_{22} & \cdots & a_{2n}\\
+                \vdots & \vdots & \ddots & \vdots\\
+                a_{n1} & a_{n2} & \cdots & a_{nn}
+            \end{vmatrix}
+            +
+            \begin{vmatrix}
+                a_{11}^{'} & a_{12}^{'} & \cdots & a_{1n}^{'}\\
+                a_{21}     & a_{22}     & \cdots & a_{2n}\\
+                \vdots     & \vdots     & \ddots & \vdots\\
+                a_{n1}     & a_{n2}     & \cdots & a_{nn}
+            \end{vmatrix}
+        \end{equation}
+    }
+
+    \clm{Property 3B}{
+        The determinant is a linear function of the first column, holding all other columns fixed;
+        \begin{equation}
+            \begin{vmatrix}
+                ka_{11} & a_{12} & \cdots & a_{1n}\\
+                ka_{21} & a_{22} & \cdots & a_{2n}\\
+                \vdots  & \vdots & \ddots & \vdots\\
+                ka_{n1} & a_{n2} & \cdots & a_{nn}
+            \end{vmatrix}
+            =k
+            \begin{vmatrix}
+                a_{11} & a_{12} & \cdots & a_{1n}\\
+                a_{21} & a_{22} & \cdots & a_{2n}\\
+                \vdots & \vdots & \ddots & \vdots\\
+                a_{n1} & a_{n2} & \cdots & a_{nn}
+            \end{vmatrix}
+        \end{equation}
+        and
+        \begin{equation}
+            \begin{vmatrix}
+                a_{11}+a_{11}^{'} & a_{12} & \cdots & a_{1n}\\
+                a_{21}+a_{12}^{'} & a_{22} & \cdots & a_{2n}\\
+                \vdots            & \vdots & \ddots & \vdots\\
+                a_{n1}+a_{n1}^{'} & a_{n2} & \cdots & a_{nn}
+            \end{vmatrix}
+            =
+            \begin{vmatrix}
+                a_{11} & a_{12} & \cdots & a_{1n}\\
+                a_{21} & a_{22} & \cdots & a_{2n}\\
+                \vdots & \vdots & \ddots & \vdots\\
+                a_{n1} & a_{n2} & \cdots & a_{nn}
+            \end{vmatrix}
+            +
+            \begin{vmatrix}
+                a_{11}^{'} & a_{12} & \cdots & a_{1n}\\
+                a_{21}^{'} & a_{22} & \cdots & a_{2n}\\
+                \vdots     & \vdots & \ddots & \vdots\\
+                a_{n1}^{'} & a_{n2} & \cdots & a_{nn}
+            \end{vmatrix}
+        \end{equation}
+    }
+
+    \clm{Property 4A}{
+        The determinant is a linear function of any row, holding all other rows fixed;
+        \begin{equation}
+            \begin{vmatrix}
+                a_{11}  & a_{12}  & \cdots & a_{1n}\\
+                \vdots  & \vdots  & \ddots & \vdots\\
+                ka_{i1} & ka_{i2} & \cdots & ka_{in}\\
+                \vdots  & \vdots  & \ddots & \vdots\\
+                a_{n1}  & a_{n2}  & \cdots & a_{nn}
+            \end{vmatrix}
+            =k
+            \begin{vmatrix}
+                a_{11} & a_{12} & \cdots & a_{1n}\\
+                \vdots & \vdots & \ddots & \vdots\\
+                a_{i1} & a_{i2} & \cdots & a_{in}\\
+                \vdots & \vdots & \ddots & \vdots\\
+                a_{n1} & a_{n2} & \cdots & a_{nn}
+            \end{vmatrix}
+        \end{equation}
+        and
+        \begin{equation}
+            \begin{vmatrix}
+                a_{11}            & a_{12}            & \cdots & a_{1n}\\
+                \vdots            & \vdots            & \ddots & \vdots\\
+                a_{i1}+a_{i1}^{'} & a_{i2}+a_{i1}^{'} & \cdots & a_{in}+a_{in}^{'}\\
+                \vdots            & \vdots            & \ddots & \vdots\\
+                a_{n1}            & a_{n2}            & \cdots & a_{nn}
+            \end{vmatrix}
+            =
+            \begin{vmatrix}
+                a_{11} & a_{12} & \cdots & a_{1n}\\
+                \vdots & \vdots & \ddots & \vdots\\
+                a_{i1} & a_{i2} & \cdots & a_{in}\\
+                \vdots & \vdots & \ddots & \vdots\\
+                a_{n1} & a_{n2} & \cdots & a_{nn}
+            \end{vmatrix}
+            +
+            \begin{vmatrix}
+                a_{11}     & a_{12}     & \cdots & a_{1n}\\
+                \vdots     & \vdots     & \ddots & \vdots\\
+                a_{i1}^{'} & a_{i2}^{'} & \cdots & a_{in}^{'}\\
+                \vdots     & \vdots     & \ddots & \vdots\\
+                a_{n1}     & a_{n2}     & \cdots & a_{nn}
+            \end{vmatrix}
+        \end{equation}
+    }
+
+    \clm{Property 4B}{
+        The determinant is a linear function of any column, holding all other columns fixed;
+        \begin{equation}
+            \begin{vmatrix}
+                a_{11} & \cdots & ka_{1i} & \cdots & a_{1n}\\
+                a_{21} & \cdots & ka_{2i} & \cdots & a_{2n}\\
+                \vdots & \ddots & \vdots  & \ddots & \vdots\\
+                a_{n1} & \cdots & ka_{ni} & \cdots & a_{nn}
+            \end{vmatrix}
+            =k
+            \begin{vmatrix}
+                a_{11} & \cdots & a_{1i} & \cdots & a_{1n}\\
+                a_{21} & \cdots & a_{2i} & \cdots & a_{2n}\\
+                \vdots & \ddots & \vdots & \ddots & \vdots\\
+                a_{n1} & \cdots & a_{ni} & \cdots & a_{nn}
+            \end{vmatrix}
+        \end{equation}
+        and
+        \begin{equation}
+            \begin{vmatrix}
+                a_{11} & \cdots & a_{1i}+a_{1i}^{'} & \cdots & a_{1n}\\
+                a_{21} & \cdots & a_{2i}+a_{2i}^{'} & \cdots & a_{2n}\\
+                \vdots & \ddots & \vdots            & \ddots & \vdots\\
+                a_{n1} & \cdots & a_{n2}+a_{ni}^{'} & \cdots & a_{nn}
+            \end{vmatrix}
+            =
+            \begin{vmatrix}
+                a_{11} & \cdots & a_{1i} & \cdots & a_{1n}\\
+                a_{21} & \cdots & a_{2i} & \cdots & a_{2n}\\
+                \vdots & \ddots & \vdots & \ddots & \vdots\\
+                a_{n1} & \cdots & a_{n2} & \cdots & a_{nn}
+            \end{vmatrix}
+            +
+            \begin{vmatrix}
+                a_{11} & \cdots & a_{1i}^{'} & \cdots & a_{1n}\\
+                a_{21} & \cdots & a_{2i}^{'} & \cdots & a_{2n}\\
+                \vdots & \ddots & \vdots     & \ddots & \vdots\\
+                a_{n1} & \cdots & a_{ni}^{'} & \cdots & a_{nn}
+            \end{vmatrix}
+        \end{equation}
+    }
+
+    \clm{Property 5A}{
+        If a matrix has two equal rows, then the determinant is zero;
+        \begin{equation}
+            \begin{vmatrix}
+                a_{11} & a_{12} & \cdots & a_{1n}\\
+                \vdots & \vdots & \ddots & \vdots\\
+                a_{i1} & a_{i2} & \cdots & a_{in}\\
+                \vdots & \vdots & \ddots & \vdots\\
+                a_{i1} & a_{i2} & \cdots & a_{in}\\
+                \vdots & \vdots & \ddots & \vdots\\
+                a_{n1} & a_{n2} & \cdots & a_{nn}
+            \end{vmatrix}
+            =-
+            \begin{vmatrix}
+                a_{11} & a_{12} & \cdots & a_{1n}\\
+                \vdots & \vdots & \ddots & \vdots\\
+                a_{i1} & a_{i2} & \cdots & a_{in}\\
+                \vdots & \vdots & \ddots & \vdots\\
+                a_{i1} & a_{i2} & \cdots & a_{in}\\
+                \vdots & \vdots & \ddots & \vdots\\
+                a_{n1} & a_{n2} & \cdots & a_{nn}
+            \end{vmatrix}
+            =0
+        \end{equation}
+    }
+
+    \clm{Property 5B}{
+        If a matrix has two equal columns, then the determinant is zero;
+        \begin{equation}
+            \begin{vmatrix}
+                a_{11} & \cdots & a_{1i} & \cdots & a_{1i} & \cdots & a_{1n}\\
+                a_{21} & \cdots & a_{2i} & \cdots & a_{2i} & \cdots & a_{2n}\\
+                \vdots & \ddots & \vdots & \ddots & \vdots & \ddots & \vdots\\
+                a_{n1} & \cdots & a_{ni} & \cdots & a_{ni} & \cdots & a_{nn}
+            \end{vmatrix}
+            =-
+            \begin{vmatrix}
+                a_{11} & \cdots & a_{1i} & \cdots & a_{1i} & \cdots & a_{1n}\\
+                a_{21} & \cdots & a_{2i} & \cdots & a_{2i} & \cdots & a_{2n}\\
+                \vdots & \ddots & \vdots & \ddots & \vdots & \ddots & \vdots\\
+                a_{n1} & \cdots & a_{ni} & \cdots & a_{ni} & \cdots & a_{nn}
+            \end{vmatrix}
+            =0
+        \end{equation}
+    }
+
+    \clm{Property 6A}{
+        If we add k times row-i to row-j, the determinant doesn’t change;
+        \begin{align}
+            \begin{vmatrix}
+                a_{11}         & a_{12}         & \cdots & a_{1n}\\
+                \vdots         & \vdots         & \ddots & \vdots\\
+                a_{i1}         & a_{i2}         & \cdots & a_{in}\\
+                \vdots         & \vdots         & \ddots & \vdots\\
+                a_{j1}+ka_{i1} & a_{j2}+ka_{i2} & \cdots & a_{jn}+ka_{in}\\
+                \vdots         & \vdots         & \ddots & \vdots\\
+                a_{n1}         & a_{n2}         & \cdots & a_{nn}
+            \end{vmatrix}
+            &=
+            \begin{vmatrix}
+                a_{11} & a_{12} & \cdots & a_{1n}\\
+                \vdots & \vdots & \ddots & \vdots\\
+                a_{i1} & a_{i2} & \cdots & a_{in}\\
+                \vdots & \vdots & \ddots & \vdots\\
+                a_{j1} & a_{j2} & \cdots & a_{jn}\\
+                \vdots & \vdots & \ddots & \vdots\\
+                a_{n1} & a_{n2} & \cdots & a_{nn}
+            \end{vmatrix}
+            +k
+            \begin{vmatrix}
+                a_{11} & a_{12} & \cdots & a_{1n}\\
+                \vdots & \vdots & \ddots & \vdots\\
+                a_{i1} & a_{i2} & \cdots & a_{in}\\
+                \vdots & \vdots & \ddots & \vdots\\
+                a_{i1} & a_{i2} & \cdots & a_{in}\\
+                \vdots & \vdots & \ddots & \vdots\\
+                a_{n1} & a_{n2} & \cdots & a_{nn}
+            \end{vmatrix}\\
+            &=
+            \begin{vmatrix}
+                a_{11} & a_{12} & \cdots & a_{1n}\\
+                \vdots & \vdots & \ddots & \vdots\\
+                a_{i1} & a_{i2} & \cdots & a_{in}\\
+                \vdots & \vdots & \ddots & \vdots\\
+                a_{j1} & a_{j2} & \cdots & a_{jn}\\
+                \vdots & \vdots & \ddots & \vdots\\
+                a_{n1} & a_{n2} & \cdots & a_{nn}
+            \end{vmatrix}
+        \end{align}
+        This property together with Property 2 and Property 3 allows us to perform Gaussian elimination on a matrix to simplify the calculation of a determinant.
+    }
+
+    \clm{Property 6B}{
+        If we add k times column-i to column-j, the determinant doesn’t change;
+        \begin{align}
+            \begin{vmatrix}
+                a_{11} & \cdots & a_{1i} & \cdots & a_{1j}+ka_{1i} & \cdots & a_{1n}\\
+                a_{21} & \cdots & a_{2i} & \cdots & a_{2j}+ka_{2i} & \cdots & a_{2n}\\
+                \vdots & \ddots & \vdots & \ddots & \vdots         & \ddots & \vdots\\
+                a_{n1} & \cdots & a_{ni} & \cdots & a_{ni}+ka_{ni} & \cdots & a_{nn}
+            \end{vmatrix}
+            &=
+            \begin{vmatrix}
+                a_{11} & \cdots & a_{1i} & \cdots & a_{1j} & \cdots & a_{1n}\\
+                a_{21} & \cdots & a_{2i} & \cdots & a_{2j} & \cdots & a_{2n}\\
+                \vdots & \ddots & \vdots & \ddots & \vdots & \ddots & \vdots\\
+                a_{n1} & \cdots & a_{ni} & \cdots & a_{ni} & \cdots & a_{nn}
+            \end{vmatrix}\\
+            &+k
+            \begin{vmatrix}
+                a_{11} & \cdots & a_{1i} & \cdots & a_{1i} & \cdots & a_{1n}\\
+                a_{21} & \cdots & a_{2i} & \cdots & a_{2i} & \cdots & a_{2n}\\
+                \vdots & \ddots & \vdots & \ddots & \vdots & \ddots & \vdots\\
+                a_{n1} & \cdots & a_{ni} & \cdots & a_{ni} & \cdots & a_{nn}
+            \end{vmatrix}\\
+            &=
+            \begin{vmatrix}
+                a_{11} & \cdots & a_{1i} & \cdots & a_{1j} & \cdots & a_{1n}\\
+                a_{21} & \cdots & a_{2i} & \cdots & a_{2j} & \cdots & a_{2n}\\
+                \vdots & \ddots & \vdots & \ddots & \vdots & \ddots & \vdots\\
+                a_{n1} & \cdots & a_{ni} & \cdots & a_{ni} & \cdots & a_{nn}
+            \end{vmatrix}
+        \end{align}
+        This property together with Property 2 and Property 3 allows us to perform Gaussian elimination on a matrix to simplify the calculation of a determinant.
+    }
+
+    \clm{Property 7}{
+        The determinant of a matrix with a row of zeros is zero;
+        \begin{equation}
+            \begin{vmatrix}
+                a_{11} & a_{12} & \cdots & a_{1n}\\
+                \vdots & \vdots & \ddots & \vdots\\
+                0      & 0      & \cdots & 0\\
+                \vdots & \vdots & \ddots & \vdots\\
+                a_{n1} & a_{n2} & \cdots & a_{nn}
+            \end{vmatrix}
+            =0
+            \begin{vmatrix}
+                a_{11} & a_{12} & \cdots & a_{1n}\\
+                \vdots & \vdots & \ddots & \vdots\\
+                0      & 0      & \cdots & 0\\
+                \vdots & \vdots & \ddots & \vdots\\
+                a_{n1} & a_{n2} & \cdots & a_{nn}
+            \end{vmatrix}
+            =0
+        \end{equation}
+    }
+
+    \clm{Property 8}{
+        A matrix with a zero determinant is not invertible;
+    }
+    \pf{
+        Let’s assume $\mathbf{A}_{n \times n}$ is an $n \times n$ matrix with a determinant $\det(\mathbf{A}_{n \times n})=0$.
+        \begin{enumerate}
+            \item \textbf{Assumption of Invertibility}: Assume $\mathbf{A}_{n \times n}$ is invertible. This means there exists a matrix $\mathbf{B}_{n \times n}$ such that $\mathbf{A}_{n \times n}\mathbf{B}_{n \times n}=\mathbf{I}_{n \times n}$, where $\mathbf{I}_{n \times n}$ is the identity matrix.
+            \item \textbf{Property of Determinants}: We use the property of determinants, which states that for any two matrices $\mathbf{A}_{n \times n}$ and $\mathbf{B}_{n \times n}=\mathbf{I}_{n \times n}$,
+            $$\det(\mathbf{A}_{n \times n}\mathbf{B}_{n \times n})=\det(\mathbf{A}_{n \times n})\det(\mathbf{B}_{n \times n})$$
+            \item \textbf{Determinant of the Identity Matrix}: The determinant of the identity matrix $\mathbf{I}_{n \times n}$ is 1, i.e.,
+            $$\det(\mathbf{I}_{n \times n})=1$$
+            \item \textbf{Determinant of $\mathbf{A}_{n \times n}$}: Given that $\det(\mathbf{A}_{n \times n})=0$, we have
+            $$\det(\mathbf{A}_{n \times n}\mathbf{B}_{n \times n})=\det(\mathbf{A}_{n \times n})\det(\mathbf{B}_{n \times n})=0\cdot\det(\mathbf{B}_{n \times n})=0$$
+            \item \textbf{Contradiction}: However, this contradicts the fact that $\det(\mathbf{A}_{n \times n}\mathbf{B}_{n \times n})=\det(\mathbf{I}_{n \times n})=1$
+        \end{enumerate}
+        Since assuming $\mathbf{A}_{n \times n}$ is invertible leads to a contradiction, our initial assumption must be false. Therefore, we conclude that if $\det(\mathbf{A}_{n \times n})=0$, then $\mathbf{A}_{n \times n}$ is not invertible.
+    }
+
+    \clm{Property 9}{
+        The determinant of a diagonal matrix is the product of the diagonal elements;
+        \begin{equation}
+            \begin{vmatrix}
+                a_{11} & 0      & \cdots & 0\\
+                0      & a_{22} & \cdots & 0\\
+                \vdots & \vdots & \ddots & \vdots\\
+                0      & 0      & \cdots & a_{nn}
+            \end{vmatrix}
+            =a_{11}a_{22} \cdots a_{nn}
+            \begin{vmatrix}
+                1      & 0      & \cdots & 0\\
+                0      & 1      & \cdots & 0\\
+                \vdots & \vdots & \ddots & \vdots\\
+                0      & 0      & \cdots & 1
+            \end{vmatrix}
+            =a_{11}a_{22} \cdots a_{nn}
+        \end{equation}
+    }
+
+    \clm{Property 10}{
+        The determinant of an upper or lower triangular matrix is the product of the diagonal elements;
+        \begin{align}
+            \begin{vmatrix}
+                a_{11} & a_{12} & \cdots & a_{1n}\\
+                0      & a_{22} & \cdots & a_{2n}\\
+                \vdots & \vdots & \ddots & \vdots\\
+                0      & 0      & \cdots & a_{nn}
+            \end{vmatrix}
+            &=
+            \begin{vmatrix}
+                a_{11} & 0      & \cdots & 0\\
+                a_{21} & a_{22} & \cdots & 0\\
+                \vdots & \vdots & \ddots & \vdots\\
+                a_{n1} & a_{n2} & \cdots & a_{nn}
+            \end{vmatrix}\\
+            &=
+            \begin{vmatrix}
+                a_{11} & 0      & \cdots & 0\\
+                0      & a_{22} & \cdots & 0\\
+                \vdots & \vdots & \ddots & \vdots\\
+                0      & 0      & \cdots & a_{nn}
+            \end{vmatrix}\\
+            &=a_{11}a_{22} \cdots a_{nn}
+            \begin{vmatrix}
+                1      & 0      & \cdots & 0\\
+                0      & 1      & \cdots & 0\\
+                \vdots & \vdots & \ddots & \vdots\\
+                0      & 0      & \cdots & 1
+            \end{vmatrix}\\
+            &=a_{11}a_{22} \cdots a_{nn}
+        \end{align}
+    }
+
+    \clm{Property 11}{
+        The determinant of the product of two matrices is equal to the product of the determinants;
+        \begin{align}
+            \det(\mathbf{A}_{n \times n}\mathbf{B}_{n \times n})
+                &=\det(\mathbf{A}_{n \times n})\det(\mathbf{B}_{n \times n})\\
+                &=\det(\mathbf{B}_{n \times n})\det(\mathbf{A}_{n \times n})\\
+                &=\det(\mathbf{B}_{n \times n}\mathbf{A}_{n \times n})
+        \end{align}
+    }
+
+    \clm{Property 12}{
+        The determinant of the inverse matrix is equal to the reciprical of the determinant;
+        $$\det(\mathbf{A}_{n\times n}^{-1})=\frac{1}{\det(\mathbf{A}_{n\times n})}$$
+    }
+    \pf{
+        Assume the square matrix $\mathbf{A}_{n \times n}$ is invertible, This means
+        $$\mathbf{I}_{n \times n}=\mathbf{A}_{n \times n}\mathbf{A}_{n \times n}^{-1}$$
+        Then,
+        \begin{align}
+            1&=\det(\mathbf{I}_{n \times n})\\
+             &=\det(\mathbf{A}_{n \times n}\mathbf{A}_{n \times n}^{-1})\\
+             &=\det(\mathbf{A}_{n \times n})\det(\mathbf{A}_{n \times n}^{-1})
+        \end{align}
+        Therefore,
+        $$\det(\mathbf{A}_{n\times n}^{-1})=\frac{1}{\det(\mathbf{A}_{n\times n})}$$
+    }
+
+    \clm{Property 13}{
+        The determinant of the transpose of a matrix is equal to the determinant of the matrix.
+        $$\det(\mathbf{A}_{n\times n}^{\mathbf{T}})=\det(\mathbf{A}_{n\times n})$$
+    }
+    \pf{
+        Assume that matrix $\mathbf{A}_{n \times n}$ can be decomposed as $\mathbf{A}_{n \times n}=\mathbf{L}_{n \times n}\mathbf{U}_{n \times n}$, where $\mathbf{L}_{n \times n}$ is a lower triangular matrix and $\mathbf{U}_{n \times n}$ is an upper triangular matrix.\\
+        Consider the transpose of $\mathbf{A}_{n \times n}$, which is $\mathbf{A}_{n \times n}^{\mathbf{T}}=(\mathbf{L}_{n \times n}\mathbf{U}_{n \times n})^{\mathbf{T}}$.\\
+        Using the property of transpose, we get $=\mathbf{U}_{n \times n}^{\mathbf{T}}\mathbf{L}_{n \times n}^{\mathbf{T}}$.\\
+        We know from the properties of determinants that the determinant of the product of two matrices is the product of their determinants: $\det(\mathbf{A}_{n \times n}^{\mathbf{T}})=\det(\mathbf{U}_{n \times n}^{\mathbf{T}}\mathbf{L}_{n \times n}^{\mathbf{T}})$.\\
+        For triangular matrices $\mathbf{L}_{n \times n}$ and $\mathbf{U}_{n \times n}$, their determinants are the product of their diagonal elements:
+        $$\det(\mathbf{L}_{n \times n})=\prod_{i=1}^{n}l_{ii},\ \det(\mathbf{U}_{n \times n})=\prod_{i=1}^{n}u_{ii}$$
+        Similarly,
+        $$\det(\mathbf{L}_{n \times n}^{\mathbf{T}})=\prod_{i=1}^{n}l_{ii}=\det(\mathbf{L}_{n \times n}),\ \det(\mathbf{U}_{n \times n}^{\mathbf{T}})=\prod_{i=1}^{n}u_{ii}=\det(\mathbf{U}_{n \times n})$$
+        Then
+        \begin{align}
+            \det(\mathbf{A}_{n \times n}^{\mathbf{T}})&=\det(\mathbf{U}_{n \times n}^{\mathbf{T}}\mathbf{L}_{n \times n}^{\mathbf{T}})\\
+                                                      &=\det(\mathbf{U}_{n \times n}^{\mathbf{T}})\det(\mathbf{L}_{n \times n}^{\mathbf{T}})\\
+                                                      &=\det(\mathbf{U}_{n \times n})\det(\mathbf{L}_{n \times n})
+        \end{align}
+        On the other hand,
+        \begin{align}
+            \det(\mathbf{A}_{n \times n})&=\det(\mathbf{L}_{n \times n}\mathbf{U}_{n \times n})\\
+                                         &=\det(\mathbf{L}_{n \times n})\det(\mathbf{U}_{n \times n})\\
+                                         &=\det(\mathbf{U}_{n \times n})\det(\mathbf{L}_{n \times n})
+        \end{align}
+        Therefore, we conclude that
+        $$\det(\mathbf{A}_{n\times n}^{\mathbf{T}})=\det(\mathbf{A}_{n\times n})$$
+    }
+
+    \clm{Property 14}{
+        The determinant of a matrix raised to an integer power is equal to the determinant of that matrix, raised to the integer power. This property in equation form is given by
+        $$\det(\mathbf{A}_{n\times n}^{p})=\det(\mathbf{A}_{n\times n})^{p}$$
+        where p is an integer.
+    }
+
+    \clm{Property 15}{
+        If $\mathbf{A}_{n\times n}$ is an $n\times n$ matrix, then
+        $$\det(k\mathbf{A}_{n\times n})=k^{n}\det(\mathbf{A}_{n\times n})$$
+        Note that $k\mathbf{A}_{n\times n}$ multiplies every element of $\mathbf{A}_{n\times n}$ by the scalar k.
+    }
+
+    \clm{Property 16}{
+        If $\mathbf{A}_{n\times n}$ is an $n\times n$ matrix, then
+        $$\det(-\mathbf{A}_{n\times n})=(-1)^{n}\det(\mathbf{A}_{n\times n})$$
+    }
+
+    \clm{Property 17}{
+        The determinant of the similarity transformation of a matrix is equal to the determinant of the original matrix.
+        \begin{align}
+            \det(\mathbf{B}\mathbf{A}\mathbf{B}^{-1})&=\det(\mathbf{B})\det(\mathbf{A})\det(\mathbf{B}^{-1})\\
+                                                     &=\det(\mathbf{B})\det(\mathbf{A})\frac{1}{\det(\mathbf{B})}\\
+                                                     &=\det(\mathbf{A})\\
+                                                     &=\det(\mathbf{B}^{-1}\mathbf{A}\mathbf{B})
+        \end{align}
+    }
+
+    \clm{Property 18}{
+        The determinant of a similarity transformation minus a multiple of the unit matrix is given by
+        \begin{align}
+            \det(\mathbf{B}\mathbf{A}\mathbf{B}^{-1}-\lambda\mathbf{I})&=\det(\mathbf{B}\mathbf{A}\mathbf{B}^{-1}-\mathbf{B}\lambda\mathbf{I}\mathbf{B}^{-1})\\
+                                                                       &=\det(\mathbf{B}(\mathbf{A}-\lambda\mathbf{I})\mathbf{B}^{-1})\\
+                                                                       &=\det(\mathbf{B})\det(\mathbf{A}-\lambda\mathbf{I})\det(\mathbf{B}^{-1})\\
+                                                                       &=\det(\mathbf{A}-\lambda\mathbf{I})
+        \end{align}
+    }
+
+    \clm{Properties of a determinant}{
+        The determinant is a function that maps a \textbf{square matrix} to a scalar.\\
+        These properties imply that Gaussian elimination, done on rows or columns or both, can be used to simplify the computation of a determinant.\\
+        Row interchanges and multiplication of a row by a constant \textbf{change} the determinant and must be treated correctly.
+    }
+}
+
+\section{The eigenvalue problem}{
+    \defn{Eigenvector and Eigenvalue}{
+        Let $\mathbf{A}_{n \times n}$ be an $n \times n$ matrix.\\
+        An \textbf{eigenvector} of $\mathbf{A}_{n \times n}$ is a \textbf{nonzero vector} $\mathbf{v}$ in $\mathbb{R}^{n}$ such that $\mathbf{A}\mathbf{v}=\lambda\mathbf{v}$,  for some scalar $\lambda$.\\
+        An \textbf{eigenvalue} of $\mathbf{A}_{n \times n}$ is a scalar $\lambda$ such that the equation $\mathbf{A}\mathbf{v}=\lambda\mathbf{v}$ has a nontrivial solution.\\
+        If $\mathbf{A}\mathbf{v}=\lambda\mathbf{v}$ for $\mathbf{v}\neq\mathbf{0}$, we say that $\lambda$ is the \textbf{eigenvalue} for  $\mathbf{v}$,  and that $\mathbf{v}$ is an \textbf{eigenvector} for $\lambda$.
+    }
+
+    \cor{
+        Eigenvalues and eigenvectors are only for square matrices.
+    }
+
+    \cor{
+        Eigenvectors are by definition nonzero. Eigenvalues may be equal to zero.
+    }
+    \rmkb{
+        We do not consider the zero vector to be an eigenvector: since $\mathbf{A}\mathbf{0}=\mathbf{0}=\lambda\mathbf{0}$ for every scalar $\lambda$, the associated eigenvalue would be undefined.
+    }
+
+    \cor{
+        An $n \times n$ matrix $\mathbf{A}_{n \times n}$ has at most n eigenvalues.
+        Eigenvalues can be real or complex.
+    }
+
+    \defn{Characteristic equation}{
+        Let $\mathbf{A}_{n \times n}$ be a square matrix, $\mathbf{x}$ a column vector, and $\lambda$ a scalar. The eigenvalue problem for $\mathbf{A}_{n \times n}$ solves
+        $$\mathbf{A}_{n \times n}\mathbf{x}=\lambda\mathbf{x}$$
+        for eigenvalues $\lambda_{i}$ with the corresponding eigenvectors $\mathbf{x}_{i}$. Making use of the identity matrix $\mathbf{I}_{n \times n}$, the eigenvalue problem can be rewritten as the homogeneous equation
+        $$(\mathbf{A}_{n \times n}-\lambda\mathbf{I}_{n \times n})\mathbf{x}=0$$
+        where the matrix $(\mathbf{A}_{n \times n}-\lambda\mathbf{I}_{n \times n})$ is just the matrix $\mathbf{A}_{n \times n}$ with $\lambda$ subtracted from its diagonal. For there to be nonzero eigenvectors, the matrix $(\mathbf{A}_{n \times n}-\lambda\mathbf{I}_{n \times n})$ must be singular, that is,
+        $$\det(\mathbf{A}_{n \times n}-\lambda\mathbf{I}_{n \times n})=0$$
+        This equation is called the \textbf{characteristic equation} of the matrix $\mathbf{A}_{n \times n}$. From the Leibniz formula, the characteristic equation of an n-by-n matrix is an n-th order polynomial equation in $\lambda$.
+        $$c_{1}\lambda^{n}+c_{2}\lambda^{n-1}+\cdots+c_{n}\lambda^{0}=0$$
+        For each found $\lambda_{i}$, a corresponding eigenvector $\mathbf{x}_{i}$ can be determined directly by solving $(\mathbf{A}_{n \times n}-\lambda\mathbf{I}_{n \times n})\mathbf{x}=0$ for x.
+    }
+}
+
+\section{Finding eigenvalues and eigenvectors}{
+    \clm{Symmetric Matrix}{
+        For a symmetric matrix $\mathbf{A}_{n \times n}$, the number of eigenvalues is always n.\\
+        These n eigenvalues are real and can be distinct or have repeated values.
+    }
+
+    \fact{
+        Let $\mathbf{A}_{n \times n}$ be an ${n \times n}$ matrix.\\
+        The number 0 is an eigenvalue of $\mathbf{A}_{n \times n}$ if and only if $\mathbf{A}_{n \times n}$ is not invertible.
+    }
+    \pf{
+        Suppose $\mathbf{A}_{n \times n}$ is invertible, then
+        $$\mathbf{A}_{n \times n}^{-1}\mathbf{A}_{n \times n}=\mathbf{I}_{n \times n}$$
+        Since $\lambda=0$ is an eigenvalue, there exists a nonzero vector $\mathbf{v}$ such that $(\mathbf{A}_{n \times n}-\lambda\mathbf{I}_{n \times n})\mathbf{v}=\mathbf{A}_{n \times n}\mathbf{v}=0$.
+        Therefore,
+        \begin{align}
+            \mathbf{v}&=\mathbf{I}_{n \times n}\mathbf{v}\\
+                      &=\mathbf{A}_{n \times n}^{-1}(\mathbf{A}_{n \times n}\mathbf{v})\\
+                      &=\mathbf{A}_{n \times n}^{-1}(0)\\
+                      &=0
+        \end{align}
+        $\mathbf{v}$ cannot be both nonzero and zero.
+    }
+}
+
+\section{Matrix diagonalization}{
+
 }
 
 % \rmk{
