@@ -458,35 +458,35 @@
         Place vectors $\mathbf{u}$ and $\mathbf{v}$ in standard position and consider the vector $\mathbf{v-u}$. These three vectors form a triangle with side lengths $\|\mathbf{u}\|$, $\|\mathbf{v}\|$, and $\|\mathbf{v-u}\|$.
         \begin{figure}[H]
             \begin{center}
-            \begin{tikzpicture}[scale=1.2]  % 放大图形以更好地展示
-                % 定义向量长度和角度
-                \pgfmathsetmacro{\ru}{3} % 向量u长度
-                \pgfmathsetmacro{\rv}{5} % 向量v长度
-                \pgfmathsetmacro{\alpha}{15} % 向量v与横轴夹角 ψ
-                \pgfmathsetmacro{\delta}{30} % 向量v和u的夹角 θ
+                \begin{tikzpicture}[scale=1.2]  % 放大图形以更好地展示
+                    % 定义向量长度和角度
+                    \pgfmathsetmacro{\ru}{3} % 向量u长度
+                    \pgfmathsetmacro{\rv}{5} % 向量v长度
+                    \pgfmathsetmacro{\alpha}{15} % 向量v与横轴夹角 ψ
+                    \pgfmathsetmacro{\delta}{30} % 向量v和u的夹角 θ
 
-                % 计算坐标
-                \pgfmathsetmacro{\xv}{\rv * cos(\alpha)}
-                \pgfmathsetmacro{\yv}{\rv * sin(\alpha)}
-                \pgfmathsetmacro{\xu}{\ru * cos(\alpha + \delta)}
-                \pgfmathsetmacro{\yu}{\ru * sin(\alpha + \delta)}
+                    % 计算坐标
+                    \pgfmathsetmacro{\xv}{\rv * cos(\alpha)}
+                    \pgfmathsetmacro{\yv}{\rv * sin(\alpha)}
+                    \pgfmathsetmacro{\xu}{\ru * cos(\alpha + \delta)}
+                    \pgfmathsetmacro{\yu}{\ru * sin(\alpha + \delta)}
 
-                % 绘制第一个向量v
-                \draw[->,>=latex, ultra thick, black] (0, 0) -- (\xv, \yv);
+                    % 绘制第一个向量v
+                    \draw[->,>=latex, ultra thick, black] (0, 0) -- (\xv, \yv);
 
-                % 绘制第二个向量u
-                \draw[->,>=latex, ultra thick, black] (0, 0) -- (\xu, \yu);
-                % 绘制第三个向量v-u
-                \draw[->,>=latex, ultra thick, black] (\xu, \yu) -- (\xv, \yv);
+                    % 绘制第二个向量u
+                    \draw[->,>=latex, ultra thick, black] (0, 0) -- (\xu, \yu);
+                    % 绘制第三个向量v-u
+                    \draw[->,>=latex, ultra thick, black] (\xu, \yu) -- (\xv, \yv);
 
-                % 标注角度 θ
-                \draw[<->,thick,black,{Latex[length=2mm]}-{Latex[length=2mm]}] (1cm,0.25cm) arc [start angle=\alpha, end angle=\alpha+\delta, radius=1cm] node[midway, above right] {$\theta$};
+                    % 标注角度 θ
+                    \draw[<->,thick,black,{Latex[length=2mm]}-{Latex[length=2mm]}] (1cm,0.25cm) arc [start angle=\alpha, end angle=\alpha+\delta, radius=1cm] node[midway, above right] {$\theta$};
 
-                % 标注向量长度
-                \node at (\xu/2, \yu/2) [above left] {$\mathbf{u}$};
-                \node at (\xv/2, \yv/2) [below right] {$\mathbf{v}$};
-                \node at (\xu/2+\xv/2, \yu/2+\yv/2) [above right] {$\mathbf{v-u}$};
-            \end{tikzpicture}
+                    % 标注向量长度
+                    \node at (\xu/2, \yu/2) [above left] {$\mathbf{u}$};
+                    \node at (\xv/2, \yv/2) [below right] {$\mathbf{v}$};
+                    \node at (\xu/2+\xv/2, \yu/2+\yv/2) [above right] {$\mathbf{v-u}$};
+                \end{tikzpicture}
             \end{center}
             \caption{The lengths of the sides of the triangle are given by the magnitudes of the vectors that form the triangle.}
         \end{figure}
@@ -719,42 +719,42 @@
     \pf{
         \begin{figure}[H]
             \begin{center}
-            \begin{tikzpicture}[scale=1.2]  % 放大图形以更好地展示
-                % 定义向量长度和角度
-                \pgfmathsetmacro{\r}{5} % 向量长度
-                \pgfmathsetmacro{\alpha}{30} % 向量 (x,y) 与横轴夹角 ψ
-                \pgfmathsetmacro{\delta}{15} % 向量 (x,y) 和 (x',y') 的夹角 θ
+                \begin{tikzpicture}[scale=1.2]  % 放大图形以更好地展示
+                    % 定义向量长度和角度
+                    \pgfmathsetmacro{\r}{5} % 向量长度
+                    \pgfmathsetmacro{\alpha}{30} % 向量 (x,y) 与横轴夹角 ψ
+                    \pgfmathsetmacro{\delta}{15} % 向量 (x,y) 和 (x',y') 的夹角 θ
 
-                % 计算坐标
-                \pgfmathsetmacro{\x}{\r * cos(\alpha)}
-                \pgfmathsetmacro{\y}{\r * sin(\alpha)}
-                \pgfmathsetmacro{\xp}{\r * cos(\alpha + \delta)}
-                \pgfmathsetmacro{\yp}{\r * sin(\alpha + \delta)}
+                    % 计算坐标
+                    \pgfmathsetmacro{\x}{\r * cos(\alpha)}
+                    \pgfmathsetmacro{\y}{\r * sin(\alpha)}
+                    \pgfmathsetmacro{\xp}{\r * cos(\alpha + \delta)}
+                    \pgfmathsetmacro{\yp}{\r * sin(\alpha + \delta)}
 
-                % 绘制x轴和y轴
-                \draw[->] (-1, 0) -- (5, 0) node[right] {};
-                \draw[->] (0, -1) -- (0, 5) node[above] {};
+                    % 绘制x轴和y轴
+                    \draw[->] (-1, 0) -- (5, 0) node[right] {};
+                    \draw[->] (0, -1) -- (0, 5) node[above] {};
 
-                % 绘制第一个向量 (x, y)
-                \draw[->, thick, black] (0, 0) -- (\x, \y) node[above left] {$(x, y)$};
-                % 绘制第一个向量在轴上的投影
-                \draw[dashed] (\x, \y) -- (\x, 0) node[below] {$x$};
-                \draw[dashed] (\x, \y) -- (0, \y) node[left] {$y$};
+                    % 绘制第一个向量 (x, y)
+                    \draw[->, thick, black] (0, 0) -- (\x, \y) node[above left] {$(x, y)$};
+                    % 绘制第一个向量在轴上的投影
+                    \draw[dashed] (\x, \y) -- (\x, 0) node[below] {$x$};
+                    \draw[dashed] (\x, \y) -- (0, \y) node[left] {$y$};
 
-                % 绘制第二个向量 (x', y')
-                \draw[->, thick, black] (0, 0) -- (\xp, \yp) node[above left] {$(x', y')$};
-                % 绘制第二个向量在轴上的投影
-                \draw[dashed] (\xp, \yp) -- (\xp, 0) node[below] {$x'$};
-                \draw[dashed] (\xp, \yp) -- (0, \yp) node[left] {$y'$};
+                    % 绘制第二个向量 (x', y')
+                    \draw[->, thick, black] (0, 0) -- (\xp, \yp) node[above left] {$(x', y')$};
+                    % 绘制第二个向量在轴上的投影
+                    \draw[dashed] (\xp, \yp) -- (\xp, 0) node[below] {$x'$};
+                    \draw[dashed] (\xp, \yp) -- (0, \yp) node[left] {$y'$};
 
-                % 标注角度 ψ 和 θ
-                \draw[<->,thick,black,{Latex[length=2mm]}-{Latex[length=2mm]}] (1cm,0cm) arc [start angle=0, end angle=\alpha, radius=1cm] node[midway, right]{$\psi$};
-                \draw[<->,thick,black,{Latex[length=2mm]}-{Latex[length=2mm]}] (1.75cm,1cm) arc [start angle=\alpha, end angle=\alpha+\delta, radius=2cm] node[midway, above right] {$\theta$};
+                    % 标注角度 ψ 和 θ
+                    \draw[<->,thick,black,{Latex[length=2mm]}-{Latex[length=2mm]}] (1cm,0cm) arc [start angle=0, end angle=\alpha, radius=1cm] node[midway, right]{$\psi$};
+                    \draw[<->,thick,black,{Latex[length=2mm]}-{Latex[length=2mm]}] (1.75cm,1cm) arc [start angle=\alpha, end angle=\alpha+\delta, radius=2cm] node[midway, above right] {$\theta$};
 
-                % 标注向量长度
-                \node at (\x/2, \y/2) [below right] {$r$};
-                \node at (\xp/2, \yp/2) [above left] {$r$};
-            \end{tikzpicture}
+                    % 标注向量长度
+                    \node at (\x/2, \y/2) [below right] {$r$};
+                    \node at (\xp/2, \yp/2) [above left] {$r$};
+                \end{tikzpicture}
             \end{center}
             \caption{Rotating a vector in the x-y plane.}
         \end{figure}
@@ -1458,13 +1458,9 @@
                                                                &\Longleftrightarrow \text{All columns of matrix }\mathbf{A}_{n \times n}\text{ are linearly independent}\\
                                                                &\Longleftrightarrow \operatorname{rank}(\mathbf{A}_{n \times n})=n\\
                                                                &\Longleftrightarrow \operatorname{nullity}(\mathbf{A}_{n \times n})=\operatorname{left\ nullity}(\mathbf{A}_{n \times n})=0\\
-                                                               &\Longleftrightarrow \det(\mathbf{A}_{n \times n}) \neq n\\
+                                                               &\Longleftrightarrow \det(\mathbf{A}_{n \times n}) \neq 0\\
                                                                &\Longleftrightarrow \mathbf{A}_{n \times n}\text{ is invertible: }\mathbf{A}_{n \times n}\mathbf{A}_{n \times n}^{-1}=\mathbf{A}_{n \times n}^{-1}\mathbf{A}_{n \times n}=\mathbf{I}
         \end{align}
-    }
-
-    \defn{Non-zero Determinant}{
-
     }
 
     \cor{
@@ -1478,7 +1474,12 @@
                 \hline
                 \textbf{Concept} &
                 \textbf{Notation} &
-                \textbf{Mathematical Definition} &
+                \(
+                    \begin{array}{c}
+                        \textbf{Mathematical}\\
+                        \textbf{Definition}
+                    \end{array}
+                \) &
                 \textbf{Subspace of}\\
                 \hline
                 Null Space &
@@ -1486,11 +1487,16 @@
                 \(
                     \begin{array}{c}
                         \text{All vectors x that}\\
-                        text{ satisfy }\mathbf{A}\mathbf{x}=\mathbf{0}\\
+                        \text{ satisfy }\mathbf{A}\mathbf{x}=\mathbf{0}\\
                         \{\mathbf{x}\in\mathbb{R}^{n}\mid\mathbf{A}\mathbf{x}=\mathbf{0}\}
                     \end{array}
                 \) &
-                $\mathbb{R}^{n}$ (Domain of $\mathbf{A}$)\\
+                \(
+                    \begin{array}{c}
+                        \mathbb{R}^{n}=\operatorname{Null}(\mathbf{A})+\operatorname{Row}(\mathbf{A})\\
+                        (\text{Domain of }\mathbf{A})
+                    \end{array}
+                \)\\
                 \hline
                 Left Null Space &
                 $\operatorname{LeftNull}(\mathbf{A})=\text{Null}(\mathbf{A}^{\mathbf{T}})$ &
@@ -1501,7 +1507,12 @@
                         \{\mathbf{y}\in\mathbb{R}^{m}\mid\mathbf{A}^{\mathbf{T}}\mathbf{y}=\mathbf{0}\}
                     \end{array}
                 \) &
-                $\mathbb{R}^{m}$ (Codomain of $\mathbf{A}^{\mathbf{T}}$)\\
+                \(
+                    \begin{array}{c}
+                        \mathbb{R}^{m}=\operatorname{LeftNull}(\mathbf{A})+\operatorname{Col}(\mathbf{A})\\
+                        (\text{Codomain of }\mathbf{A}^{\mathbf{T}})
+                    \end{array}
+                \)\\
                 \hline
                 Column Space &
                 $\operatorname{Col}(\mathbf{A})=\operatorname{Row}(\mathbf{A}^{\mathbf{T}})$ &
@@ -1512,7 +1523,12 @@
                         \{\mathbf{A}\mathbf{x}\mid\mathbf{x}\in\mathbb{R}^{n}\}
                     \end{array}
                 \) &
-                $\mathbb{R}^{m}$ (Codomain of $\mathbf{A}$)\\
+                \(
+                    \begin{array}{c}
+                        \mathbb{R}^{m}=\operatorname{LeftNull}(\mathbf{A})+\operatorname{Col}(\mathbf{A})\\
+                        (\text{Codomain of }\mathbf{A})
+                    \end{array}
+                \)\\
                 \hline
                 Row Space &
                 $\operatorname{Row}(\mathbf{A})=\operatorname{Col}(\mathbf{A}^{\mathbf{T}})$ &
@@ -1523,13 +1539,20 @@
                         \{\mathbf{A}^{\mathbf{T}}\mathbf{y}\mid\mathbf{y}\in\mathbb{R}^{m}\}
                     \end{array}
                 \) &
-                $\mathbb{R}^{n}$ (Domain of $\mathbf{A}^{\mathbf{T}}$)\\
+                \(
+                    \begin{array}{c}
+                        \mathbb{R}^{n}=\operatorname{Null}(\mathbf{A})+\operatorname{Row}(\mathbf{A})\\
+                        (\text{Domain of }\mathbf{A}^{\mathbf{T}})
+                    \end{array}
+                \)\\
                 \hline
             \end{tabular}
             \caption{Comparison of Null Space, Left Null Space, Column Space, and Row Space for an $m \times n$ matrix $\mathbf{A}$}
             \label{comparison1}
         \end{table}
+    }
 
+    \cor{
         \begin{table}[H]
             \centering
             \resizebox{\textwidth}{!}{
@@ -1603,6 +1626,106 @@
             \caption{Comparison of Null Space, Left Null Space, Column Space, and Row Space for an $m \times n$ matrix $\mathbf{A}$}
             \label{comparison2}
         \end{table}
+    }
+
+    \cor{
+        \begin{figure}[H]
+            \begin{center}
+                \begin{tikzpicture}[
+                    box/.style={draw,minimum width=4cm,minimum height=5cm,thick},
+                    arrow/.style={->,>=latex,thick}
+                ]
+
+                    % Top arrow and spaces
+                    \draw[arrow] (-3,8) -- (3,8) node[midway,above] {$A \in \mathbb{R}^{m\times n}$};
+                    \node at (-4,8) {$\mathbb{R}^n$};
+                    \node at (4,8) {$\mathbb{R}^m$};
+
+                    % Left side spaces - explicit coordinates
+                    \node[box, rotate=-45, anchor=south east] (CAT) at (-4,0.75) {};
+                    \node[box, rotate=45, scale=0.5, anchor=north east] (NA) at (CAT.south east) {};
+
+                    % Right side spaces - adjusted for common vertex
+                    \node[box, rotate=45, anchor=south west] (CA) at (4,0.75) {};
+                    \node[box, rotate=-45, scale=0.5, anchor=north west] (NAT) at (CA.south west) {};
+
+                    % Labels for C(A^T)
+                    \node at ($(CAT.west)+(-0.8,1)$) {$\operatorname{Row}(\mathbf{A})$};
+                    \node at ($(CAT.west)+(-0.8,0.6)$) {\small $\dim(\operatorname{Row}(\mathbf{A}))=r$};
+                    \node[rotate=0] at ($(CAT.center)+(-0.3,1.4)$) {\small row space};
+                    \node[rotate=0] at ($(CAT.center)+(-0.3,1)$) {all $\mathbf{y}\mathbf{A}$};
+
+                    % Labels for N(A)
+                    \node at ($(NA.west)+(-1,-0.6)$) {$\operatorname{Null}(\mathbf{A})$};
+                    \node at ($(NA.west)+(-1,-1)$) {\small $\dim(\operatorname{Null}(\mathbf{A}))=n-r$};
+                    \node[rotate=0] at ($(NA.center)+(0,0.2)$) {\small nullspace};
+                    \node[rotate=0] at ($(NA.center)+(0,-0.2)$) {$\mathbf{A}\mathbf{x}=0$};
+
+                    % Labels for C(A)
+                    \node at ($(CA.east)+(0.8,1)$) {$\operatorname{Col}(\mathbf{A})$};
+                    \node at ($(CA.east)+(0.8,0.6)$) {$\dim(\operatorname{Col}(\mathbf{A}))=r$};
+                    \node[rotate=0] at ($(CA.center)+(0.3,1.4)$) {\small column space};
+                    \node[rotate=0] at ($(CA.center)+(0.3,1)$) {all $\mathbf{A}\mathbf{x}$};
+
+                    % Labels for N(A^T)
+                    \node at ($(NAT.east)+(1,-0.6)$) {$\operatorname{LeftNull}(\mathbf{A}))$};
+                    \node at ($(NAT.east)+(1,-1)$) {\small $\dim(\operatorname{LeftNull}(\mathbf{A}))=m-r$};
+                    \node[rotate=0] at ($(NAT.center)+(0,0.2)$) {\small left nullspace};
+                    \node[rotate=0] at ($(NAT.center)+(0,-0.2)$) {$\mathbf{y}\mathbf{A}=0$};
+
+                    % Labels for Rn
+                    \node at ($(NA.north)+(-1,1)$) {$\mathbb{R}^n$};
+
+                    % Labels for Rm
+                    \node at ($(NAT.west)+(-1,1)$) {$\mathbb{R}^m$};
+
+                    % Perpendicular symbols at the intersections
+                    % Left side
+                    \coordinate (left_perp) at (CAT.south east);  % This is now exactly at the intersection
+                    \draw[thick] ($(left_perp)+(0.2,0.2)$) -- ($(left_perp)+(0.4,0)$);
+                    \draw[thick] ($(left_perp)+(0.4,0)$) -- ($(left_perp)+(0.2,-0.2)$);
+                    \node[rotate=0] at ($(left_perp)+(1.5,0)$) {\small perpendicular};
+
+                    % Right side
+                    \coordinate (right_perp) at (NAT.north west);  % This is now exactly at the intersection
+                    \draw[thick] ($(right_perp)+(0.2,0.2)$) -- ($(right_perp)+(0.4,0)$);
+                    \draw[thick] ($(right_perp)+(0.4,0)$) -- ($(right_perp)+(0.2,-0.2)$);
+                    \node[rotate=0] at ($(right_perp)+(1.5,0)$) {\small perpendicular};
+
+                    % Matrix visualizations
+                    \begin{scope}[shift={($(CAT.center)+(-0.3,-0.5)$)}, rotate=0]
+                        \draw[fill=red, draw=none] (-1,0.45) rectangle (1,0.95);
+                        \draw[fill=red, draw=none] (-1,-0.25) rectangle (1,0.25);
+                        \draw[fill=red, draw=none] (-1,-0.95) rectangle (1,-0.45);
+                        \draw[thick] (-1, 1.15) -- (-1.2, 1.15);
+                        \draw[thick] (-1.2, 1.15) -- (-1.2, -1.15);
+                        \draw[thick] (-1, -1.15) -- (-1.2, -1.15);
+                        \draw[thick] (1, 1.15) -- (1.2, 1.15);
+                        \draw[thick] (1.2, 1.15) -- (1.2, -1.15);
+                        \draw[thick] (1, -1.15) -- (1.2, -1.15);
+                    \end{scope}
+
+                    \begin{scope}[shift={($(CA.center)+(0.3,-0.5)$)}, rotate=90]
+                        \draw[fill=green, draw=none] (-1,0.1) rectangle (1,0.65);
+                        \draw[fill=green, draw=none] (-1,-0.1) rectangle (1,-0.65);
+                        \draw[thick] (-1.2, 0.65) -- (-1.2, 0.85);
+                        \draw[thick] (-1.2, 0.85) -- (1.2, 0.85);
+                        \draw[thick] (1.2, 0.85) -- (1.2, 0.65);
+                        \draw[thick] (-1.2, -0.65) -- (-1.2, -0.85);
+                        \draw[thick] (-1.2, -0.85) -- (1.2, -0.85);
+                        \draw[thick] (1.2, -0.85) -- (1.2, -0.65);
+                    \end{scope}
+
+                    % Bottom equations
+                    \node at (-4,-3.5) {$\mathbb{R}^n=\operatorname{Null}(\mathbf{A})+\operatorname{Row}(\mathbf{A})$};
+                    \node at (-4,-4) {$\operatorname{Null}(\mathbf{A})\perp\operatorname{Row}(\mathbf{A})$};
+                    \node at (4,-3.5) {$\mathbb{R}^m=\operatorname{Col}(\mathbf{A})+\operatorname{LeftNull}(\mathbf{A})$};
+                    \node at (4,-4) {$\operatorname{Col}(\mathbf{A})\perp\operatorname{LeftNull}(\mathbf{A})$};
+
+                \end{tikzpicture}
+            \end{center}
+            \caption{Null Space, Left Null Space, Column Space, and Row Space for an $m \times n$ matrix $\mathbf{A}$}
+        \end{figure}
     }
 }
 
