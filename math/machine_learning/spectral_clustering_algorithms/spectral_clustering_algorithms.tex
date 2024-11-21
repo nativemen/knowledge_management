@@ -1,0 +1,84 @@
+\documentclass[oneside]{book}
+
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{thmtools}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{framed}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{environ}
+\usepackage{tcolorbox}
+\usepackage{todonotes}
+\usepackage{booktabs}       % 专业表格线
+\usepackage{multirow}       % 合并单元格
+\usepackage{caption}        % 表格标题
+\usepackage{makecell}
+\usepackage{natbib}         % 推荐的参考文献宏包
+\tcbuselibrary{theorems,skins,breakable}
+
+\usetikzlibrary{calc,arrows.meta,bending}
+
+\setstretch{1.2}
+\geometry{
+    textheight=9in,
+    textwidth=7in,
+    top=1in,
+    headheight=12pt,
+    headsep=25pt,
+    footskip=30pt
+}
+
+% Variables
+\def\notetitle{Spectral Clustering Algorithms}
+\def\noteauthor{
+    \textbf{Learner}\\
+    {\LaTeX} by Xin Wang\\
+    }
+\def\notedate{Notes}
+
+% The theorem system and user-defined commands
+\input{theorems.tex}
+\input{commands.tex}
+
+% ------------------------------------------------------------------------------
+
+\begin{document}
+\title{\textbf{
+    \LARGE{\notetitle} \vspace*{10\baselineskip}}
+    }
+\author{\noteauthor}
+\date{\notedate}
+
+\maketitle
+\newpage
+
+\tableofcontents
+\newpage
+
+% ------------------------------------------------------------------------------
+
+\chapter{Basic Concepts}
+
+\section{Graph theory}{
+    \defn{Degree matrix}{
+
+    }
+    \defn{Laplacian matrix}{
+
+    }
+}
+
+\chapter{Classical Spectral Clustering Algorithm}
+
+\section{Classical Spectral Clustering Algorithm}{
+}
+
+% \bibliographystyle{plain}  % 参考文献样式，可选：plain, unsrt, alpha, abbrv
+% \bibliography{spectral_clustering_algorithms}  % 引用 references.bib 文件
+
+\end{document}
