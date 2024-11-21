@@ -66,34 +66,40 @@
 
 \section{Definition of a matrix}{
     \defn{m-by-n matrix}{
-        $$\mathbf{A}_{m \times n}=
-            \begin{pmatrix}
-                a_{11} & a_{12} & \cdots & a_{1n}\\
-                a_{21} & a_{22} & \cdots & a_{2n}\\
-                \vdots & \vdots & \ddots & \vdots\\
-                a_{m1} & a_{m2} & \cdots & a_{mn}
-            \end{pmatrix}$$
+        \[
+            \mathbf{A}_{m \times n}=
+                \begin{pmatrix}
+                    a_{11} & a_{12} & \cdots & a_{1n}\\
+                    a_{21} & a_{22} & \cdots & a_{2n}\\
+                    \vdots & \vdots & \ddots & \vdots\\
+                    a_{m1} & a_{m2} & \cdots & a_{mn}
+                \end{pmatrix}
+        \]
         Here, the matrix element of A in the i-th row and the j-th column is denoted as $a_{ij}$.
         \cite{Chasnov}
     }
 
     \defn{Column vector}{
         The column vector is n-by-one.
-        $$\mathbf{q}_{n \times 1}=
-            \begin{pmatrix}
-                q_{1}\\
-                q_{2}\\
-                \vdots\\
-                q_{n}
-            \end{pmatrix}$$
+        \[
+            \mathbf{q}_{n \times 1}=
+                \begin{pmatrix}
+                    q_{1}\\
+                    q_{2}\\
+                    \vdots\\
+                    q_{n}
+                \end{pmatrix}
+        \]
     }
 
     \defn{Row vector}{
         The row vector is one-by-n.
-        $$\mathbf{p}_{1 \times n}=
-            \begin{pmatrix}
-                p_{1} & p_{2} & \cdots & p_{n}
-            \end{pmatrix}$$
+        \[
+            \mathbf{p}_{1 \times n}=
+                \begin{pmatrix}
+                    p_{1} & p_{2} & \cdots & p_{n}
+                \end{pmatrix}
+        \]
     }
 }
 
@@ -148,33 +154,35 @@
 
 \subsection{Multiplication of matrices}{
     \cor{
-        $$\mathbf{C}_{m \times p}=\mathbf{A}_{m \times n}\mathbf{B}_{n \times p}$$
-        $$c_{ij}=\sum_{i=1}^{n}a_{ik}b_{kj}$$
-        $$\begin{pmatrix}
-            a_{11} & a_{12} & \cdots & a_{1n}\\
-            a_{21} & a_{22} & \cdots & a_{2n}\\
-            \vdots & \vdots & \ddots & \vdots\\
-            a_{m1} & a_{m2} & \cdots & a_{mn}
-        \end{pmatrix}
-        \begin{pmatrix}
-            b_{11} & b_{12} & \cdots & b_{1p}\\
-            b_{21} & b_{22} & \cdots & b_{2p}\\
-            \vdots & \vdots & \ddots & \vdots\\
-            b_{n1} & b_{n2} & \cdots & b_{np}
-        \end{pmatrix}
-        =
-        \begin{pmatrix}
-            \sum_{i=1}^{n}a_{1i}b_{i1} & \sum_{i=1}^{n}a_{1i}b_{i2} & \cdots & \sum_{i=1}^{n}a_{1i}b_{ip}\\
-            \sum_{i=1}^{n}a_{2i}b_{i1} & \sum_{i=1}^{n}a_{2i}b_{i2} & \cdots & \sum_{i=1}^{n}a_{2i}b_{ip}\\
-            \vdots                     & \vdots                     & \ddots & \vdots\\
-            \sum_{i=1}^{n}a_{mi}b_{i1} & \sum_{i=1}^{n}a_{mi}b_{i2} & \cdots & \sum_{i=1}^{n}a_{mi}b_{ip}
-        \end{pmatrix}$$
+        \[\mathbf{C}_{m \times p}=\mathbf{A}_{m \times n}\mathbf{B}_{n \times p}\]
+        \[c_{ij}=\sum_{i=1}^{n}a_{ik}b_{kj}\]
+        \[
+            \begin{pmatrix}
+                a_{11} & a_{12} & \cdots & a_{1n}\\
+                a_{21} & a_{22} & \cdots & a_{2n}\\
+                \vdots & \vdots & \ddots & \vdots\\
+                a_{m1} & a_{m2} & \cdots & a_{mn}
+            \end{pmatrix}
+            \begin{pmatrix}
+                b_{11} & b_{12} & \cdots & b_{1p}\\
+                b_{21} & b_{22} & \cdots & b_{2p}\\
+                \vdots & \vdots & \ddots & \vdots\\
+                b_{n1} & b_{n2} & \cdots & b_{np}
+            \end{pmatrix}
+            =
+            \begin{pmatrix}
+                \sum_{i=1}^{n}a_{1i}b_{i1} & \sum_{i=1}^{n}a_{1i}b_{i2} & \cdots & \sum_{i=1}^{n}a_{1i}b_{ip}\\
+                \sum_{i=1}^{n}a_{2i}b_{i1} & \sum_{i=1}^{n}a_{2i}b_{i2} & \cdots & \sum_{i=1}^{n}a_{2i}b_{ip}\\
+                \vdots                     & \vdots                     & \ddots & \vdots\\
+                \sum_{i=1}^{n}a_{mi}b_{i1} & \sum_{i=1}^{n}a_{mi}b_{i2} & \cdots & \sum_{i=1}^{n}a_{mi}b_{ip}
+            \end{pmatrix}
+        \]
     }
 }
 
 \subsection{The associative law for matrix multiplication}{
     \cor{
-        $$\mathbf{A}_{m \times n}(\mathbf{B}_{n \times p}\mathbf{C}_{p \times q})=(\mathbf{A}_{m \times n}\mathbf{B}_{n \times p})\mathbf{C}_{p \times q}$$
+        \[\mathbf{A}_{m \times n}(\mathbf{B}_{n \times p}\mathbf{C}_{p \times q})=(\mathbf{A}_{m \times n}\mathbf{B}_{n \times p})\mathbf{C}_{p \times q}\]
     }
 
     Prove:
@@ -201,36 +209,40 @@
 \subsection{Zero matrix}{
     \defn{Zero matrix}{
         Zero matrix can be \textbf{any size}.
-        $$\mathbf{0}=
-            \begin{pmatrix}
-                0      & 0      & \cdots & 0\\
-                0      & 0      & \cdots & 0\\
-                \vdots & \vdots & \ddots & \vdots\\
-                0      & 0      & \cdots & 0
-            \end{pmatrix}$$
+        \[
+            \mathbf{0}=
+                \begin{pmatrix}
+                    0      & 0      & \cdots & 0\\
+                    0      & 0      & \cdots & 0\\
+                    \vdots & \vdots & \ddots & \vdots\\
+                    0      & 0      & \cdots & 0
+                \end{pmatrix}
+        \]
     }
 
     \cor{
-        $$\mathbf{0}_{p \times m}\mathbf{A}_{m \times n}=\mathbf{0}_{p \times n}$$
-        $$\mathbf{A}_{m \times n}\mathbf{0}_{n \times p}=\mathbf{0}_{m \times p}$$
+        \[\mathbf{0}_{p \times m}\mathbf{A}_{m \times n}=\mathbf{0}_{p \times n}\]
+        \[\mathbf{A}_{m \times n}\mathbf{0}_{n \times p}=\mathbf{0}_{m \times p}\]
     }
 }
 
 \subsection{Identity matrix}{
     \defn{Identity matrix}{
         Identity matrix is a \textbf{square matrix}.
-        $$\mathbf{I}=
-            \begin{pmatrix}
-                1      & 0      & \cdots & 0\\
-                0      & 1      & \cdots & 0\\
-                \vdots & \vdots & \ddots & \vdots\\
-                0      & 0      & \cdots & 1
-            \end{pmatrix}$$
+        \[
+            \mathbf{I}=
+                \begin{pmatrix}
+                    1      & 0      & \cdots & 0\\
+                    0      & 1      & \cdots & 0\\
+                    \vdots & \vdots & \ddots & \vdots\\
+                    0      & 0      & \cdots & 1
+                \end{pmatrix}
+        \]
     }
 
     \cor{
         If $\mathbf{A}$ and I are the \textbf{same sized square matrices},
-        $$\mathbf{A}\mathbf{I}=\mathbf{I}\mathbf{A}=\mathbf{I}$$
+        \[\mathbf{A}\mathbf{I}=\mathbf{I}\mathbf{A}=\mathbf{I}\]
     }
 }
 
@@ -238,42 +250,48 @@
     \defn{Diagonal matrix}{
         A diagonal matrix has its only nonzero elements on the diagonal.\\
         Usually it is a \textbf{square matrix}, but it can also be \textbf{rectangular}.
-        $$\mathbf{D}=
-            \begin{pmatrix}
-                d_{1}  & 0      & \cdots & 0\\
-                0      & d_{2}  & \cdots & 0\\
-                \vdots & \vdots & \ddots & \vdots\\
-                0      & 0      & \cdots & d_{n}
-            \end{pmatrix}$$
+        \[
+            \mathbf{D}=
+                \begin{pmatrix}
+                    d_{1}  & 0      & \cdots & 0\\
+                    0      & d_{2}  & \cdots & 0\\
+                    \vdots & \vdots & \ddots & \vdots\\
+                    0      & 0      & \cdots & d_{n}
+                \end{pmatrix}
+        \]
         A square matrix $\mathbf{D}$ is called a diagonal matrix if $d_{ij}=0$ whenever $i \neq j$.
     }
 
     \cor{
         If a diagonal matrix
-        $$\mathbf{D}=
-            \begin{pmatrix}
-                d_{1}  & 0      & \cdots & 0\\
-                0      & d_{2}  & \cdots & 0\\
-                \vdots & \vdots & \ddots & \vdots\\
-                0      & 0      & \cdots & d_{n}
-            \end{pmatrix}$$
+        \[
+            \mathbf{D}=
+                \begin{pmatrix}
+                    d_{1}  & 0      & \cdots & 0\\
+                    0      & d_{2}  & \cdots & 0\\
+                    \vdots & \vdots & \ddots & \vdots\\
+                    0      & 0      & \cdots & d_{n}
+                \end{pmatrix}
+        \]
         then,
-        $$\mathbf{D}^{p}=
-            \begin{pmatrix}
-                d_{1}^{p}  & 0         & \cdots & 0\\
-                0          & d_{2}^{p} & \cdots & 0\\
-                \vdots     & \vdots    & \ddots & \vdots\\
-                0          & 0         & \cdots & d_{n}^{p}
-            \end{pmatrix}$$
+        \[
+            \mathbf{D}^{p}=
+                \begin{pmatrix}
+                    d_{1}^{p}  & 0         & \cdots & 0\\
+                    0          & d_{2}^{p} & \cdots & 0\\
+                    \vdots     & \vdots    & \ddots & \vdots\\
+                    0          & 0         & \cdots & d_{n}^{p}
+                \end{pmatrix}
+        \]
     }
 
     \cor{
         If $\mathbf{A}$ is a m-by-p diagonal matrix, $\mathbf{B}$ is a p-by-n diagonal matrix, then
-        $$\mathbf{C}_{m \times n}=\mathbf{A}_{m \times p}\mathbf{B}_{p \times n}$$ is also a m-by-n diagonal matrix.
+        \[\mathbf{C}_{m \times n}=\mathbf{A}_{m \times p}\mathbf{B}_{p \times n}\] is also a m-by-n diagonal matrix.
     }
     \pf{
         The ij element of C is given by
-            $$c_{ij}=\sum_{k=1}^{p}a_{ik}b_{kj}$$
+            \[c_{ij}=\sum_{k=1}^{p}a_{ik}b_{kj}\]
         Since $\mathbf{A}$ is a diagonal matrix, the only nonzero term in the sum is k = i, and we have $c_{ij}=a_{ii}b_{ij}$.
         And since $\mathbf{B}$ is a diagonal matrix, the only nonzero elements of $\mathbf{C}$ are the diagonal elements $c_{ii}=a_{ii}b_{ii}$.
     }
@@ -285,48 +303,54 @@
     }
     \ex{
         Tridiagonal matrix, three-by-three band matrix with nonzero diagonals one above and one below a nonzero main diagonal
-        $$\mathbf{D}=
-            \begin{pmatrix}
-                d_{1}  & a_{1}  & \cdots & 0       & 0\\
-                b_{1}  & d_{2}  & \cdots & 0       & 0\\
-                \vdots & \vdots & \ddots & \vdots  & \vdots\\
-                0      & 0      & \cdots & d_{n-1} & a_{n-1}\\
-                0      & 0      & \cdots & b_{n-1} & d_{n}
-            \end{pmatrix}$$
+        \[
+            \mathbf{D}=
+                \begin{pmatrix}
+                    d_{1}  & a_{1}  & \cdots & 0       & 0\\
+                    b_{1}  & d_{2}  & \cdots & 0       & 0\\
+                    \vdots & \vdots & \ddots & \vdots  & \vdots\\
+                    0      & 0      & \cdots & d_{n-1} & a_{n-1}\\
+                    0      & 0      & \cdots & b_{n-1} & d_{n}
+                \end{pmatrix}
+        \]
     }
 }
 
 \subsection{Triangular matrix}{
     \defn{Triangular matrix}{
         An upper or lower triangular matrix is a \textbf{square matrix} that has zero elements below or above the diagonal.
-            $$\mathbf{U}=
-                \begin{pmatrix}
-                    a_{11} & a_{12} & \cdots & a_{1(n-1)}     & a_{1n}\\
-                    0      & a_{22} & \cdots & a_{2(n-1)}     & a_{2n}\\
-                    \vdots & \vdots & \ddots & \vdots         & \vdots\\
-                    0      & 0      & \cdots & a_{(n-1)(n-1)} & a_{(n-1)n}\\
-                    0      & 0      & \cdots & 0              & a_{nn}
-                \end{pmatrix}$$
-            $$\mathbf{L}=
-                \begin{pmatrix}
-                    a_{11}     & 0          & \cdots & 0              & 0\\
-                    a_{21}     & a_{22}     & \cdots & 0              & 0\\
-                    \vdots     & \vdots     & \ddots & \vdots         & \vdots\\
-                    a_{(n-1)1} & a_{(n-1)2} & \cdots & a_{(n-1)(n-1)} & 0\\
-                    a_{n1}     & a_{n2}     & \cdots & a_{n(n-1)}     & a_{nn}
-                \end{pmatrix}$$
+            \[
+                \mathbf{U}=
+                    \begin{pmatrix}
+                        a_{11} & a_{12} & \cdots & a_{1(n-1)}     & a_{1n}\\
+                        0      & a_{22} & \cdots & a_{2(n-1)}     & a_{2n}\\
+                        \vdots & \vdots & \ddots & \vdots         & \vdots\\
+                        0      & 0      & \cdots & a_{(n-1)(n-1)} & a_{(n-1)n}\\
+                        0      & 0      & \cdots & 0              & a_{nn}
+                    \end{pmatrix}
+            \]
+            \[
+                \mathbf{L}=
+                    \begin{pmatrix}
+                        a_{11}     & 0          & \cdots & 0              & 0\\
+                        a_{21}     & a_{22}     & \cdots & 0              & 0\\
+                        \vdots     & \vdots     & \ddots & \vdots         & \vdots\\
+                        a_{(n-1)1} & a_{(n-1)2} & \cdots & a_{(n-1)(n-1)} & 0\\
+                        a_{n1}     & a_{n2}     & \cdots & a_{n(n-1)}     & a_{nn}
+                    \end{pmatrix}
+            \]
     }
 
     \cor{
         If $\mathbf{A}$ an $\mathbf{B}$ are both n-by-n upper triangular matrices, then
-        $$\mathbf{C}_{n \times n}=\mathbf{A}_{n \times n}\mathbf{B}_{n \times n}$$ is also a n-by-n upper triangular matrix, with the diagonal elements of the product given by the product of the diagonal elements.
+        \[\mathbf{C}_{n \times n}=\mathbf{A}_{n \times n}\mathbf{B}_{n \times n}\] is also a n-by-n upper triangular matrix, with the diagonal elements of the product given by the product of the diagonal elements.
     }
     \pf{
         The ij element of $\mathbf{C}$ is given by
-            $$c_{ij}=\sum_{k=1}^{n}a_{ik}b_{kj}$$
+            \[c_{ij}=\sum_{k=1}^{n}a_{ik}b_{kj}\]
         Since $\mathbf{A}$ and $\mathbf{B}$ are upper triangular, we have $a_{ik}=0$ when k < i, and $b_{kj}=0$ when k > j.\\
         Excluding the zero terms from the summation, we have
-            $$c_{ij}=\sum_{k=i}^{j}a_{ik}b_{kj}$$
+            \[c_{ij}=\sum_{k=i}^{j}a_{ik}b_{kj}\]
         which is equal to zero when i > j proving that $\mathbf{C}$ is upper triangular. Furthermore,
         $c_{ii}=a_{ii}b_{ii}$.
     }
@@ -337,42 +361,44 @@
 \subsection{Transpose matrix}{
     \defn{Transpose matrix}{
         The transpose of a matrix $\mathbf{A}$, denoted by $\mathbf{A}^{\mathbf{T}}$ and spoken as $\mathbf{A}$-transpose, switches the rows and columns of $\mathbf{A}$.
-        $$if\ \mathbf{A}=
-            \begin{pmatrix}
-                a_{11} & a_{12} & \cdots & a_{1n}\\
-                a_{21} & a_{22} & \cdots & a_{2n}\\
-                \vdots & \vdots & \ddots & \vdots\\
-                a_{m1} & a_{m2} & \cdots & a_{mn}\\
-            \end{pmatrix}
-        ,\ then\
-        \mathbf{A}^{\mathbf{T}}=
-            \begin{pmatrix}
-                a_{11} & a_{21} & \cdots & a_{m1}\\
-                a_{12} & a_{22} & \cdots & a_{m2}\\
-                \vdots & \vdots & \ddots & \vdots\\
-                a_{1n} & a_{2n} & \cdots & a_{mn}\\
-            \end{pmatrix}$$
+        \[
+            if\ \mathbf{A}=
+                \begin{pmatrix}
+                    a_{11} & a_{12} & \cdots & a_{1n}\\
+                    a_{21} & a_{22} & \cdots & a_{2n}\\
+                    \vdots & \vdots & \ddots & \vdots\\
+                    a_{m1} & a_{m2} & \cdots & a_{mn}\\
+                \end{pmatrix}
+            ,\ then\
+            \mathbf{A}^{\mathbf{T}}=
+                \begin{pmatrix}
+                    a_{11} & a_{21} & \cdots & a_{m1}\\
+                    a_{12} & a_{22} & \cdots & a_{m2}\\
+                    \vdots & \vdots & \ddots & \vdots\\
+                    a_{1n} & a_{2n} & \cdots & a_{mn}\\
+                \end{pmatrix}
+        \]
         In other words, we write
-            $$a^{\mathbf{T}}_{ij}=a_{ji}$$
+            \[a^{\mathbf{T}}_{ij}=a_{ji}\]
         Evidently, if $\mathbf{A}$ is m-by-n then $\mathbf{A}^{\mathbf{T}}$ is n-by-m.
     }
 
     \cor{
-        $$((\mathbf{A}_{m \times n})^{\mathbf{T}})^{\mathbf{T}}=\mathbf{A}_{m \times n}$$
+        \[((\mathbf{A}_{m \times n})^{\mathbf{T}})^{\mathbf{T}}=\mathbf{A}_{m \times n}\]
     }
     \pf{
         Since $a^{\mathbf{T}}_{ij}=a_{ji}$, then $(a^{\mathbf{T}}_{ij})^{\mathbf{T}}=(a_{ji})^{\mathbf{T}}=a_{ij}$
     }
 
     \cor{
-        $$(\mathbf{A}_{m \times n}+\mathbf{B}_{m \times n})^{\mathbf{T}}=(\mathbf{A}_{m \times n})^{\mathbf{T}}+(\mathbf{B}_{m \times n})^{\mathbf{T}}$$
+        \[(\mathbf{A}_{m \times n}+\mathbf{B}_{m \times n})^{\mathbf{T}}=(\mathbf{A}_{m \times n})^{\mathbf{T}}+(\mathbf{B}_{m \times n})^{\mathbf{T}}\]
     }
     \pf{
         Since $a^{\mathbf{T}}_{ij}=a_{ji}$ and $b^{\mathbf{T}}_{ij}=b_{ji}$, then $(a_{ij}+b_{ij})^{\mathbf{T}}=a_{ji}+b_{ji}=(a_{ji})^{\mathbf{T}}+b^{\mathbf{T}}_{ij}$
     }
 
     \cor{
-        $$(\mathbf{A}_{m \times n}\mathbf{B}_{m \times n})^{\mathbf{T}}=(\mathbf{B}_{m \times n})^{\mathbf{T}}(\mathbf{A}_{m \times n})^{\mathbf{T}}$$
+        \[(\mathbf{A}_{m \times n}\mathbf{B}_{m \times n})^{\mathbf{T}}=(\mathbf{B}_{m \times n})^{\mathbf{T}}(\mathbf{A}_{m \times n})^{\mathbf{T}}\]
     }
     \pf{
         Since $a^{\mathbf{T}}_{ij}=a_{ji}$ and $b^{\mathbf{T}}_{ij}=b_{ji}$, then
@@ -396,38 +422,38 @@
 
     \cor{
         If $\mathbf{A}$ is a square matrix, then the square matrix $\mathbf{A}+\mathbf{A}^{\mathbf{T}}$ is symmetric, and the square matrix $\mathbf{A}-\mathbf{A}^{\mathbf{T}}$ is skew symmetric.
-        $$\mathbf{A}_{n \times n}=\frac{1}{2}(\mathbf{A}_{n \times n}+(\mathbf{A}_{n \times n})^{\mathbf{T}})+\frac{1}{2}(\mathbf{A}_{n \times n}-(\mathbf{A}_{n \times n})^{\mathbf{T}})$$
+        \[\mathbf{A}_{n \times n}=\frac{1}{2}(\mathbf{A}_{n \times n}+(\mathbf{A}_{n \times n})^{\mathbf{T}})+\frac{1}{2}(\mathbf{A}_{n \times n}-(\mathbf{A}_{n \times n})^{\mathbf{T}})\]
     }
 
     \cor{
         $\mathbf{A}^{\mathbf{T}}\mathbf{A}$ is symmetric, $\mathbf{A}$ can be any size matrix.
-        $$((\mathbf{A}_{m \times n})^{\mathbf{T}}\mathbf{A}_{m \times n})^{\mathbf{T}}=(\mathbf{A}_{m \times n})^{\mathbf{T}}\mathbf{A}_{m \times n}$$
+        \[((\mathbf{A}_{m \times n})^{\mathbf{T}}\mathbf{A}_{m \times n})^{\mathbf{T}}=(\mathbf{A}_{m \times n})^{\mathbf{T}}\mathbf{A}_{m \times n}\]
     }
     \pf{
         Since $(\mathbf{A}\mathbf{B})^{\mathbf{T}}=\mathbf{B}^{\mathbf{T}}\mathbf{A}^{\mathbf{T}}$ and $(\mathbf{A}^{\mathbf{T}})^{\mathbf{T}}=\mathbf{A}$, then
-            $$((\mathbf{A}_{m \times n})^{\mathbf{T}}\mathbf{A}_{m \times n})^{\mathbf{T}}=(\mathbf{A}_{m \times n})^{\mathbf{T}}((\mathbf{A}_{m \times n})^{\mathbf{T}})^{\mathbf{T}}=(\mathbf{A}_{m \times n})^{\mathbf{T}}\mathbf{A}_{m \times n}$$
+            \[((\mathbf{A}_{m \times n})^{\mathbf{T}}\mathbf{A}_{m \times n})^{\mathbf{T}}=(\mathbf{A}_{m \times n})^{\mathbf{T}}((\mathbf{A}_{m \times n})^{\mathbf{T}})^{\mathbf{T}}=(\mathbf{A}_{m \times n})^{\mathbf{T}}\mathbf{A}_{m \times n}\]
     }
 }
 
 \section{Inner and outer products}{
     $\mathbf{u}$ and $\mathbf{v}$ are both n-by-1 column vectors.
-    $$\mathbf{u}=
-        \begin{pmatrix}
-            u_{1}\\
-            u_{2}\\
-            \vdots\\
-            u_{n}
-        \end{pmatrix}
-    ,
-    \mathbf{v}=
-        \begin{pmatrix}
-            v_{1}\\
-            v_{2}\\
-            \vdots\\
-            v_{n}
-        \end{pmatrix}
-    $$
-
+    \[
+        \mathbf{u}=
+            \begin{pmatrix}
+                u_{1}\\
+                u_{2}\\
+                \vdots\\
+                u_{n}
+            \end{pmatrix}
+        ,
+        \mathbf{v}=
+            \begin{pmatrix}
+                v_{1}\\
+                v_{2}\\
+                \vdots\\
+                v_{n}
+            \end{pmatrix}
+    \]
 
     \defn{Inner product or dot product or scalar product}{
         The inner product (or dot product or scalar product) between two vectors is obtained from the matrix product of a row vector times a column vector. A row vector can be obtained from a column vector by the transpose operator.
@@ -451,7 +477,7 @@
 
     \cor{
         The dot product of two vectors is the product of the magnitude of each vector and the cosine of the angle between them:
-        $$\mathbf{u \cdot v=\|u\|\|v\|cos\theta}$$.
+        \[\mathbf{u \cdot v=\|u\|\|v\|cos\theta}\].
     }
 
     \pf{
@@ -491,7 +517,7 @@
             \caption{The lengths of the sides of the triangle are given by the magnitudes of the vectors that form the triangle.}
         \end{figure}
         Recall from trigonometry that the law of cosines describes the relationship among the side lengths of the triangle and the angle $\theta$. Applying the law of cosines here gives
-        $$\|\mathbf{v-u}\|^{2}=\|\mathbf{v}\|^{2}+\|\mathbf{u}\|^{2}-2\|\mathbf{u}\|\|\mathbf{v}\|cos\theta$$.
+        \[\|\mathbf{v-u}\|^{2}=\|\mathbf{v}\|^{2}+\|\mathbf{u}\|^{2}-2\|\mathbf{u}\|\|\mathbf{v}\|cos\theta\].
         The dot product provides a way to rewrite the left side of Equation:
         \begin{align}
             \|\mathbf{v-u}\|^{2}&=(\mathbf{v-u})\cdot(\mathbf{v-u})\\
@@ -510,21 +536,21 @@
 
     \defn{Orthogonal Vector}{
         If the inner product between two nonzero vectors is zero, we say that the vectors are orthogonal.
-        $$\langle \mathbf{u}\mathbf{v} \rangle=\mathbf{u} \cdot \mathbf{v}=\mathbf{u}^{\mathbf{T}}\mathbf{v}=\mathbf{0}$$
+        \[\langle \mathbf{u}\mathbf{v} \rangle=\mathbf{u} \cdot \mathbf{v}=\mathbf{u}^{\mathbf{T}}\mathbf{v}=\mathbf{0}\]
     }
 
     \defn{The norm of a vector}{
-        $$\|\mathbf{u}\|=(\mathbf{u}^{\mathbf{T}}\mathbf{u})^{1/2}=(u^2_{1}+u^2_{2}+\cdots+u^2_{n})^{1/2}$$
+        \[\|\mathbf{u}\|=(\mathbf{u}^{\mathbf{T}}\mathbf{u})^{1/2}=(u^2_{1}+u^2_{2}+\cdots+u^2_{n})^{1/2}\]
     }
 
     \defn{Normalized Vector}{
         If the norm of a vector is equal to one, we say that the vector is normalized.
-        $$\|\mathbf{u}\|=1$$
+        \[\|\mathbf{u}\|=1\]
     }
 
     \defn{Orthonormal Vector}{
         If a set of vectors are mutually orthogonal and normalized, we say that these vectors are orthonormal.
-         $$\langle \mathbf{u}_{i}\mathbf{u}_{j} \rangle=(\mathbf{u}_{i})^{\mathbf{T}}\mathbf{u}_{j}=0\ (i \neq j)\ and\ \|\mathbf{u}_{n}\|=1$$
+         \[\langle \mathbf{u}_{i}\mathbf{u}_{j} \rangle=(\mathbf{u}_{i})^{\mathbf{T}}\mathbf{u}_{j}=0\ (i \neq j)\ and\ \|\mathbf{u}_{n}\|=1\]
     }
 
     \defn{Outer product}{
@@ -561,7 +587,7 @@
     }
     \pf{
         Let $\mathbf{A}$ be an m-by-n matrix. Then
-        $$\operatorname{Tr}(\mathbf{A}^{\mathbf{T}}\mathbf{A})=\sum_{j=1}^{n}(\mathbf{A}^{\mathbf{T}}\mathbf{A})_{jj}=\sum_{j=1}^{n}\sum_{i=1}^{m}(a_{ji})^{\mathbf{T}}a_{ij}=\sum_{j=1}^{n}\sum_{i=1}^{m}(a_{ij})^2$$
+        \[\operatorname{Tr}(\mathbf{A}^{\mathbf{T}}\mathbf{A})=\sum_{j=1}^{n}(\mathbf{A}^{\mathbf{T}}\mathbf{A})_{jj}=\sum_{j=1}^{n}\sum_{i=1}^{m}(a_{ji})^{\mathbf{T}}a_{ij}=\sum_{j=1}^{n}\sum_{i=1}^{m}(a_{ij})^2\]
         which is the sum of the squares of all the elements of A.
     }
 }
@@ -570,37 +596,37 @@
     \textbf{Square matrices} may have inverses, i.e. some matrices don't have inverses.
     \defn{Inverse matrix}{
         When a \textbf{square matrix} $\mathbf{A}$ has an inverse, we say it is invertible (or nonsingular) and denote its inverse by $\mathbf{A}^{-1}$. The inverse matrix satisfies
-        $$\mathbf{A}\mathbf{A}^{-1} = \mathbf{A}^{-1}\mathbf{A} = \mathbf{I}$$
+        \[\mathbf{A}\mathbf{A}^{-1} = \mathbf{A}^{-1}\mathbf{A} = \mathbf{I}\]
         If a \textbf{square matrix} $\mathbf{A}$ has no inverse, we say $\mathbf{A}$ is singular or non-invertible.
         \cite{CXone_2024}
     }
 
     \cor{
         If a \textbf{square matrix} $\mathbf{A}$ is invertible, then
-        $$(\mathbf{A}^{-1})^{-1}=\mathbf{A}$$
+        \[(\mathbf{A}^{-1})^{-1}=\mathbf{A}\]
     }
 
     \cor{
         If $\mathbf{A}$ and $\mathbf{B}$ are invertible matrices, then
-        $$(\mathbf{A}\mathbf{B})^{-1}=\mathbf{B}^{-1}\mathbf{A}^{-1}$$
+        \[(\mathbf{A}\mathbf{B})^{-1}=\mathbf{B}^{-1}\mathbf{A}^{-1}\]
     }
     \pf{
         From the definition of an inverse,
-        $$(\mathbf{A}\mathbf{B})^{-1}(\mathbf{A}\mathbf{B})=\mathbf{I}$$
-        $$(\mathbf{A}\mathbf{B})(\mathbf{A}\mathbf{B})^{-1}=\mathbf{I}$$
+        \[(\mathbf{A}\mathbf{B})^{-1}(\mathbf{A}\mathbf{B})=\mathbf{I}\]
+        \[(\mathbf{A}\mathbf{B})(\mathbf{A}\mathbf{B})^{-1}=\mathbf{I}\]
         Either multiply on the right by $\mathbf{B}^{-1}$, and then by $\mathbf{A}^{-1}$, or multiply on the left by $\mathbf{A}^{-1}$, and then by $\mathbf{B}^{-1}$, to obtain
-        $$(\mathbf{A}\mathbf{B})^{-1}=\mathbf{B}^{-1}\mathbf{A}^{-1}$$
+        \[(\mathbf{A}\mathbf{B})^{-1}=\mathbf{B}^{-1}\mathbf{A}^{-1}\]
     }
 
     \cor{
          if $\mathbf{A}$ is invertible, then so is $\mathbf{A}^{\mathbf{T}}$, and
-         $$(\mathbf{A}^{\mathbf{T}})^{-1} = (\mathbf{A}^{-1})^{\mathbf{T}}$$
+         \[(\mathbf{A}^{\mathbf{T}})^{-1}=(\mathbf{A}^{-1})^{\mathbf{T}}\]
     }
     \pf{
         We assume that A is invertible so that
-        $$\mathbf{A}\mathbf{A}^{-1}=\mathbf{I}\ and\ \mathbf{A}^{-1}\mathbf{A}=\mathbf{I}$$
+        \[\mathbf{A}\mathbf{A}^{-1}=\mathbf{I}\ and\ \mathbf{A}^{-1}\mathbf{A}=\mathbf{I}\]
         Taking the transpose of both sides of these two equations, using both $\mathbf{I}^{\mathbf{T}}=\mathbf{I}$ and $(\mathbf{A}\mathbf{B})^{\mathbf{T}} =\mathbf{B}^{\mathbf{T}}\mathbf{A}^{\mathbf{T}}$, we obtain
-        $$(\mathbf{A}\mathbf{A}^{-1})^{\mathbf{T}}=(\mathbf{A}^{-1})^{\mathbf{T}}\mathbf{A}^{\mathbf{T}}=\mathbf{I}^{\mathbf{T}}=\mathbf{I}\ and\ (\mathbf{A}^{-1}\mathbf{A})^{\mathbf{T}}=\mathbf{A}^{\mathbf{T}}(\mathbf{A}^{-1})^{\mathbf{T}}=\mathbf{I}^{\mathbf{T}}=\mathbf{I}$$.
+        \[(\mathbf{A}\mathbf{A}^{-1})^{\mathbf{T}}=(\mathbf{A}^{-1})^{\mathbf{T}}\mathbf{A}^{\mathbf{T}}=\mathbf{I}^{\mathbf{T}}=\mathbf{I}\ and\ (\mathbf{A}^{-1}\mathbf{A})^{\mathbf{T}}=\mathbf{A}^{\mathbf{T}}(\mathbf{A}^{-1})^{\mathbf{T}}=\mathbf{I}^{\mathbf{T}}=\mathbf{I}\].
         Therefore, since we have found that $(\mathbf{A}^{-1})^{\mathbf{T}}\mathbf{A}^{\mathbf{T}}=\mathbf{I}$ and $\mathbf{A}^{\mathbf{T}}(\mathbf{A}^{-1})^{\mathbf{T}}=\mathbf{I}$,
         we conclude that $\mathbf{A}^{\mathbf{T}}$ is invertible and that $(\mathbf{A}^{\mathbf{T}})^{-1}=(\mathbf{A}^{-1})^{\mathbf{T}}$.
     }
@@ -613,25 +639,29 @@
                 c & d
             \end{pmatrix}$
         , then the determinant of $\mathbf{A}$ is
-        $$\det\mathbf{A}=\det
-            \begin{pmatrix}
-                a & b\\
-                c & d
-            \end{pmatrix}
-            =ad-bc$$
-        Evidently, a two-by-two matrix A is invertible only if $\det{\mathbf{A}} \neq \mathbf{0}$.
-        $$\mathbf{A}^{-1}=
-            \frac{1}{\det\mathbf{A}}
+        \[
+            \det\mathbf{A}=\det
                 \begin{pmatrix}
-                    d & -b\\
-                    -c & a
+                    a & b \\
+                    c & d
                 \end{pmatrix}
-            =
-            \frac{1}{ad-bc}
-                \begin{pmatrix}
-                    d & -b\\
-                    -c & a
-                \end{pmatrix}$$
+                =ad-bc
+        \]
+        Evidently, a two-by-two matrix A is invertible only if $\det{\mathbf{A}} \neq \mathbf{0}$.
+        \[
+            \mathbf{A}^{-1}=
+                \frac{1}{\det\mathbf{A}}
+                    \begin{pmatrix}
+                        d & -b\\
+                        -c & a
+                    \end{pmatrix}
+                =
+                \frac{1}{ad-bc}
+                    \begin{pmatrix}
+                        d & -b\\
+                        -c & a
+                    \end{pmatrix}
+        \]
         Notice that the inverse of a two-by-two matrix, in words, is found by switching the diagonal elements of the matrix, negating the off-diagonal elements, and dividing by the determinant.
     }
     \pf{
@@ -647,29 +677,33 @@
             y_{1} & y_{2}
         \end{pmatrix}$
         . Then
-        $$\begin{pmatrix}
-            a & b\\
-            c & d
-        \end{pmatrix}
-        \begin{pmatrix}
-            x_{1} & x_{2}\\
-            y_{1} & y_{2}
-        \end{pmatrix}
-        =
-        \begin{pmatrix}
-            1 & 0\\
-            0 & 1
-        \end{pmatrix}$$
+        \[
+            \begin{pmatrix}
+                a & b\\
+                c & d
+            \end{pmatrix}
+            \begin{pmatrix}
+                x_{1} & x_{2}\\
+                y_{1} & y_{2}
+            \end{pmatrix}
+            =
+            \begin{pmatrix}
+                1 & 0\\
+                0 & 1
+            \end{pmatrix}
+        \]
         To solve, we can eliminate $y_{1}$ and $y_{2}$ using the two homogeneous equations, and find $x_{1}$ and $x_{2}$ using the two inhomogeneous equations. The solution for the inverse matrix is found to be
-        $$\begin{pmatrix}
-            a & b\\
-            c & d
-        \end{pmatrix}^{-1}
-        =\frac{1}{ad-bc}
-        \begin{pmatrix}
-            d & -b\\
-            -c & a
-        \end{pmatrix}$$
+        \[
+            \begin{pmatrix}
+                a & b\\
+                c & d
+            \end{pmatrix}^{-1}
+            =\frac{1}{ad-bc}
+            \begin{pmatrix}
+                d & -b\\
+                -c & a
+            \end{pmatrix}
+        \]
         The term $ad-bc$ is just the definition of the determinant of the two-by-two matrix.
     }
 
@@ -683,7 +717,7 @@
     }
     \pf{
         Let $\mathbf{A}$ be an invertible matrix, and suppose $\mathbf{B}$ and $\mathbf{C}$ are its inverse. To prove that $\mathbf{B}=\mathbf{C}$, we write
-        $$\mathbf{B}=\mathbf{B}\mathbf{I}=\mathbf{B}(\mathbf{A}\mathbf{C})=(\mathbf{B}\mathbf{A})\mathbf{C}=\mathbf{I}\mathbf{C}=\mathbf{C}$$
+        \[\mathbf{B}=\mathbf{B}\mathbf{I}=\mathbf{B}(\mathbf{A}\mathbf{C})=(\mathbf{B}\mathbf{A})\mathbf{C}=\mathbf{I}\mathbf{C}=\mathbf{C}\]
     }
 
 }
@@ -691,14 +725,14 @@
 \section{Orthogonal matrix}{
     \defn{Orthogonal matrix}{
         A square matrix Q with real entries that satisfies
-        $$\mathbf{Q}^{-1}=\mathbf{Q}^{\mathbf{T}}$$
+        \[\mathbf{Q}^{-1}=\mathbf{Q}^{\mathbf{T}}\]
         is called an orthogonal matrix. Another way to write this definition is
-        $$\mathbf{Q}\mathbf{Q}^{\mathbf{T}}=\mathbf{I}\ and\ \mathbf{Q}^{\mathbf{T}}\mathbf{Q}=\mathbf{I}$$
+        \[\mathbf{Q}\mathbf{Q}^{\mathbf{T}}=\mathbf{I}\ and\ \mathbf{Q}^{\mathbf{T}}\mathbf{Q}=\mathbf{I}\]
 
         Therefore, an equivalent definition of an orthogonal matrix is a square matrix with real entries whose columns (and also rows) form a set of orthonormal vectors.
 
         There is a third equivalent definition of an orthogonal matrix. Let $\mathbf{Q}$ be an n-by-n orthogonal matrix, and let $\mathbf{x}$ be an n-by-one column vector. Then the length squared of the vector $\mathbf{Qx}$ is given by
-        $$\|\mathbf{Qx}\|^2=\mathbf{(Qx)^T(Qx)}=\mathbf{x^TQ^TQx}=\mathbf{x^TIx}=\mathbf{x^Tx}=\|\mathbf{x}\|^2$$
+        \[\|\mathbf{Qx}\|^2=\mathbf{(Qx)^T(Qx)}=\mathbf{x^TQ^TQx}=\mathbf{x^TIx}=\mathbf{x^Tx}=\|\mathbf{x}\|^2\]
         The length of $\mathbf{Qx}$ is therefore equal to the length of $\mathbf{x}$, and we say that an orthogonal matrix is a matrix that preserves lengths.
     }
 }
@@ -706,15 +740,15 @@
 \section{Rotation matrices}{
     \cor{
         A matrix that rotates a vector in space doesn’t change the vector’s length and so should be an orthogonal matrix.
-        $$\mathbf{R}_{\theta}=
+        \[\mathbf{R}_{\theta}=
             \begin{pmatrix}
                 cos{\theta} & -sin{\theta}\\
                 sin{\theta} & cos{\theta}
-            \end{pmatrix}$$
-        $$(\mathbf{R}_{\theta})^{\mathbf{-1}}=(\mathbf{R}_{\theta})^{\mathbf{T}}$$
-        $$(\mathbf{R}_{\theta})^{\mathbf{T}}\mathbf{R}_{\theta}=\mathbf{I}$$
-        $$\mathbf{R}_{\theta}(\mathbf{R}_{\theta})^{\mathbf{T}}=\mathbf{I}$$
-        $$\|\mathbf{R}_{\theta}\mathbf{x}\|^2=(\mathbf{R}_{\theta}\mathbf{x})^{\mathbf{T}}(\mathbf{R}_{\theta}\mathbf{x})=\mathbf{x}^{\mathbf{T}}(\mathbf{R}_{\theta})^{\mathbf{T}}\mathbf{R}_{\theta}\mathbf{x}=\mathbf{x}^{\mathbf{T}}\mathbf{I}\mathbf{x}=\mathbf{x}^{\mathbf{T}}\mathbf{x}=\|\mathbf{x}\|^2$$
+            \end{pmatrix}\]
+        \[(\mathbf{R}_{\theta})^{\mathbf{-1}}=(\mathbf{R}_{\theta})^{\mathbf{T}}\]
+        \[(\mathbf{R}_{\theta})^{\mathbf{T}}\mathbf{R}_{\theta}=\mathbf{I}\]
+        \[\mathbf{R}_{\theta}(\mathbf{R}_{\theta})^{\mathbf{T}}=\mathbf{I}\]
+        \[\|\mathbf{R}_{\theta}\mathbf{x}\|^2=(\mathbf{R}_{\theta}\mathbf{x})^{\mathbf{T}}(\mathbf{R}_{\theta}\mathbf{x})=\mathbf{x}^{\mathbf{T}}(\mathbf{R}_{\theta})^{\mathbf{T}}\mathbf{R}_{\theta}\mathbf{x}=\mathbf{x}^{\mathbf{T}}\mathbf{I}\mathbf{x}=\mathbf{x}^{\mathbf{T}}\mathbf{x}=\|\mathbf{x}\|^2\]
     }
     \pf{
         \begin{figure}[H]
@@ -770,24 +804,26 @@
                          &=\mathbf{x}sin{\theta}+\mathbf{y}cos{\theta}
         \end{align}
         Writing the equations for $\mathbf{x}^{'}$ and $\mathbf{y}^{'}$ in matrix form, we have
-        $$\begin{pmatrix}
-            \mathbf{x}^{'}\\
-            \mathbf{y}^{'}
-        \end{pmatrix}
-        =
-        \begin{pmatrix}
-            cos{\theta} & -sin{\theta}\\
-            sin{\theta} & cos{\theta}
-        \end{pmatrix}
-        \begin{pmatrix}
-            \mathbf{x}\\
-            \mathbf{y}
-        \end{pmatrix}$$
+        \[
+            \begin{pmatrix}
+                \mathbf{x}^{'}\\
+                \mathbf{y}^{'}
+            \end{pmatrix}
+            =
+            \begin{pmatrix}
+                cos{\theta} & -sin{\theta}\\
+                sin{\theta} & cos{\theta}
+            \end{pmatrix}
+            \begin{pmatrix}
+                \mathbf{x}\\
+                \mathbf{y}
+            \end{pmatrix}
+        \]
         The above two-by-two matrix is a rotation matrix and we will denote it by $\mathbf{R}_{\theta}$. Observe that the rows and columns of $\mathbf{R}_{\theta}$ are orthonormal and that the inverse of $\mathbf{R}_{\theta}$ is just its transpose. The inverse of $\mathbf{R}_{\theta}$ rotates a vector by $-\theta$.
     }
 
     \cor{
-        $$\mathbf{R}_{(-\theta)}=(\mathbf{R}_{\theta})^{-1}$$
+        \[\mathbf{R}_{(-\theta)}=(\mathbf{R}_{\theta})^{-1}\]
     }
     \pf{
         Since $\mathbf{R}_{\theta}=
@@ -834,145 +870,166 @@
     }
 
     \cor{
-        $$\mathbf{PA=(PI)A}$$
+        \[\mathbf{PA=(PI)A}\]
         where P is a permutation matrix and PI is the identity matrix with permuted rows.
     }
 
     \cor{
         Six three-by-three permutation matrices:
-        $$\mathbf{P}_{123}=
-            \begin{pmatrix}
-                1 & 0 & 0\\
-                0 & 1 & 0\\
-                0 & 0 & 1
-            \end{pmatrix}
-        ,\
-        \mathbf{P}_{132}=
-            \begin{pmatrix}
-                1 & 0 & 0\\
-                0 & 0 & 1\\
-                0 & 1 & 0
-            \end{pmatrix}
-        ,\
-        \mathbf{P}_{213}=
-            \begin{pmatrix}
-                0 & 1 & 0\\
-                1 & 0 & 0\\
-                0 & 0 & 1
-            \end{pmatrix}
-        ,$$
-        $$\mathbf{P}_{231}=
-            \begin{pmatrix}
-                0 & 0 & 1\\
-                1 & 0 & 0\\
-                0 & 1 & 0
-            \end{pmatrix}
-        ,\
-        \mathbf{P}_{312}=
-            \begin{pmatrix}
-                0 & 1 & 0\\
-                0 & 0 & 1\\
-                1 & 0 & 0
-            \end{pmatrix}
-        ,\
-        \mathbf{P}_{321}=
-            \begin{pmatrix}
-                0 & 0 & 1\\
-                0 & 1 & 0\\
-                1 & 0 & 0
-            \end{pmatrix}
-        $$
+        \[
+            \mathbf{P}_{123}=
+                \begin{pmatrix}
+                    1 & 0 & 0\\
+                    0 & 1 & 0\\
+                    0 & 0 & 1
+                \end{pmatrix}
+            ,\
+            \mathbf{P}_{132}=
+                \begin{pmatrix}
+                    1 & 0 & 0\\
+                    0 & 0 & 1\\
+                    0 & 1 & 0
+                \end{pmatrix}
+            ,\
+            \mathbf{P}_{213}=
+                \begin{pmatrix}
+                    0 & 1 & 0\\
+                    1 & 0 & 0\\
+                    0 & 0 & 1
+                \end{pmatrix}
+            ,
+        \]
+        \[
+            \mathbf{P}_{231}=
+                \begin{pmatrix}
+                    0 & 0 & 1\\
+                    1 & 0 & 0\\
+                    0 & 1 & 0
+                \end{pmatrix}
+            ,\
+            \mathbf{P}_{312}=
+                \begin{pmatrix}
+                    0 & 1 & 0\\
+                    0 & 0 & 1\\
+                    1 & 0 & 0
+                \end{pmatrix}
+            ,\
+            \mathbf{P}_{321}=
+                \begin{pmatrix}
+                    0 & 0 & 1\\
+                    0 & 1 & 0\\
+                    1 & 0 & 0
+                \end{pmatrix}
+        \]
         The inverses of all three-by-three permutation matrices(Since they are all orthogonal matrices, $\mathbf{P}^{-1}=\mathbf{P}^{\mathbf{T}}$):
-        $$(\mathbf{P}_{123})^{-1}=(\mathbf{P}_{123})^{\mathbf{T}}
-            =
-            \begin{pmatrix}
-                1 & 0 & 0\\
-                0 & 1 & 0\\
-                0 & 0 & 1
-            \end{pmatrix}^{\mathbf{T}}
-            =
-            \begin{pmatrix}
-                1 & 0 & 0\\
-                0 & 1 & 0\\
-                0 & 0 & 1
-            \end{pmatrix}
-            =
-            \mathbf{P}_{123}$$
-        $$(\mathbf{P}_{132})^{-1}=(\mathbf{P}_{132})^{\mathbf{T}}
-            =
-            \begin{pmatrix}
-                1 & 0 & 0\\
-                0 & 0 & 1\\
-                0 & 1 & 0
-            \end{pmatrix}^{\mathbf{T}}
-            =
-            \begin{pmatrix}
-                1 & 0 & 0\\
-                0 & 0 & 1\\
-                0 & 1 & 0
-            \end{pmatrix}
-            =
-            \mathbf{P}_{132}$$
-        $$(\mathbf{P}_{213})^{-1}=(\mathbf{P}_{213})^{\mathbf{T}}
-            =
-            \begin{pmatrix}
-                0 & 1 & 0\\
-                1 & 0 & 0\\
-                0 & 0 & 1
-            \end{pmatrix}^{\mathbf{T}}
-            =
-            \begin{pmatrix}
-                0 & 1 & 0\\
-                1 & 0 & 0\\
-                0 & 0 & 1
-            \end{pmatrix}
-            =
-            \mathbf{P}_{213}$$
-        $$(\mathbf{P}_{231})^{-1}=(\mathbf{P}_{231})^{\mathbf{T}}
-            =
-            \begin{pmatrix}
-                0 & 0 & 1\\
-                1 & 0 & 0\\
-                0 & 1 & 0
-            \end{pmatrix}^{\mathbf{T}}
-            =
-            \begin{pmatrix}
-                0 & 1 & 0\\
-                0 & 0 & 1\\
-                1 & 0 & 0
-            \end{pmatrix}
-            =
-            \mathbf{P}_{312}$$
-        $$(\mathbf{P}_{312})^{-1}=(\mathbf{P}_{312})^{\mathbf{T}}
-            =
-            \begin{pmatrix}
-                0 & 1 & 0\\
-                0 & 0 & 1\\
-                1 & 0 & 0
-            \end{pmatrix}^{\mathbf{T}}
-            =
-            \begin{pmatrix}
-                0 & 0 & 1\\
-                1 & 0 & 0\\
-                0 & 1 & 0
-            \end{pmatrix}
-            =
-            \mathbf{P}_{231}$$
-        $$(\mathbf{P}_{321})^{-1}=(\mathbf{P}_{321})^{\mathbf{T}}
-            =
-            \begin{pmatrix}
-                0 & 0 & 1\\
-                0 & 1 & 0\\
-                1 & 0 & 0
-            \end{pmatrix}^{\mathbf{T}}
-            =
-            \begin{pmatrix}
-                0 & 0 & 1\\
-                0 & 1 & 0\\
-                1 & 0 & 0
-            \end{pmatrix}
-            =
-            \mathbf{P}_{321}$$
+        \[
+            (\mathbf{P}_{123})^{-1}=
+                (\mathbf{P}_{123})^{\mathbf{T}}
+                =
+                \begin{pmatrix}
+                    1 & 0 & 0\\
+                    0 & 1 & 0\\
+                    0 & 0 & 1
+                \end{pmatrix}^{\mathbf{T}}
+                =
+                \begin{pmatrix}
+                    1 & 0 & 0\\
+                    0 & 1 & 0\\
+                    0 & 0 & 1
+                \end{pmatrix}
+                =
+                \mathbf{P}_{123}
+        \]
+        \[
+            (\mathbf{P}_{132})^{-1}=
+                (\mathbf{P}_{132})^{\mathbf{T}}
+                =
+                \begin{pmatrix}
+                    1 & 0 & 0\\
+                    0 & 0 & 1\\
+                    0 & 1 & 0
+                \end{pmatrix}^{\mathbf{T}}
+                =
+                \begin{pmatrix}
+                    1 & 0 & 0\\
+                    0 & 0 & 1\\
+                    0 & 1 & 0
+                \end{pmatrix}
+                =
+                \mathbf{P}_{132}
+        \]
+        \[
+            (\mathbf{P}_{213})^{-1}=
+                (\mathbf{P}_{213})^{\mathbf{T}}
+                =
+                \begin{pmatrix}
+                    0 & 1 & 0\\
+                    1 & 0 & 0\\
+                    0 & 0 & 1
+                \end{pmatrix}^{\mathbf{T}}
+                =
+                \begin{pmatrix}
+                    0 & 1 & 0\\
+                    1 & 0 & 0\\
+                    0 & 0 & 1
+                \end{pmatrix}
+                =
+                \mathbf{P}_{213}
+        \]
+        \[
+            (\mathbf{P}_{231})^{-1}=
+                (\mathbf{P}_{231})^{\mathbf{T}}
+                =
+                \begin{pmatrix}
+                    0 & 0 & 1\\
+                    1 & 0 & 0\\
+                    0 & 1 & 0
+                \end{pmatrix}^{\mathbf{T}}
+                =
+                \begin{pmatrix}
+                    0 & 1 & 0\\
+                    0 & 0 & 1\\
+                    1 & 0 & 0
+                \end{pmatrix}
+                =
+                \mathbf{P}_{312}
+        \]
+        \[
+            (\mathbf{P}_{312})^{-1}=
+                (\mathbf{P}_{312})^{\mathbf{T}}
+                =
+                \begin{pmatrix}
+                    0 & 1 & 0\\
+                    0 & 0 & 1\\
+                    1 & 0 & 0
+                \end{pmatrix}^{\mathbf{T}}
+                =
+                \begin{pmatrix}
+                    0 & 0 & 1\\
+                    1 & 0 & 0\\
+                    0 & 1 & 0
+                \end{pmatrix}
+                =
+                \mathbf{P}_{231}
+        \]
+        \[
+            (\mathbf{P}_{321})^{-1}=
+                (\mathbf{P}_{321})^{\mathbf{T}}
+                =
+                \begin{pmatrix}
+                    0 & 0 & 1\\
+                    0 & 1 & 0\\
+                    1 & 0 & 0
+                \end{pmatrix}^{\mathbf{T}}
+                =
+                \begin{pmatrix}
+                    0 & 0 & 1\\
+                    0 & 1 & 0\\
+                    1 & 0 & 0
+                \end{pmatrix}
+                =
+                \mathbf{P}_{321}
+        \]
     }
 }
 
@@ -981,7 +1038,7 @@
 \section{Gaussian elimination}{
     \defn{Gaussian Elimination}{
         Gaussian elimination is a method for solving matrix equations of the form
-        $$\mathbf{A}\mathbf{x}=\mathbf{b}$$
+        \[\mathbf{A}\mathbf{x}=\mathbf{b}\]
         To perform Gaussian elimination starting with the system of equations
         \begin{equation}
             \begin{bmatrix}
@@ -1036,7 +1093,7 @@
 
     \cor{
         Solve the equation of the kth row for $\mathbf{x}_{k}$, then substitute back into the equation of the (k-1)st row to obtain a solution for $\mathbf{x}_{k-1}$, etc., according to the formula
-        $$x_{i}=\frac{1}{a_{ii}^{'}}\left(b_{i}^{'}-\sum_{j=i+1}^{n}a_{ij}^{'}x_{j}\right)$$
+        \[x_{i}=\frac{1}{a_{ii}^{'}}\left(b_{i}^{'}-\sum_{j=i+1}^{n}a_{ij}^{'}x_{j}\right)\]
     }
 
     \defn{pivot}{
@@ -1138,7 +1195,7 @@
     }
 
     \ex{
-        $$\mathbf{M_{3}M_{2}M_{1}A=U}$$
+        \[\mathbf{M_{3}M_{2}M_{1}A=U}\]
         where U is an upper triangular matrix.
     }
 }
@@ -1146,37 +1203,37 @@
 \section{LU decomposition}{
     \defn{LU decomposition}{
         A procedure for decomposing an matrix $\mathbf{A}$ into a product of a lower triangular matrix $\mathbf{L}$ and an upper triangular matrix $\mathbf{U}$,
-        $$\mathbf{LU=A}$$
+        \[\mathbf{LU=A}\]
     }
 
     \ex{
         If $\mathbf{M_{3}M_{2}M_{1}A=U}$, where U is an upper triangular matrix, then
-        $$\mathbf{L=M_{1}^{-1}M_{2}^{-1}M_{3}^{-1}}$$
+        \[\mathbf{L=M_{1}^{-1}M_{2}^{-1}M_{3}^{-1}}\]
     }
 }
 
 \section{Solving (LU)x = b}{
     \defn{Solving (LU)x = b}{
         The $\mathbf{LU}$ decomposition is useful when one needs to solve
-        $$\mathbf{Ax=b}$$
+        \[\mathbf{Ax=b}\]
         for $\mathbf{x}$ when the matrix $\mathbf{A}$ is fixed and there are many different $\mathbf{b}$’s. First one determines $\mathbf{L}$ and $\mathbf{U}$ using Gaussian elimination. Then one writes
-        $$\mathbf{(LU)x=L(Ux)=b}$$
+        \[\mathbf{(LU)x=L(Ux)=b}\]
         We let
-        $$\mathbf{y=Ux}$$
+        \[\mathbf{y=Ux}\]
         and first solve
-        $$\mathbf{Ly=b}$$
+        \[\mathbf{Ly=b}\]
         for $\mathbf{y}$. This can be done by forward substitution
         \ex{
-            $$y_{1}=\frac{b_{1}}{l_{11}}$$
-            $$y_{i}=\frac{1}{l_{ii}}\left(b_{i}-\sum_{j=1}^{i-1}l_{ij}y_{j}\right)$$
+            \[y_{1}=\frac{b_{1}}{l_{11}}\]
+            \[y_{i}=\frac{1}{l_{ii}}\left(b_{i}-\sum_{j=1}^{i-1}l_{ij}y_{j}\right)\]
             for square matrix A with $i=2,\ldots,n\text{ and }l_{ii}\neq0$.
         }\\
         Then solve
-        $$\mathbf{Ux=y}$$
+        \[\mathbf{Ux=y}\]
         for $\mathbf{x}$. This can be done by back substitution
         \ex{
-            $$x_{n}=\frac{y_{n}}{u_{nn}}$$
-            $$x_{i}=\frac{1}{u_{ii}}\left(y_{i}-\sum_{j=i+1}^{n}u_{ij}x_{j}\right)$$
+            \[x_{n}=\frac{y_{n}}{u_{nn}}\]
+            \[x_{i}=\frac{1}{u_{ii}}\left(y_{i}-\sum_{j=i+1}^{n}u_{ij}x_{j}\right)\]
             for square matrix A $i=n-1,\ldots,1\text{ and }u_{ii}\neq0$.
         }\\
         If we count operations, we can show that solving $\mathbf{(LU)x=b}$ is a factor of n faster once $\mathbf{L}$ and $\mathbf{U}$ are in hand than solving $\mathbf{Ax=b}$ directly by Gaussian elimination.
@@ -1221,13 +1278,13 @@
 
     \defn{Linearly independent Vectors}{
         A list of vectors $(\mathbf{v}_{1},\ldots,\mathbf{v}_{m})$ is called linearly independent if the only solution for $a_{1},\ldots,a_{m} \in \mathbf{F}$ to the equation
-        $$a_{1}\mathbf{v}_{1}+\ldots+a_{m}\mathbf{v}_{m}=0$$
+        \[a_{1}\mathbf{v}_{1}+\ldots+a_{m}\mathbf{v}_{m}=0\]
         is $a_{1}=\ldots=a_{m}=0$. In other words, the zero vector can only trivially be written as a linear combination of $(\mathbf{v}_{1},\ldots,\mathbf{v}_{m})$.
     }
 
     \defn{Linearly dependent Vectors}{
         A list of vectors $(\mathbf{v}_{1},\ldots,\mathbf{v}_{m})$ is called linearly dependent if it is not linearly independent. That is, $(\mathbf{v}_{1},\ldots,\mathbf{v}_{m})$ is linear dependent if there exist $a_{1},\ldots,a_{m} \in \mathbf{F}$, not all zero, such that
-        $$a_{1}\mathbf{v}_{1}+\ldots+a_{m}\mathbf{v}_{m}=0$$
+        \[a_{1}\mathbf{v}_{1}+\ldots+a_{m}\mathbf{v}_{m}=0\]
     }
 }
 
@@ -1236,7 +1293,7 @@
         The span of the set of vectors $(\mathbf{v}_{1},\mathbf{v}_{2},\ldots,\mathbf{v}_{n})$ is the vector space consisting of all linear combinations of $\mathbf{v}_{1},\mathbf{v}_{2},\ldots,\mathbf{v}_{n}$. We say that a set of vectors spans a vector space.
 
         Let $\{\mathbf{v}_{1},\ldots,\mathbf{v}_{n}\} \subseteq V$, then
-        $$\operatorname{span}\{\mathbf{v}_{1},\ldots,\mathbf{v}_{n}\}=\left\{\sum_{i=1}^{n}c_{i}\mathbf{v}_{i},c_{i} \in \mathbf{F}\right\}$$
+        \[\operatorname{span}\{\mathbf{v}_{1},\ldots,\mathbf{v}_{n}\}=\left\{\sum_{i=1}^{n}c_{i}\mathbf{v}_{i},c_{i} \in \mathbf{F}\right\}\]
     }
 
     \defn{Basis and Dimension}{
@@ -1251,7 +1308,7 @@
 
     \cor{
         Let $\mathbf{S}=\{\mathbf{v}_{1},\ldots,\mathbf{v}_{n}\}$ be a basis for a vector space V. Then every vector $\mathbf{w} \in \mathbf{V}$ can be written uniquely as a linear combination of vectors in the basis $\mathbf{S}$:
-        $$\mathbf{w}=c_{1}\mathbf{v}_{1}+\ldots+c_{n}\mathbf{v}_{n}$$
+        \[\mathbf{w}=c_{1}\mathbf{v}_{1}+\ldots+c_{n}\mathbf{v}_{n}\]
     }
 }
 
@@ -1259,25 +1316,25 @@
     \defn{Gram-Schmidt process}{
         Given any basis for a vector space, we can use an algorithm called the Gram-Schmidt process to construct an orthonormal basis for that space. Let the vectors $\mathbf{v}_{1},\mathbf{v}_{2},\cdots,\mathbf{v}_{n}$ be a basis for some n-dimensional vector space. We will assume here that these vectors are column matrices, but this process also applies more generally.\\
         We will construct an orthogonal basis $\mathbf{u}_{1},\mathbf{u}_{2},\cdots,\mathbf{u}_{n}$, and then normalize each vector to obtain an orthonormal basis. First, define $\mathbf{u}_{1}=\mathbf{v}_{1}$. To find the next orthogonal basis vector, define
-        $$\mathbf{u}_{2}=\mathbf{v}_{2}-\frac{(\mathbf{u}_{1}^{\mathbf{T}}\mathbf{v}_{2})\mathbf{u}_{1}}{\mathbf{u}_{1}^{\mathbf{T}}\mathbf{u}_{1}}$$.
+        \[\mathbf{u}_{2}=\mathbf{v}_{2}-\frac{(\mathbf{u}_{1}^{\mathbf{T}}\mathbf{v}_{2})\mathbf{u}_{1}}{\mathbf{u}_{1}^{\mathbf{T}}\mathbf{u}_{1}}\].
         Observe that $\mathbf{u}_{2}$ is equal to $\mathbf{v}_{2}$ minus the component of $\mathbf{v}_{2}$ that is parallel to $\mathbf{u}_{1}$. By multiplying both sides of this equation with $\mathbf{u}_{1}^{\mathbf{T}}$, it is easy to see that $\mathbf{u}_{1}^{\mathbf{T}}\mathbf{u}_{2}=0$ so that these two vectors are orthogonal.
         The next orthogonal vector in the new basis can be found from
-        $$\mathbf{u}_{3}=\mathbf{v}_{3}-\frac{(\mathbf{u}_{1}^{\mathbf{T}}\mathbf{v}_{3})\mathbf{u}_{1}}{\mathbf{u}_{1}^{\mathbf{T}}\mathbf{u}_{1}}-\frac{(\mathbf{u}_{2}^{\mathbf{T}}\mathbf{v}_{3})\mathbf{u}_{2}}{\mathbf{u}_{2}^{\mathbf{T}}\mathbf{u}_{2}}$$
+        \[\mathbf{u}_{3}=\mathbf{v}_{3}-\frac{(\mathbf{u}_{1}^{\mathbf{T}}\mathbf{v}_{3})\mathbf{u}_{1}}{\mathbf{u}_{1}^{\mathbf{T}}\mathbf{u}_{1}}-\frac{(\mathbf{u}_{2}^{\mathbf{T}}\mathbf{v}_{3})\mathbf{u}_{2}}{\mathbf{u}_{2}^{\mathbf{T}}\mathbf{u}_{2}}\]
         Here, $\mathbf{u}_{3}$ is equal to $\mathbf{v}_{3}$ minus the components of $\mathbf{v}_{3}$ that are parallel to $\mathbf{u}_{1}$ and $\mathbf{u}_{2}$. We can continue in this fashion to construct n orthogonal basis vectors.
-        $$\mathbf{u}_{k}=\mathbf{v}_{k}-\sum_{i=1}^{k-1}\frac{(\mathbf{u}_{i}^{\mathbf{T}}\mathbf{v}_{n})\mathbf{u}_{i}}{\mathbf{u}_{i}^{\mathbf{T}}\mathbf{u}_{i}}$$
+        \[\mathbf{u}_{k}=\mathbf{v}_{k}-\sum_{i=1}^{k-1}\frac{(\mathbf{u}_{i}^{\mathbf{T}}\mathbf{v}_{n})\mathbf{u}_{i}}{\mathbf{u}_{i}^{\mathbf{T}}\mathbf{u}_{i}}\]
         These vectors can then be normalized via
-        $$\mathbf{u}_{k}=\frac{\mathbf{u}_{k}}{(\mathbf{u}_{k}^{\mathbf{T}}\mathbf{u}_{k})^{1/2}}\text{, etc.}$$
+        \[\mathbf{u}_{k}=\frac{\mathbf{u}_{k}}{(\mathbf{u}_{k}^{\mathbf{T}}\mathbf{u}_{k})^{1/2}}\text{, etc.}\]
         Since $\mathbf{u}_{k}$ is a linear combination of $\mathbf{v}_{1},\mathbf{v}_{2},\cdots,\mathbf{v}_{k}$, the vector subspace spanned by the first k basis vectors of the original vector space is the same as the subspace spanned by the first k orthonormal vectors generated through the Gram-Schmidt process. We can write this result as
-        $$\operatorname{span}\{\mathbf{u}_{1},\mathbf{u}_{2},\cdots,\mathbf{u}_{k}\}=\operatorname{span}\{\mathbf{v}_{1},\mathbf{v}_{2},\cdots,\mathbf{v}_{k}\}$$
+        \[\operatorname{span}\{\mathbf{u}_{1},\mathbf{u}_{2},\cdots,\mathbf{u}_{k}\}=\operatorname{span}\{\mathbf{v}_{1},\mathbf{v}_{2},\cdots,\mathbf{v}_{k}\}\]
     }
 }
 
 \section{Null space}{
     \defn{Null space}{
         The null space of a matrix $\mathbf{A}$, which we denote as $\operatorname{Null}(\mathbf{A})$, is the vector space spanned by all column vectors $\mathbf{x}$ that satisfy the matrix equation
-        $$\mathbf{Ax=0}$$
+        \[\mathbf{Ax=0}\]
         For a matrix $\mathbf{A}\in\mathbb{R}^{m \times n}$, the null space of A is:
-        $$\operatorname{Null}(\mathbf{A})=\{\mathbf{x}\in\mathbb{R}^{n}\mid\mathbf{Ax=0}\}$$
+        \[\operatorname{Null}(\mathbf{A})=\{\mathbf{x}\in\mathbb{R}^{n}\mid\mathbf{Ax=0}\}\]
     }
 
     \cor{
@@ -1302,8 +1359,8 @@
 
     \cor{
         In general, the dimension of $\operatorname{Null}(\mathbf{A})$ is equal to the number of non-pivot columns of $\operatorname{rref}(\mathbf{A})$.
-        $$\operatorname{Null}(\mathbf{A})=\operatorname{Null}(\operatorname{rref}(\mathbf{A}))$$
-        $$\dim(\operatorname{Null}(\mathbf{A}))=\dim(\operatorname{Null}(\operatorname{rref}(\mathbf{A}))$$
+        \[\operatorname{Null}(\mathbf{A})=\operatorname{Null}(\operatorname{rref}(\mathbf{A}))\]
+        \[\dim(\operatorname{Null}(\mathbf{A}))=\dim(\operatorname{Null}(\operatorname{rref}(\mathbf{A}))\]
     }
 
     \defn{Basis for null space}{
@@ -1321,7 +1378,7 @@
             \item The vectors $v_{1},v_{2},\cdots,v_{k}$ form a basis for the null space of A.\\
                 The null space of $\mathbf{A}$ is the set of all vectors $\mathbf{x}$ that satisfy $\mathbf{Ax=0}$.\\
                 The vectors $v_{1},v_{2},\cdots,v_{k}$ span the null space and represent a basis for the null space.
-                $$\operatorname{Null}(\mathbf{A})=\operatorname{span}\{\mathbf{v}_{1},\ldots,\mathbf{v}_{k}\}$$
+                \[\operatorname{Null}(\mathbf{A})=\operatorname{span}\{\mathbf{v}_{1},\ldots,\mathbf{v}_{k}\}\]
         \end{enumerate}
     }
 }
@@ -1350,8 +1407,8 @@
 
     \cor{
         It should be self-evident that only the pivot columns of $\operatorname{rref}(\mathbf{A})$ are linearly independent, and the dimension of the column space of $\mathbf{A}$ $\operatorname{Col}(\mathbf{A})$ is therefore equal to its number of pivot columns.
-        $$\operatorname{Col}(\mathbf{A})=\operatorname{Col}(\operatorname{rref}(\mathbf{A}))\text{, if }\mathbf{A}\text{ \color{red}{full rank}.}$$
-        $$\dim(\operatorname{Col}(\mathbf{A}))=\dim(\operatorname{Col}(\operatorname{rref}(\mathbf{A}))$$
+        \[\operatorname{Col}(\mathbf{A})=\operatorname{Col}(\operatorname{rref}(\mathbf{A}))\text{, if }\mathbf{A}\text{ \color{red}{full rank}.}\]
+        \[\dim(\operatorname{Col}(\mathbf{A}))=\dim(\operatorname{Col}(\operatorname{rref}(\mathbf{A}))\]
     }
 
     \defn{Basis for column space}{
@@ -1360,7 +1417,7 @@
 
     \cor{
         Recall that the dimension of the null space is the number of non-pivot columns—equal to the number of free variables—so that the sum of the dimensions of the null space and the column space is equal to the total number of columns. A statement of this theorem is as follows. Let A be an m-by-n matrix. Then
-        $$\dim(\operatorname{Col}(\mathbf{A}))+\dim(\operatorname{Null}(\mathbf{A}))=\mathbf{n}$$
+        \[\dim(\operatorname{Col}(\mathbf{A}))+\dim(\operatorname{Null}(\mathbf{A}))=\mathbf{n}\]
     }
 }
 
@@ -1375,8 +1432,8 @@
     }
 
     \cor{
-        $$\operatorname{LeftNull}(\mathbf{A})=\operatorname{Null}(\mathbf{A}^{\mathbf{T}})$$
-        $$\operatorname{LeftNull}(\mathbf{A}^{\mathbf{T}})=\operatorname{Null}((\mathbf{A}^{\mathbf{T}})^{\mathbf{T}})=\operatorname{Null}(\mathbf{A})$$
+        \[\operatorname{LeftNull}(\mathbf{A})=\operatorname{Null}(\mathbf{A}^{\mathbf{T}})\]
+        \[\operatorname{LeftNull}(\mathbf{A}^{\mathbf{T}})=\operatorname{Null}((\mathbf{A}^{\mathbf{T}})^{\mathbf{T}})=\operatorname{Null}(\mathbf{A})\]
     }
 
     \defn{Row space}{
@@ -1393,8 +1450,8 @@
     }
 
     \cor{
-        $$\operatorname{Row}(\mathbf{A})=\operatorname{Col}(\mathbf{A}^{\mathbf{T}})$$
-        $$\operatorname{Row}(\mathbf{A}^{\mathbf{T}})=\operatorname{Col}((\mathbf{A}^{\mathbf{T}})^{\mathbf{T}})=\operatorname{Col}(\mathbf{A})$$
+        \[\operatorname{Row}(\mathbf{A})=\operatorname{Col}(\mathbf{A}^{\mathbf{T}})\]
+        \[\operatorname{Row}(\mathbf{A}^{\mathbf{T}})=\operatorname{Col}((\mathbf{A}^{\mathbf{T}})^{\mathbf{T}})=\operatorname{Col}(\mathbf{A})\]
     }
 
     \defn{Basis for row space}{
@@ -1407,16 +1464,16 @@
 
     \cor{
         The null space consists of all vectors $\mathbf{x}$ such that $\mathbf{Ax=0}$, that is, the null space is the set of all vectors that are orthogonal to the row space of $\mathbf{A}$. We say that these two vector spaces are orthogonal.
-        $$\operatorname{Null}(\mathbf{A})\perp\operatorname{Row}(\mathbf{A})$$
+        \[\operatorname{Null}(\mathbf{A})\perp\operatorname{Row}(\mathbf{A})\]
     }
 
     \cor{
         A basis for the row space of a matrix can be found from computing rref(A), and is found to be rows of rref(A) (written as column vectors) with pivot columns. The dimension of the row space of A is therefore equal to the number of pivot columns, while the dimension of the null space of A is equal to the number of nonpivot columns.
-        $$\operatorname{Null}(\mathbf{A})=\operatorname{Null}(\operatorname{rref}(\mathbf{A}))$$
-        $$\operatorname{Row}(\mathbf{A})=\operatorname{Row}(\operatorname{rref}(\mathbf{A}))$$
+        \[\operatorname{Null}(\mathbf{A})=\operatorname{Null}(\operatorname{rref}(\mathbf{A}))\]
+        \[\operatorname{Row}(\mathbf{A})=\operatorname{Row}(\operatorname{rref}(\mathbf{A}))\]
         The union of these two subspaces make up the vector space of all n-by-one matrices and we say that these subspaces are orthogonal complements of each other.
-        $$\operatorname{Null}(\mathbf{A})=\operatorname{Row}(\mathbf{A})^\perp$$
-        $$\operatorname{Row}(\mathbf{A})=\operatorname{Null}(\mathbf{A})^\perp$$
+        \[\operatorname{Null}(\mathbf{A})=\operatorname{Row}(\mathbf{A})^\perp\]
+        \[\operatorname{Row}(\mathbf{A})=\operatorname{Null}(\mathbf{A})^\perp\]
     }
 
     \defn{}{
@@ -1426,7 +1483,7 @@
     \defn{Rank}{
         The rank of a matrix $\mathbf{A}_{m \times n}$, written $\operatorname{rank}(\mathbf{A})$, is the dimension of the column space $\operatorname{Col}(\mathbf{A})$,
         which is also equal to the number of pivot columns, so that the dimensions of the column space and the row space of a matrix are equal.
-        $$\operatorname{rank}(\mathbf{A})=\operatorname{rank}(\mathbf{A}^\mathbf{{T}})=\dim(\operatorname{Col}(\mathbf{A}))=\dim(\operatorname{Row}(\mathbf{A}))\leq\min\{m,n\}$$
+        \[\operatorname{rank}(\mathbf{A})=\operatorname{rank}(\mathbf{A}^\mathbf{{T}})=\dim(\operatorname{Col}(\mathbf{A}))=\dim(\operatorname{Row}(\mathbf{A}))\leq\min\{m,n\}\]
         We call this dimension the rank of the matrix A.
     }
 
@@ -1732,12 +1789,12 @@
 \section{Orthogonal projections}{
     \defn{Orthogonal projections}{
         Suppose that $\mathbf{V}$ is an n-dimensional vector space and W is a p-dimensional subspace of $\mathbf{V}$. Let $\{\mathbf{s}_{1},\mathbf{s}_{2},\cdots,\mathbf{s}_{p}\}$ be an orthonormal basis for $\mathbf{W}$. Extending the basis for $\mathbf{W}$, let $\{\mathbf{s}_{1},s2_{2},\cdots,\mathbf{s}_{p},\mathbf{t}_{1},\mathbf{t}_{2},\cdots,\mathbf{t}_{n-p}\}$ be an orthonormal basis for $\mathbf{V}$.\\
-        Any vector $\mathbf{v}$ in V can be written in terms of the basis for $\mathbf{V}$ as $$\mathbf{v}=a_{1}\mathbf{s}_{1}+a_{2}\mathbf{s}_{2}+\cdots+a_{p}\mathbf{s}_{p}+b_{1}\mathbf{t}_{1}+b_{2}\mathbf{t}_{2}+b_{n-p}\mathbf{t}_{n-p}$$
+        Any vector $\mathbf{v}$ in V can be written in terms of the basis for $\mathbf{V}$ as \[\mathbf{v}=a_{1}\mathbf{s}_{1}+a_{2}\mathbf{s}_{2}+\cdots+a_{p}\mathbf{s}_{p}+b_{1}\mathbf{t}_{1}+b_{2}\mathbf{t}_{2}+b_{n-p}\mathbf{t}_{n-p}\]
         The orthogonal projection of $\mathbf{v}$ onto $\mathbf{W}$ is then defined as
-        $$\mathbf{v}_{proj_{W}}=a_{1}\mathbf{s}_{1}+a_{2}\mathbf{s}_{2}+\cdots+a_{p}\mathbf{s}_{p}$$
+        \[\mathbf{v}_{proj_{W}}=a_{1}\mathbf{s}_{1}+a_{2}\mathbf{s}_{2}+\cdots+a_{p}\mathbf{s}_{p}\]
         , that is, the part of $\mathbf{v}$ that lies in $\mathbf{W}$.
         If you only know the vector $\mathbf{v}$ and the orthonormal basis for $\mathbf{W}$, then the orthogonal projection of $\mathbf{v}$ onto $\mathbf{W}$ can be computed from
-        $$\mathbf{v}_{proj_{W}}=(\mathbf{v}^{\mathbf{T}}\mathbf{s}_{1})\mathbf{s}_{1}+(\mathbf{v}^{\mathbf{T}}\mathbf{s}_{2})\mathbf{s}_{2}+\cdots+(\mathbf{v}^{\mathbf{T}}\mathbf{s}_{p})\mathbf{s}_{p}$$
+        \[\mathbf{v}_{proj_{W}}=(\mathbf{v}^{\mathbf{T}}\mathbf{s}_{1})\mathbf{s}_{1}+(\mathbf{v}^{\mathbf{T}}\mathbf{s}_{2})\mathbf{s}_{2}+\cdots+(\mathbf{v}^{\mathbf{T}}\mathbf{s}_{p})\mathbf{s}_{p}\]
         , that is, $a_{1}=\mathbf{v}^{\mathbf{T}}\mathbf{s}_{1},a2=\mathbf{v}^{\mathbf{T}}\mathbf{s}_{2}$, etc.
     }
 
@@ -1746,11 +1803,11 @@
     }
     \pf{
         Let $\mathbf{w}$ be any vector in W different than $\mathbf{v}_{proj_{W}}$, and expand $\mathbf{w}$ in terms of the basis vectors for $\mathbf{W}$:
-        $$\mathbf{w}=c_{1}\mathbf{s}_{1}+c_{2}\mathbf{s}_{2}+\cdots+c_{p}\mathbf{s}_{p}$$
+        \[\mathbf{w}=c_{1}\mathbf{s}_{1}+c_{2}\mathbf{s}_{2}+\cdots+c_{p}\mathbf{s}_{p}\]
         The distance between $\mathbf{v}$ and $\mathbf{w}$ is given by the norm $\|\mathbf{v-w}\|$, and we have
-        $$\|\mathbf{v}-\mathbf{w}\|^{2}=(a_{1}-c_{1})^{2}+(a_{2}-c_{2})^{2}+\cdots+(a_{p}-c_{p})^{2}+b_{1}^{2}+b_{2}^{2}+\cdots+b_{n-p}^{2} \geq b_{1}^{2}+b_{2}^{2}+\cdots+b_{n-p}^{2}=\|\mathbf{v}-\mathbf{v}_{proj_{W}}\|^{2}$$
+        \[\|\mathbf{v}-\mathbf{w}\|^{2}=(a_{1}-c_{1})^{2}+(a_{2}-c_{2})^{2}+\cdots+(a_{p}-c_{p})^{2}+b_{1}^{2}+b_{2}^{2}+\cdots+b_{n-p}^{2} \geq b_{1}^{2}+b_{2}^{2}+\cdots+b_{n-p}^{2}=\|\mathbf{v}-\mathbf{v}_{proj_{W}}\|^{2}\]
         , or
-        $$\|\mathbf{v}-\mathbf{v}_{proj_{W}}\|^{2} \leq \|\mathbf{v}-\mathbf{w}\|^{2}$$
+        \[\|\mathbf{v}-\mathbf{v}_{proj_{W}}\|^{2} \leq \|\mathbf{v}-\mathbf{w}\|^{2}\]
         , a result that will be used later in the problem of least squares.
     }
 }
@@ -1758,12 +1815,12 @@
 \section{The least-squares problem}{
     \clm{The least-squares problem}{
         In general, let the data consist of a set of n points given by $(x_{1},y_{1}),(x_{2},y_{2}),\cdots,(x_{n},y_{n})$. Here, the x values are exact, and the y values are noisy. We assume that a line of the form
-        $$y=\beta_{0}+\beta_{1}x$$
+        \[y=\beta_{0}+\beta_{1}x\]
         is the best fit to the data. Although we know that the line will not go through all of the data points, we can still write down the resulting equations. We have
-        $$y_{1}=\beta_{0}+\beta_{1}x_{1}$$
-        $$y_{2}=\beta_{0}+\beta_{1}x_{2}$$
-        $$\vdots$$
-        $$y_{n}=\beta_{0}+\beta_{1}x_{n}$$
+        \[y_{1}=\beta_{0}+\beta_{1}x_{1}\]
+        \[y_{2}=\beta_{0}+\beta_{1}x_{2}\]
+        \[\vdots\]
+        \[y_{n}=\beta_{0}+\beta_{1}x_{n}\]
         These equations are a system of n equations in the two unknowns $\beta_{0}$ and $\beta_{1}$. The corresponding matrix equation is given by
         \begin{equation}
             \begin{pmatrix}
@@ -1786,7 +1843,7 @@
         \end{equation}
         This is an overdetermined system of equations that obviously has no solution. The problem of least-squares is to find the best solution of these equations for $\beta_{0}$ and $\beta_{1}$.\\
         We can generalize this problem as follows. Suppose we are given the matrix equation
-        $$\mathbf{A}\mathbf{x}=\mathbf{b}$$
+        \[\mathbf{A}\mathbf{x}=\mathbf{b}\]
         that has no solution because $\mathbf{b}$ is not in the column space of $\mathbf{A}$. Instead of exactly solving this matrix equation, we want to solve another approximate equation that minimizes the error between $\mathbf{A}\mathbf{x}$ and $\mathbf{b}$. The error can be defined as the norm of $\mathbf{A}\mathbf{x}-\mathbf{b}$, and the square of the error is just the sum of the squares of the components.
     }
 }
@@ -1794,17 +1851,17 @@
 \section{Solution of the least-squares problem}{
     \clm{Solution of the least-squares problem}{
         We want to find the least-squares solution to an overdetermined matrix equation $\mathbf{A}\mathbf{x}=\mathbf{b}$. We write $\mathbf{b}=\mathbf{b}_{proj_{\operatorname{Col}(\mathbf{A})}}+(\mathbf{b}-\mathbf{b}_{proj_{\operatorname{Col}(\mathbf{A})}})$, where $\mathbf{b}_{proj_{\operatorname{Col}(\mathbf{A})}}$ is the projection of b onto the column space of $\mathbf{A}$.
-        $$\mathbf{b}_{proj_{\operatorname{Col}(\mathbf{A})}}=\mathbf{A}\mathbf{x}$$
+        \[\mathbf{b}_{proj_{\operatorname{Col}(\mathbf{A})}}=\mathbf{A}\mathbf{x}\]
         Since $(\mathbf{b}-\mathbf{b}_{proj_{\operatorname{Col}(\mathbf{A})}})$ is orthogonal to the column space of $\mathbf{A}$,
         \begin{align}
             (\mathbf{b}-\mathbf{b}_{proj_{\operatorname{Col}(\mathbf{A})}})\perp\operatorname{Col(\mathbf{A})}&\Longleftrightarrow{(\mathbf{b}-\mathbf{b}_{proj_{\operatorname{Col}(\mathbf{A})}})\perp\operatorname{Row(\mathbf{A}^{\mathbf{T}})}}\\
                                                               &\Longleftrightarrow{(\mathbf{b}-\mathbf{b}_{proj_{\operatorname{Col}(\mathbf{A})}})\in\operatorname{Null(\mathbf{A}^{\mathbf{T}})}}
         \end{align}
         it is in the nullspace of $\mathbf{A}^{\mathbf{T}}$, that is,
-        $$\mathbf{A}^{\mathbf{T}}(\mathbf{b}-\mathbf{b}_{proj_{\operatorname{Col}(\mathbf{A})}})=\mathbf{0}$$
-        $$\mathbf{A}^{\mathbf{T}}(\mathbf{b}-\mathbf{A}\mathbf{x})=\mathbf{0}$$
+        \[\mathbf{A}^{\mathbf{T}}(\mathbf{b}-\mathbf{b}_{proj_{\operatorname{Col}(\mathbf{A})}})=\mathbf{0}\]
+        \[\mathbf{A}^{\mathbf{T}}(\mathbf{b}-\mathbf{A}\mathbf{x})=\mathbf{0}\]
         then
-        $$\mathbf{A}^{\mathbf{T}}\mathbf{A}\mathbf{x}=\mathbf{A}^{\mathbf{T}}\mathbf{b}$$
+        \[\mathbf{A}^{\mathbf{T}}\mathbf{A}\mathbf{x}=\mathbf{A}^{\mathbf{T}}\mathbf{b}\]
         It results in a solvable set of equations, called the \textbf{normal equations} for Ax = b.\\
         A unique solution to this matrix equation exists when the columns of $\mathbf{A}$ are linearly independent. An interesting formula exists for the matrix which projects $\mathbf{b}$ onto the column space of $\mathbf{A}$. Multiplying the normal equations on the left by $\mathbf{A}(\mathbf{A}^{\mathbf{T}}\mathbf{A})^{-1}$, we obtain
         \begin{align}
@@ -1847,12 +1904,14 @@
             c & d
         \end{pmatrix}$
         , then its determinant is
-        $$\det\mathbf{A}=
-            \begin{vmatrix}
-                a & b\\
-                c & d
-            \end{vmatrix}
-            =ad-bc$$
+        \[
+            \det\mathbf{A}=
+                \begin{vmatrix}
+                    a & b\\
+                    c & d
+                \end{vmatrix}
+                =ad-bc
+        \]
     }
 
     \defn{Three-by-three matrix determinant}{
@@ -1863,46 +1922,48 @@
             g & h & i
         \end{pmatrix}$
         , then its determinant is
-        $$\det\mathbf{A}=
-            \begin{vmatrix}
-                a & b & c\\
-                d & e & f\\
-                g & h & i
-            \end{vmatrix}
-            =aei+bfg+cdh-ceg-bdi-afh$$
+        \[
+            \det\mathbf{A}=
+                \begin{vmatrix}
+                    a & b & c\\
+                    d & e & f\\
+                    g & h & i
+                \end{vmatrix}
+                =aei+bfg+cdh-ceg-bdi-afh
+        \]
     }
 
     \cor{
         The square matrix $\mathbf{A}_{n \times n}$ is invertible (or nonsingular)\\
-        $\Longleftrightarrow$$\mathbf{A}_{n \times n}\mathbf{A}_{n \times n}^{-1}=\mathbf{A}_{n \times n}^{-1}\mathbf{A}_{n \times n}=\mathbf{I}$\\
-        $\Longleftrightarrow$$\det(\mathbf{A}_{n \times n})\neq0$\\
-        $\Longleftrightarrow$$\mathbf{A}_{n \times n}$ is full rank, that is $\operatorname{rank}(\mathbf{A}_{n \times n})=\dim(\operatorname{Col}(\mathbf{A}_{n \times n}))=\dim(\operatorname{Row}(\mathbf{A}_{n \times n}))=n$\\
-        $\Longleftrightarrow$$\dim(\operatorname{Null}(\mathbf{A}_{n \times n}))=0$\\
-        $\Longleftrightarrow$$\dim(\operatorname{LeftNull}(\mathbf{A}_{n \times n}))=0$\\
-        $\Longleftrightarrow$The columns of $\mathbf{A}_{n \times n}$ are linearly independent\\
-        $\Longleftrightarrow$The rows of $\mathbf{A}_{n \times n}$ are linearly independent\\
-        $\Longleftrightarrow$The homogeneous equation $\mathbf{A}_{n \times n}\mathbf{x}=\mathbf{0}$ has only the trivial solution $\mathbf{x}=\mathbf{A}_{n \times n}^{-1}(\mathbf{A}_{n \times n}\mathbf{x})=\mathbf{A}_{n \times n}^{-1}\mathbf{0}=\mathbf{0}$\\
-        $\Longleftrightarrow$The equation $\mathbf{A}_{n \times n}\mathbf{x}=\mathbf{b}$ has the unique solution $\mathbf{x}=\mathbf{A}_{n \times n}^{-1}(\mathbf{A}_{n \times n}\mathbf{x})=\mathbf{A}_{n \times n}^{-1}\mathbf{b}$\\
-        $\Longleftrightarrow$The reduced row echelon form of $\mathbf{A}_{n \times n}$ is the identity matrix: $\operatorname{rref}(\mathbf{A}_{n \times n})=\mathbf{I}_{n \times n}$\\
-        $\Longleftrightarrow$0 is not eigenvalue of $\mathbf{A}_{n \times n}$
+        $\Longleftrightarrow$ $\mathbf{A}_{n \times n}\mathbf{A}_{n \times n}^{-1}=\mathbf{A}_{n \times n}^{-1}\mathbf{A}_{n \times n}=\mathbf{I}$\\
+        $\Longleftrightarrow$ $\det(\mathbf{A}_{n \times n})\neq0$\\
+        $\Longleftrightarrow$ $\mathbf{A}_{n \times n}$ is full rank, that is $\operatorname{rank}(\mathbf{A}_{n \times n})=\dim(\operatorname{Col}(\mathbf{A}_{n \times n}))=\dim(\operatorname{Row}(\mathbf{A}_{n \times n}))=n$\\
+        $\Longleftrightarrow$ $\dim(\operatorname{Null}(\mathbf{A}_{n \times n}))=0$\\
+        $\Longleftrightarrow$ $\dim(\operatorname{LeftNull}(\mathbf{A}_{n \times n}))=0$\\
+        $\Longleftrightarrow$ The columns of $\mathbf{A}_{n \times n}$ are linearly independent\\
+        $\Longleftrightarrow$ The rows of $\mathbf{A}_{n \times n}$ are linearly independent\\
+        $\Longleftrightarrow$ The homogeneous equation $\mathbf{A}_{n \times n}\mathbf{x}=\mathbf{0}$ has only the trivial solution $\mathbf{x}=\mathbf{A}_{n \times n}^{-1}(\mathbf{A}_{n \times n}\mathbf{x})=\mathbf{A}_{n \times n}^{-1}\mathbf{0}=\mathbf{0}$\\
+        $\Longleftrightarrow$ The equation $\mathbf{A}_{n \times n}\mathbf{x}=\mathbf{b}$ has the unique solution $\mathbf{x}=\mathbf{A}_{n \times n}^{-1}(\mathbf{A}_{n \times n}\mathbf{x})=\mathbf{A}_{n \times n}^{-1}\mathbf{b}$\\
+        $\Longleftrightarrow$ The reduced row echelon form of $\mathbf{A}_{n \times n}$ is the identity matrix: $\operatorname{rref}(\mathbf{A}_{n \times n})=\mathbf{I}_{n \times n}$\\
+        $\Longleftrightarrow$ 0 is not eigenvalue of $\mathbf{A}_{n \times n}$
     }
 
     \cor{
         The square matrix $\mathbf{A}_{n \times n}$ is not invertible (or singular)\\
-        $\Longleftrightarrow$$\det(\mathbf{A}_{n \times n})=0$\\
-        $\Longleftrightarrow$$\mathbf{A}_{n \times n}$ is not full rank, that is $\operatorname{rank}(\mathbf{A}_{n \times n})=\dim(\operatorname{Col}(\mathbf{A}_{n \times n}))=\dim(\operatorname{Row}(\mathbf{A}_{n \times n}))<n$\\
-        $\Longleftrightarrow$$\dim(\operatorname{Null}(\mathbf{A}_{n \times n}))>0$\\
-        $\Longleftrightarrow$$\dim(\operatorname{LeftNull}(\mathbf{A}_{n \times n}))>0$\\
-        $\Longleftrightarrow$The columns of $\mathbf{A}_{n \times n}$ are linearly dependent\\
-        $\Longleftrightarrow$The rows of $\mathbf{A}_{n \times n}$ are linearly dependent\\
-        $\Longleftrightarrow$The homogeneous equation $\mathbf{A}_{n \times n}\mathbf{x}=\mathbf{0}$ has non-trivial solution
+        $\Longleftrightarrow$ $\det(\mathbf{A}_{n \times n})=0$\\
+        $\Longleftrightarrow$ $\mathbf{A}_{n \times n}$ is not full rank, that is $\operatorname{rank}(\mathbf{A}_{n \times n})=\dim(\operatorname{Col}(\mathbf{A}_{n \times n}))=\dim(\operatorname{Row}(\mathbf{A}_{n \times n}))<n$\\
+        $\Longleftrightarrow$ $\dim(\operatorname{Null}(\mathbf{A}_{n \times n}))>0$\\
+        $\Longleftrightarrow$ $\dim(\operatorname{LeftNull}(\mathbf{A}_{n \times n}))>0$\\
+        $\Longleftrightarrow$ The columns of $\mathbf{A}_{n \times n}$ are linearly dependent\\
+        $\Longleftrightarrow$ The rows of $\mathbf{A}_{n \times n}$ are linearly dependent\\
+        $\Longleftrightarrow$ The homogeneous equation $\mathbf{A}_{n \times n}\mathbf{x}=\mathbf{0}$ has non-trivial solution
         \begin{itemize}
             \item i.e., there exists a non-zero vector $\mathbf{v}$ such that $\mathbf{A}_{n \times n}\mathbf{v}=\mathbf{0}$
         \end{itemize}
-        $\Longleftrightarrow$The equation $\mathbf{A}_{n \times n}\mathbf{x}=\mathbf{b}$ may have no solution or an infinite number of solutions for some $\mathbf{b}$.\\
-        $\Longleftrightarrow$The reduced row echelon form of $\mathbf{A}_{n \times n}$ has at least one row of zeros\\
-        $\Longleftrightarrow$$\mathbf{A}_{n \times n}$ cannot be reduced to the identity matrix through elementary row operations\\
-        $\Longleftrightarrow$0 is an eigenvalue of $\mathbf{A}_{n \times n}$
+        $\Longleftrightarrow$ The equation $\mathbf{A}_{n \times n}\mathbf{x}=\mathbf{b}$ may have no solution or an infinite number of solutions for some $\mathbf{b}$.\\
+        $\Longleftrightarrow$ The reduced row echelon form of $\mathbf{A}_{n \times n}$ has at least one row of zeros\\
+        $\Longleftrightarrow$ $\mathbf{A}_{n \times n}$ cannot be reduced to the identity matrix through elementary row operations\\
+        $\Longleftrightarrow$ 0 is an eigenvalue of $\mathbf{A}_{n \times n}$
         \begin{itemize}
             \item equivalently, the characteristic equation $\det(\mathbf{A}_{n \times n}-\lambda\mathbf{I})=0$ has $\lambda=0$ as a root
         \end{itemize}
@@ -1910,21 +1971,21 @@
 
     \cor{
         If we have square matrices $\mathbf{A}_{n \times n}$ and $\mathbf{B}_{n \times n}$, then
-        $$\det(\mathbf{A}\mathbf{B})=\det(\mathbf{A})\det(\mathbf{B})$$
+        \[\det(\mathbf{A}\mathbf{B})=\det(\mathbf{A})\det(\mathbf{B})\]
     }
 }
 
 \section{Laplace expansion}{
     \defn{Laplace expansion or cofactor expansion or expansion by minors}{
         For an $n \times n$ square matrix $\mathbf{A}$, the determinant $\det(\mathbf{A}_{n \times n})$ can be computed using Laplace expansion along the i-th row as follows:
-        $$\det(\mathbf{A}_{n \times n})=\sum_{j=1}^{n}(-1)^{i+j}a_{ij}\det(\mathbf{A}_{ij})$$
+        \[\det(\mathbf{A}_{n \times n})=\sum_{j=1}^{n}(-1)^{i+j}a_{ij}\det(\mathbf{A}_{ij})\]
         \begin{itemize}
             \item $a_{ij}$ is the element in the i-th row and j-th column of $\mathbf{A}$.
             \item $\mathbf{A}_{ij}$ is the $(n-1)\times(n-1)$ submatrix formed by removing the i-th row and the j-th column from $\mathbf{A}_{n \times n}$.
             \item $(-1)^{i+j}$ is the cofactor sign, which alternates in a checkerboard pattern.
         \end{itemize}
         Similarly, the Laplace expansion can be performed along the j-th column:
-        $$\det(\mathbf{A}_{n \times n})=\sum_{i=1}^{n}(-1)^{i+j}a_{ij}\det(\mathbf{A}_{ij})$$
+        \[\det(\mathbf{A}_{n \times n})=\sum_{i=1}^{n}(-1)^{i+j}a_{ij}\det(\mathbf{A}_{ij})\]
     }
 
     \cor{
@@ -1947,7 +2008,7 @@
 \section{Leibniz formula}{
     \defn{Leibniz formula}{
         For an $n \times n$ matrix $\mathbf{A}$, the determinant is defined by:
-        $$\det(\mathbf{A})=\sum_{\tau\in\mathbf{S}_{n}}\operatorname{sgn}(\tau)\prod_{i=1}^{n} a_{i,\tau(i)}=\sum_{\sigma\in\mathbf{S}_{n}}\operatorname{sgn}(\sigma)\prod_{i=1}^{n} a_{\sigma(i),i}$$
+        \[\det(\mathbf{A})=\sum_{\tau\in\mathbf{S}_{n}}\operatorname{sgn}(\tau)\prod_{i=1}^{n} a_{i,\tau(i)}=\sum_{\sigma\in\mathbf{S}_{n}}\operatorname{sgn}(\sigma)\prod_{i=1}^{n} a_{\sigma(i),i}\]
         \begin{itemize}
             \item $\tau$ or $\sigma$ represents a permutation of the set $\{1,2,\cdots,n\}$
             \item $\mathbf{S}_{n}$ is the set of all permutations of $\{1,2,\cdots,n\}$
@@ -1993,14 +2054,16 @@
 \section{Properties of a determinant}{
     \clm{Property 1}{
         The determinant of the identity matrix is one:
-            $$\det(\mathbf{I_{n \times n}})=
-                \begin{vmatrix}
-                    1      & 0      & \cdots & 0\\
-                    0      & 1      & \cdots & 0\\
-                    \vdots & \vdots & \ddots & \vdots\\
-                    0      & 0      & \cdots & 1
-                \end{vmatrix}
-                =1$$
+            \[
+                \det(\mathbf{I_{n \times n}})=
+                    \begin{vmatrix}
+                        1      & 0      & \cdots & 0\\
+                        0      & 1      & \cdots & 0\\
+                        \vdots & \vdots & \ddots & \vdots\\
+                        0      & 0      & \cdots & 1
+                    \end{vmatrix}
+                    =1
+            \]
     }
 
     \clm{Property 2A}{
@@ -2376,11 +2439,11 @@
         \begin{enumerate}
             \item \textbf{Assumption of Invertibility}: Assume $\mathbf{A}_{n \times n}$ is invertible. This means there exists a matrix $\mathbf{B}_{n \times n}$ such that $\mathbf{A}_{n \times n}\mathbf{B}_{n \times n}=\mathbf{I}_{n \times n}$, where $\mathbf{I}_{n \times n}$ is the identity matrix.
             \item \textbf{Property of Determinants}: We use the property of determinants, which states that for any two matrices $\mathbf{A}_{n \times n}$ and $\mathbf{B}_{n \times n}=\mathbf{I}_{n \times n}$,
-            $$\det(\mathbf{A}_{n \times n}\mathbf{B}_{n \times n})=\det(\mathbf{A}_{n \times n})\det(\mathbf{B}_{n \times n})$$
+            \[\det(\mathbf{A}_{n \times n}\mathbf{B}_{n \times n})=\det(\mathbf{A}_{n \times n})\det(\mathbf{B}_{n \times n})\]
             \item \textbf{Determinant of the Identity Matrix}: The determinant of the identity matrix $\mathbf{I}_{n \times n}$ is 1, i.e.,
-            $$\det(\mathbf{I}_{n \times n})=1$$
+            \[\det(\mathbf{I}_{n \times n})=1\]
             \item \textbf{Determinant of $\mathbf{A}_{n \times n}$}: Given that $\det(\mathbf{A}_{n \times n})=0$, we have
-            $$\det(\mathbf{A}_{n \times n}\mathbf{B}_{n \times n})=\det(\mathbf{A}_{n \times n})\det(\mathbf{B}_{n \times n})=0\cdot\det(\mathbf{B}_{n \times n})=0$$
+            \[\det(\mathbf{A}_{n \times n}\mathbf{B}_{n \times n})=\det(\mathbf{A}_{n \times n})\det(\mathbf{B}_{n \times n})=0\cdot\det(\mathbf{B}_{n \times n})=0\]
             \item \textbf{Contradiction}: However, this contradicts the fact that $\det(\mathbf{A}_{n \times n}\mathbf{B}_{n \times n})=\det(\mathbf{I}_{n \times n})=1$
         \end{enumerate}
         Since assuming $\mathbf{A}_{n \times n}$ is invertible leads to a contradiction, our initial assumption must be false. Therefore, we conclude that if $\det(\mathbf{A}_{n \times n})=0$, then $\mathbf{A}_{n \times n}$ is not invertible.
@@ -2452,11 +2515,11 @@
 
     \clm{Property 12}{
         The determinant of the inverse matrix is equal to the reciprical of the determinant;
-        $$\det(\mathbf{A}_{n\times n}^{-1})=\frac{1}{\det(\mathbf{A}_{n\times n})}$$
+        \[\det(\mathbf{A}_{n\times n}^{-1})=\frac{1}{\det(\mathbf{A}_{n\times n})}\]
     }
     \pf{
         Assume the square matrix $\mathbf{A}_{n \times n}$ is invertible, This means
-        $$\mathbf{I}_{n \times n}=\mathbf{A}_{n \times n}\mathbf{A}_{n \times n}^{-1}$$
+        \[\mathbf{I}_{n \times n}=\mathbf{A}_{n \times n}\mathbf{A}_{n \times n}^{-1}\]
         Then,
         \begin{align}
             1&=\det(\mathbf{I}_{n \times n})\\
@@ -2464,12 +2527,12 @@
              &=\det(\mathbf{A}_{n \times n})\det(\mathbf{A}_{n \times n}^{-1})
         \end{align}
         Therefore,
-        $$\det(\mathbf{A}_{n\times n}^{-1})=\frac{1}{\det(\mathbf{A}_{n\times n})}$$
+        \[\det(\mathbf{A}_{n\times n}^{-1})=\frac{1}{\det(\mathbf{A}_{n\times n})}\]
     }
 
     \clm{Property 13}{
         The determinant of the transpose of a matrix is equal to the determinant of the matrix.
-        $$\det(\mathbf{A}_{n\times n}^{\mathbf{T}})=\det(\mathbf{A}_{n\times n})$$
+        \[\det(\mathbf{A}_{n\times n}^{\mathbf{T}})=\det(\mathbf{A}_{n\times n})\]
     }
     \pf{
         Assume that matrix $\mathbf{A}_{n \times n}$ can be decomposed as $\mathbf{A}_{n \times n}=\mathbf{L}_{n \times n}\mathbf{U}_{n \times n}$, where $\mathbf{L}_{n \times n}$ is a lower triangular matrix and $\mathbf{U}_{n \times n}$ is an upper triangular matrix.\\
@@ -2477,9 +2540,9 @@
         Using the property of transpose, we get $=\mathbf{U}_{n \times n}^{\mathbf{T}}\mathbf{L}_{n \times n}^{\mathbf{T}}$.\\
         We know from the properties of determinants that the determinant of the product of two matrices is the product of their determinants: $\det(\mathbf{A}_{n \times n}^{\mathbf{T}})=\det(\mathbf{U}_{n \times n}^{\mathbf{T}}\mathbf{L}_{n \times n}^{\mathbf{T}})$.\\
         For triangular matrices $\mathbf{L}_{n \times n}$ and $\mathbf{U}_{n \times n}$, their determinants are the product of their diagonal elements:
-        $$\det(\mathbf{L}_{n \times n})=\prod_{i=1}^{n}l_{ii},\ \det(\mathbf{U}_{n \times n})=\prod_{i=1}^{n}u_{ii}$$
+        \[\det(\mathbf{L}_{n \times n})=\prod_{i=1}^{n}l_{ii},\ \det(\mathbf{U}_{n \times n})=\prod_{i=1}^{n}u_{ii}\]
         Similarly,
-        $$\det(\mathbf{L}_{n \times n}^{\mathbf{T}})=\prod_{i=1}^{n}l_{ii}=\det(\mathbf{L}_{n \times n}),\ \det(\mathbf{U}_{n \times n}^{\mathbf{T}})=\prod_{i=1}^{n}u_{ii}=\det(\mathbf{U}_{n \times n})$$
+        \[\det(\mathbf{L}_{n \times n}^{\mathbf{T}})=\prod_{i=1}^{n}l_{ii}=\det(\mathbf{L}_{n \times n}),\ \det(\mathbf{U}_{n \times n}^{\mathbf{T}})=\prod_{i=1}^{n}u_{ii}=\det(\mathbf{U}_{n \times n})\]
         Then
         \begin{align}
             \det(\mathbf{A}_{n \times n}^{\mathbf{T}})&=\det(\mathbf{U}_{n \times n}^{\mathbf{T}}\mathbf{L}_{n \times n}^{\mathbf{T}})\\
@@ -2493,24 +2556,24 @@
                                          &=\det(\mathbf{U}_{n \times n})\det(\mathbf{L}_{n \times n})
         \end{align}
         Therefore, we conclude that
-        $$\det(\mathbf{A}_{n\times n}^{\mathbf{T}})=\det(\mathbf{A}_{n\times n})$$
+        \[\det(\mathbf{A}_{n\times n}^{\mathbf{T}})=\det(\mathbf{A}_{n\times n})\]
     }
 
     \clm{Property 14}{
         The determinant of a matrix raised to an integer power is equal to the determinant of that matrix, raised to the integer power. This property in equation form is given by
-        $$\det(\mathbf{A}_{n\times n}^{p})=\det(\mathbf{A}_{n\times n})^{p}$$
+        \[\det(\mathbf{A}_{n\times n}^{p})=\det(\mathbf{A}_{n\times n})^{p}\]
         where p is an integer.
     }
 
     \clm{Property 15}{
         If $\mathbf{A}_{n\times n}$ is an $n\times n$ matrix, then
-        $$\det(k\mathbf{A}_{n\times n})=k^{n}\det(\mathbf{A}_{n\times n})$$
+        \[\det(k\mathbf{A}_{n\times n})=k^{n}\det(\mathbf{A}_{n\times n})\]
         Note that $k\mathbf{A}_{n\times n}$ multiplies every element of $\mathbf{A}_{n\times n}$ by the scalar k.
     }
 
     \clm{Property 16}{
         If $\mathbf{A}_{n\times n}$ is an $n\times n$ matrix, then
-        $$\det(-\mathbf{A}_{n\times n})=(-1)^{n}\det(\mathbf{A}_{n\times n})$$
+        \[\det(-\mathbf{A}_{n\times n})=(-1)^{n}\det(\mathbf{A}_{n\times n})\]
     }
 
     \clm{Property 17}{
@@ -2566,13 +2629,13 @@
 
     \defn{Characteristic equation}{
         Let $\mathbf{A}_{n \times n}$ be a square matrix, $\mathbf{x}$ a column vector, and $\lambda$ a scalar. The eigenvalue problem for $\mathbf{A}_{n \times n}$ solves
-        $$\mathbf{A}_{n \times n}\mathbf{x}=\lambda\mathbf{x}$$
+        \[\mathbf{A}_{n \times n}\mathbf{x}=\lambda\mathbf{x}\]
         for eigenvalues $\lambda_{i}$ with the corresponding eigenvectors $\mathbf{x}_{i}$. Making use of the identity matrix $\mathbf{I}_{n \times n}$, the eigenvalue problem can be rewritten as the homogeneous equation
-        $$(\mathbf{A}_{n \times n}-\lambda\mathbf{I}_{n \times n})\mathbf{x}=0$$
+        \[(\mathbf{A}_{n \times n}-\lambda\mathbf{I}_{n \times n})\mathbf{x}=0\]
         where the matrix $(\mathbf{A}_{n \times n}-\lambda\mathbf{I}_{n \times n})$ is just the matrix $\mathbf{A}_{n \times n}$ with $\lambda$ subtracted from its diagonal. For there to be nonzero eigenvectors, the matrix $(\mathbf{A}_{n \times n}-\lambda\mathbf{I}_{n \times n})$ must be singular, that is,
-        $$\det(\mathbf{A}_{n \times n}-\lambda\mathbf{I}_{n \times n})=0$$
+        \[\det(\mathbf{A}_{n \times n}-\lambda\mathbf{I}_{n \times n})=0\]
         This equation is called the \textbf{characteristic equation} of the matrix $\mathbf{A}_{n \times n}$. From the Leibniz formula, the characteristic equation of an n-by-n matrix is an n-th order polynomial equation in $\lambda$.
-        $$c_{1}\lambda^{n}+c_{2}\lambda^{n-1}+\cdots+c_{n}\lambda^{0}=0$$
+        \[c_{1}\lambda^{n}+c_{2}\lambda^{n-1}+\cdots+c_{n}\lambda^{0}=0\]
         For each found $\lambda_{i}$, a corresponding eigenvector $\mathbf{x}_{i}$ can be determined directly by solving $(\mathbf{A}_{n \times n}-\lambda\mathbf{I}_{n \times n})\mathbf{x}=0$ for x.
     }
 }
@@ -2593,7 +2656,7 @@
     }
     \pf{
         Suppose $\mathbf{A}_{n \times n}$ is invertible, then
-        $$\mathbf{A}_{n \times n}^{-1}\mathbf{A}_{n \times n}=\mathbf{I}_{n \times n}$$
+        \[\mathbf{A}_{n \times n}^{-1}\mathbf{A}_{n \times n}=\mathbf{I}_{n \times n}\]
         Since $\lambda=0$ is an eigenvalue, there exists a nonzero vector $\mathbf{v}$ such that $(\mathbf{A}_{n \times n}-\lambda\mathbf{I}_{n \times n})\mathbf{v}=\mathbf{A}_{n \times n}\mathbf{v}=0$.
         Therefore,
         \begin{align}
@@ -2616,16 +2679,16 @@
     \cor{
         $\lvert\det(\mathbf{A}_{n \times n})\rvert$ is the product of the absolute values of the eigenvalues of $\mathbf{A}_{n \times n}$.\\
         Let $\lambda_{1},\lambda_{2},\cdots,\lambda_{n}$ be the eigenvalues of $\mathbf{A}_{n \times n}$, then
-        $$\lvert\det(\mathbf{A}_{n \times n})\rvert=\lvert\lambda_{1}\rvert\lvert\lambda_{2}\rvert\cdots\lvert\lambda_{n}\rvert$$
+        \[\lvert\det(\mathbf{A}_{n \times n})\rvert=\lvert\lambda_{1}\rvert\lvert\lambda_{2}\rvert\cdots\lvert\lambda_{n}\rvert\]
     }
 }
 
 \section{Matrix diagonalization}{
     \defn{Matrix diagonalization}{
         define $\mathbf{S}$ to be the matrix whose columns are the eigenvectors of $\mathbf{A}$, and $\Lambda$ to be the diagonal matrix with eigenvalues down the diagonal. Then for any n-by-n matrix with n linearly independent eigenvectors, we have
-        $$\mathbf{A}\mathbf{S}=\mathbf{S}\Lambda$$
+        \[\mathbf{A}\mathbf{S}=\mathbf{S}\Lambda\]
         where $\mathbf{S}$ is an invertible matrix. Multiplying both sides on the right or the left by $\mathbf{S}^{-1}$, we derive the relations
-        $$\mathbf{A}=\mathbf{S}\Lambda\mathbf{S}^{-1}\text{ and }\Lambda=\mathbf{S}^{-1}\mathbf{A}\mathbf{S}$$
+        \[\mathbf{A}=\mathbf{S}\Lambda\mathbf{S}^{-1}\text{ and }\Lambda=\mathbf{S}^{-1}\mathbf{A}\mathbf{S}\]
         To remember the order of the $\mathbf{S}$ and $\mathbf{S}^{-1}$ matrices in these formulas, just remember that $\mathbf{A}$ should be multiplied on the right by the eigenvectors placed in the columns of $\mathbf{S}$.
     }
 
@@ -2637,16 +2700,16 @@
             \item \textbf{Form the Diagonal Matrix $\Lambda_{n \times n}$}: Construct the diagonal matrix $\Lambda_{n \times n}$ with the eigenvalues of $\mathbf{A}_{n \times n}$ on its diagonal.
         \end{enumerate}
         Thus,
-        $$\Lambda_{n \times n}=\mathbf{S}_{n \times n}^{-1}\mathbf{A}_{n \times n}\mathbf{S}_{n \times n}$$
+        \[\Lambda_{n \times n}=\mathbf{S}_{n \times n}^{-1}\mathbf{A}_{n \times n}\mathbf{S}_{n \times n}\]
     }
 }
 
 \section{Powers of a matrix}{
     \defn{Powers of a matrix}{
         Diagonalizing a matrix facilitates finding powers of that matrix. For instance,
-        $$\mathbf{A}_{n \times n}^{2}=(\mathbf{S}_{n \times n}\Lambda_{n \times n}\mathbf{S}_{n \times n}^{-1})(\mathbf{S}_{n \times n}\Lambda_{n \times n}\mathbf{S}_{n \times n}^{-1})=\mathbf{S}_{n \times n}\Lambda_{n \times n}^{2}\mathbf{S}_{n \times n}^{-1}$$
+        \[\mathbf{A}_{n \times n}^{2}=(\mathbf{S}_{n \times n}\Lambda_{n \times n}\mathbf{S}_{n \times n}^{-1})(\mathbf{S}_{n \times n}\Lambda_{n \times n}\mathbf{S}_{n \times n}^{-1})=\mathbf{S}_{n \times n}\Lambda_{n \times n}^{2}\mathbf{S}_{n \times n}^{-1}\]
         More generally, for p a positive integer,
-        $$\mathbf{A}_{n \times n}^{p}=\mathbf{S}_{n \times n}\Lambda_{n \times n}^{p}\mathbf{S}_{n \times n}^{-1}$$
+        \[\mathbf{A}_{n \times n}^{p}=\mathbf{S}_{n \times n}\Lambda_{n \times n}^{p}\mathbf{S}_{n \times n}^{-1}\]
     }
 }
 
