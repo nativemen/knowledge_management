@@ -38,7 +38,7 @@
 \def\noteauthor{
     \textbf{Learner}\\
     {\LaTeX} by Xin Wang\\
-    }
+}
 \def\notedate{Notes}
 
 % The theorem system and user-defined commands
@@ -48,16 +48,20 @@
 % ------------------------------------------------------------------------------
 
 \begin{document}
-\title{\textbf{
-    \LARGE{\notetitle} \vspace*{10\baselineskip}}
+\title{
+    \textbf{
+        \LARGE{\notetitle} \vspace*{10\baselineskip}
     }
+}
 \author{\noteauthor}
 \date{\notedate}
 
 \maketitle
 \newpage
 
-\tableofcontents
+\tableofcontents  % 目录
+\listoffigures    % 图目录
+\listoftables     % 表目录
 \newpage
 
 % ------------------------------------------------------------------------------
@@ -66,8 +70,35 @@
 
 \section{Graph theory}{
     \defn{Degree matrix}{
-
+        Given a graph $G=(V,E)$ with $|V|=n$, $V$ is the vertex set, and $E$ is the edge set, the degree matrix $D$ for $G$ is a $n \times n$ diagonal matrix defined as
+        \[
+            D_{ij}:=
+                \left\{
+                    \begin{array}{ll}
+                        \deg(v_i) & i=j \\
+                        0 & i \neq j
+                    \end{array}
+                \right.
+        \]
+        where the degree $\deg(v_{i})$ of a vertex counts the number of times an edge terminates at that vertex.\\
+        In an \textbf{undirected graph}, this means that each loop increases the degree of a vertex by two.\\
+        In a \textbf{directed graph}, the term degree may refer either to indegree (the number of incoming edges at each vertex) or outdegree (the number of outgoing edges at each vertex)
     }
+
+    \defn{Adjacency matrix}{
+        Given a graph $G=(V,E)$ with $|V|=n$, $V$ is the vertex set, and $E$ is the edge set, the adjacency matrix $A$ for $G$ is a $n \times n$ matrix defined as
+        \[
+        A_{ij}:=
+        \left\{
+            \begin{array}{ll}
+                1 & (v_i,v_j) \in E \\
+                0 & (v_i,v_j) \notin E
+            \end{array}
+        \right.
+        \]
+        where $(v_i,v_j)$ is an edge in $E$.
+    }
+
     \defn{Laplacian matrix}{
 
     }
