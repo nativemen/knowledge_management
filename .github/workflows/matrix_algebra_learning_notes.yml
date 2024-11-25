@@ -79,11 +79,21 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          while [ -f /tmp/git-lock ];
+            do sleep 1;
+          done
+
+          touch /tmp/git-lock
+
+          git pull origin main
+
           git add ${{ env.OUTPUT_DIR }}/${{ env.MAIN_FILE }}.pdf
 
           git commit -m "Update matrix_algebra_learning_notes PDF documentation with TOC" || echo "No changes to commit"
 
           git push "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" HEAD:${{ github.ref_name }}
+
+          rm /tmp/git-lock
 
       - name: Create issue on failure
         if: failure()
