@@ -4,7 +4,7 @@ on:
   push:
     paths:
       - 'math/matrix_algebra/matrix_algebra_learning_notes/**.tex'
-      - '.github/workflows/latex.yml'
+      - '.github/workflows/matrix_algebra_learning_notes.yml'
     branches:
       - main
       - master

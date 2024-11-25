@@ -1,0 +1,98 @@
+name: Build and Deploy LaTeX Documents
+
+on:
+  push:
+    paths:
+      - 'math/machine_learning/spectral_clustering_algorithms/**.tex'
+      - '.github/workflows/spectral_clustering_algorithms.yml'
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+  workflow_dispatch:
+
+env:
+  MAIN_FILE: spectral_clustering_algorithms
+  OUTPUT_DIR: math/machine_learning/spectral_clustering_algorithms//build
+  SOURCE_DIR: math/machine_learning/spectral_clustering_algorithms/
+
+jobs:
+  build_latex:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Install TeX Live
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y texlive-full
+
+      # Modified to support multiple compilation passes
+      - name: Compile LaTeX document
+        working-directory: ${{ env.SOURCE_DIR }}
+        run: |
+          # First pass - generates aux files
+          xelatex -interaction=nonstopmode ${{ env.MAIN_FILE }}
+          # Generate bibliography if you have citations
+          if [ -f "${{ env.MAIN_FILE }}.bib" ]; then
+            bibtex ${{ env.MAIN_FILE }}
+          fi
+          # Second pass - generates TOC
+          xelatex -interaction=nonstopmode ${{ env.MAIN_FILE }}
+          # Final pass - ensures all references are correct
+          xelatex -interaction=nonstopmode ${{ env.MAIN_FILE }}
+
+      - name: Create output directory
+        run: |
+          mkdir -p ${{ env.OUTPUT_DIR }}
+          cp ${{ env.SOURCE_DIR }}/${{ env.MAIN_FILE }}.pdf ${{ env.OUTPUT_DIR }}/
+
+      - name: Verify PDF generation
+        run: |
+          if [ ! -f "${{ env.OUTPUT_DIR }}/${{ env.MAIN_FILE }}.pdf" ]; then
+            echo "PDF file was not generated successfully!"
+            exit 1
+          fi
+          echo "PDF file was generated successfully!"
+
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: PDF
+          path: ${{ env.OUTPUT_DIR }}/${{ env.MAIN_FILE }}.pdf
+          if-no-files-found: error
+
+      - name: Configure Git
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+
+      - name: Commit and push PDF
+        if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git add ${{ env.OUTPUT_DIR }}/${{ env.MAIN_FILE }}.pdf
+
+          git commit -m "Update PDF documentation with TOC" || echo "No changes to commit"
+
+          git push "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" HEAD:${{ github.ref_name }}
+
+      - name: Create issue on failure
+        if: failure()
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: '❌ LaTeX Compilation Failed',
+              body: `Failed commit: ${context.sha}\nPlease check the logs for details.`
+            })
