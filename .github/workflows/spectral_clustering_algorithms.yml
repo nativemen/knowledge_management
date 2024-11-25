@@ -56,10 +56,10 @@ jobs:
       - name: Verify PDF generation
         run: |
           if [ ! -f "${{ env.OUTPUT_DIR }}/${{ env.MAIN_FILE }}.pdf" ]; then
-            echo "PDF file was not generated successfully!"
+            echo "spectral_clustering_algorithms PDF file was not generated successfully!"
             exit 1
           fi
-          echo "PDF file was generated successfully!"
+          echo "spectral_clustering_algorithms PDF file was generated successfully!"
 
       - name: Upload PDF artifact
         uses: actions/upload-artifact@v3
@@ -81,7 +81,7 @@ jobs:
         run: |
           git add ${{ env.OUTPUT_DIR }}/${{ env.MAIN_FILE }}.pdf
 
-          git commit -m "Update PDF documentation with TOC" || echo "No changes to commit"
+          git commit -m "Update spectral_clustering_algorithms PDF documentation with TOC" || echo "No changes to commit"
 
           git push "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" HEAD:${{ github.ref_name }}
 
@@ -93,6 +93,6 @@ jobs:
             github.rest.issues.create({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              title: '❌ LaTeX Compilation Failed',
+              title: '❌ spectral_clustering_algorithms LaTeX Compilation Failed',
               body: `Failed commit: ${context.sha}\nPlease check the logs for details.`
             })
