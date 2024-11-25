@@ -1,4 +1,4 @@
-name: Build and Deploy LaTeX Documents
+name: Build and Deploy LaTeX Documents for matrix_algebra_learning_notes
 
 on:
   push:

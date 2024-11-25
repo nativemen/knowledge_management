@@ -1,4 +1,4 @@
-name: Build and Deploy LaTeX Documents
+name: Build and Deploy LaTeX Documents for spectral_clustering_algorithms
 
 on:
   push:
