@@ -134,19 +134,19 @@
 
 \section{Edges}{
     \defn{Undirected edge}{
-        A symmetric connection between nodes. If node i is connected to node j by an undirected edge, then node j also recognizes node i as its neighbor. A graph made of undirected edges is called an undirected graph. The adjacency matrix of an undirected graph is always symmetric.
+        A symmetric connection between nodes. If node i is connected to node j by an undirected edge, then node j also recognizes node i as its neighbor. A graph made of undirected edges is called an undirected graph. The Adjacency matrix of an undirected graph is always symmetric.
     }
 
     \defn{Directed edge}{
-        An asymmetric connection from one node to another. Even if node i is connected to node j by a directed edge, the connection isn’t necessarily reciprocated from node j to node i. A graph made of directed edges is called a directed graph. The adjacency matrix of a directed graph is generally asymmetric.
+        An asymmetric connection from one node to another. Even if node i is connected to node j by a directed edge, the connection isn’t necessarily reciprocated from node j to node i. A graph made of directed edges is called a directed graph. The Adjacency matrix of a directed graph is generally asymmetric.
     }
 
     \defn{Unweighted edge}{
-        An edge without any weight value associated to it. There are only two possibilities between a pair of nodes in a network with unweighted edges; whether there is an edge between them or not. The adjacency matrix of such a network is made of only 0’s and 1’s.
+        An edge without any weight value associated to it. There are only two possibilities between a pair of nodes in a network with unweighted edges; whether there is an edge between them or not. The Adjacency matrix of such a network is made of only 0’s and 1’s.
     }
 
     \defn{Weighted edge}{
-        An edge with a weight value associated to it. A weight is usually given by a non-negative real number, which may represent a connection strength or distance between nodes, depending on the nature of the system being modeled. The definition of the adjacency matrix can be extended to contain those edge weight values for networks with weighted edges. The sum of the weights of edges connected to a node is often called the node strength, which corresponds to a node degree for unweighted graphs.
+        An edge with a weight value associated to it. A weight is usually given by a non-negative real number, which may represent a connection strength or distance between nodes, depending on the nature of the system being modeled. The definition of the Adjacency matrix can be extended to contain those edge weight values for networks with weighted edges. The sum of the weights of edges connected to a node is often called the node strength, which corresponds to a node degree for unweighted graphs.
     }
 
     \defn{Multiple edges}{
@@ -172,7 +172,7 @@
 
 \section{Matrices}{
     \defn{Degree matrix}{
-        Given a graph \(G=(V,E)\) with $|V|=n$, $V$ is the vertex set, and $E$ is the edge set, the degree matrix $D$ for $G$ is a $n \times n$ diagonal matrix defined as
+        Given a graph \(G=(V,E)\) with $|V|=n$, $V$ is the vertex set, and $E$ is the edge set, the degree matrix $D_{n \times n}$ for $G$ is a $n \times n$ diagonal matrix defined as
         \[
             D_{ij}:=
                 \left\{
@@ -188,7 +188,7 @@
     }
 
     \defn{Adjacency matrix}{
-        Given a graph $G=(V,E)$ with $|V|=n$, $V$ is the vertex set, and $E$ is the edge set, the adjacency matrix $A$ for $G$ is a $n \times n$ matrix defined as
+        Given a graph $G=(V,E)$ with $|V|=n$, $V$ is the vertex set, and $E$ is the edge set, the Adjacency matrix $A_{n \times n}$ for $G$ is a $n \times n$ matrix defined as
         \[
             A_{ij}:=
                 \left\{
@@ -203,11 +203,8 @@
     }
 
     \cor{
-        The diagonal elements of the matrix are all zero, since edges from a vertex to itself (loops) are not allowed in simple graphs.
-    }
-
-    \cor{
-        The adjacency matrix is a square matrix with dimensions equal to the number of vertices in the graph.
+        The diagonal elements of the Adjacency matrix are all zero, since edges from a vertex to itself (loops) are not allowed in simple graphs.
+        \[A_{ii}=0\]
     }
 
     \cor{
@@ -216,25 +213,12 @@
         For a directed graph, the matrix may not be symmetric.
     }
 
-    \cor{
-        The degree matrix $D$ and the adjacency matrix $A$ of a graph $G$ are related by the following equation:
-        \[D=A+A^T\]
-        where $A^T$ is the transpose of $A$.
-        This equation can be derived by considering the degree of each vertex in the graph.
-        The degree of a vertex is the sum of the weights of all edges incident to that vertex.
-        In the adjacency matrix, each row or column corresponds to a vertex, and the entries in that row or column represent the weights of the edges incident to that vertex.
-        Therefore, the sum of the entries in a row or column of the adjacency matrix is equal to the degree of the corresponding vertex.
-        Since the degree matrix is a diagonal matrix with the degrees of the vertices on the diagonal, the sum of the entries in each row or column of the adjacency matrix is equal to the corresponding diagonal entry in the degree matrix.
-        Therefore, the adjacency matrix and the degree
-        matrix are related by the equation $D=A+A^T$.
-    }
-
     \defn{Adjacency list}{
         Adjacency list A list of lists of nodes whose i-th component is the list of node i’s neighbors.
     }
 
     \defn{Laplacian matrix}{
-        Given a simple $G$ with $n$ vertices $v_{1},\cdots,v_{n}$, its Laplacian matrix $L{n\times n}$ is defined element-wise as
+        Given a simple $G$ with $n$ vertices $v_{1},\cdots,v_{n}$, its Laplacian matrix $L_{n \times n}$ is defined element-wise as
         \[
             L_{ij}:=
                 \left\{
@@ -246,13 +230,41 @@
                 \right.
         \]
         or equivalently by the matrix
-        \[L=D-A\]
-        where $D$ is the degree matrix and $A$ is the adjacency matrix of the graph.\\
-        The Laplacian matrix is a symmetric matrix, and its eigenvalues are real and non-negative.
+        \[L_{n \times n}=D_{n \times n}-A_{n \times n}\]
+        where $D_{n \times n}$ is the degree matrix and $A_{n \times n}$ is the Adjacency matrix of the graph $G$.\\
+        Since $G$ is a simple graph, $A$ only contains 1s or 0s and its diagonal elements are all 0s.
     }
 
     \cor{
-        For the undirected graph that both the adjacency matrix and the Laplacian matrix are symmetric, and that row- and column-sums of the Laplacian matrix are all zeros (which directly implies that the Laplacian matrix is singular).
+        The Laplacian matrix $L$ is a symmetric matrix, and its eigenvalues are real and non-negative.
+    }
+
+    \cor{
+        For the undirected graph that both the Adjacency matrix $A$ and the Laplacian matrix $L$ are symmetric, and that row- and column-sums of the Laplacian matrix are all zeros (which directly implies that the Laplacian matrix is singular).
+    }
+
+    \defn{Eigendecomposition}{
+        Let $\mathbf{A}$ be a square $n \times n$ matrix with n linearly independent eigenvectors $q_{i}$ (where $i=1,\cdots,n$). Then $\mathbf{A}$ can be factored as
+        \[\mathbf{A}=\mathbf{Q}\mathbf{\Lambda}\mathbf{Q}^{-1}\]
+        where $\mathbf{Q}$ is the square $n \times n$ matrix whose i-th column is the eigenvector $q_{i}$ of $\mathbf{A}$, and $\Lambda$ is the diagonal matrix whose diagonal elements are the corresponding eigenvalues, $\Lambda_{ii}=\lambda_{i}$. Note that only diagonalizable matrices can be factorized in this way.\\
+        The n eigenvectors $q_{i}$ are usually normalized, but they don't have to be. A non-normalized set of n eigenvectors, $v_{i}$ can also be used as the columns of $\mathbf{Q}$.
+    }
+
+    \clm{How to Perform Eigendecomposition?}{
+        To perform Eigendecomposition on a matrix, follow these steps:
+        \begin{enumerate}
+            \item \textbf{Find the Eigenvalues}:\\
+            Solve the characteristic equation:
+            \[\det(\mathbf{A}-\lambda\mathbf{I})=0\]
+            Here, $\mathbf{A}$ is the square matrix, $\lambda$ is the eigenvalue, and $\mathbf{I}$ is the identity matrix of the same dimension as $\mathbf{A}$.
+            \item \textbf{Find the Eigenvectors}:\\
+            For each eigenvalue λ, substitute it back into the equation:
+            \[(\mathbf{A}-\lambda\mathbf{I})\mathbf{v}=0\]
+            This represents a system of linear equations where $\mathbf{v}$ is the eigenvector corresponding to the eigenvalue $\lambda$.
+            \item \textbf{Construct the Eigenvector Matrix V}:
+            \item \textbf{Form the Diagonal Matrix Λ}:
+            \item \textbf{Calculate the Inverse of V}:
+        \end{enumerate}
     }
 }
 
