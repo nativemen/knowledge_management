@@ -2636,6 +2636,21 @@
         \[(\mathbf{A}_{n \times n}-\lambda\mathbf{I}_{n \times n})\mathbf{x}=0\]
         where the matrix $(\mathbf{A}_{n \times n}-\lambda\mathbf{I}_{n \times n})$ is just the matrix $\mathbf{A}_{n \times n}$ with $\lambda$ subtracted from its diagonal. For there to be nonzero eigenvectors, the matrix $(\mathbf{A}_{n \times n}-\lambda\mathbf{I}_{n \times n})$ must be singular, that is,
         \[\det(\mathbf{A}_{n \times n}-\lambda\mathbf{I}_{n \times n})=0\]
+
+        \rmkb{
+            For this equation to have a nonzero solution $\mathbf{v}$ (i.e., a nonzero eigenvector), the matrix $(\mathbf{A}_{n \times n} - \lambda\mathbf{I}_{n \times n})$ must be singular.\\
+            If $(\mathbf{A}_{n \times n} - \lambda\mathbf{I}_{n \times n})$ were nonsingular (i.e., invertible), we could multiply both sides of the equation by its inverse:
+            \[
+                (\mathbf{A}_{n \times n}-\lambda\mathbf{I}_{n \times n})^{-1}(\mathbf{A}_{n \times n}-\lambda\mathbf{I}_{n \times n})\mathbf{v}=(\mathbf{A}_{n \times n}-\lambda\mathbf{I}_{n \times n})^{-1} \cdot 0
+            \]
+            This simplifies to:
+            \[\mathbf{I}_{n \times n}\mathbf{v}=0\]
+            Which means:
+            \[\mathbf{v}=0\]
+            This contradicts our requirement for a nonzero eigenvector. Therefore, for nonzero eigenvectors to exist, the matrix $(\mathbf{A}_{n \times n}-\lambda\mathbf{I}_{n \times n})$ must be singular, which implies:
+            \[\det(\mathbf{A}_{n \times n}-\lambda\mathbf{I}_{n \times n})=0\]
+        }
+
         This equation is called the \textbf{characteristic equation} of the matrix $\mathbf{A}_{n \times n}$. From the Leibniz formula, the characteristic equation of an n-by-n matrix is an n-th order polynomial equation in $\lambda$.
         \[c_{1}\lambda^{n}+c_{2}\lambda^{n-1}+\cdots+c_{n}\lambda^{0}=0\]
         For each found $\lambda_{i}$, a corresponding eigenvector $\mathbf{x}_{i}$ can be determined directly by solving $(\mathbf{A}_{n \times n}-\lambda\mathbf{I}_{n \times n})\mathbf{x}=0$ for x.
