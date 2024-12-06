@@ -77,7 +77,7 @@
                     a_{m1} & a_{m2} & \cdots & a_{mn}
                 \end{pmatrix}
         \]
-        Here, the matrix element of A in the i-th row and the j-th column is denoted as $a_{ij}$.
+        Here, the matrix element of A in the $i$-th row and the $j$-th column is denoted as $a_{ij}$.
         \cite{Chasnov}
     }
 
@@ -711,7 +711,7 @@
 
     \cor{
         An n-by-n matrix is invertible if and only if its determinant is nonzero.
-        \[\det(\mathbf{A})=\sum_{j=1}^n(-1)^{i+j}a_{ij}\det(\mathbf{A}_{ij})\] where $\mathbf{A}_{ij}$ is the (n-1)×(n-1) submatrix obtained by removing the i-th row and j-th column.
+        \[\det(\mathbf{A})=\sum_{j=1}^n(-1)^{i+j}a_{ij}\det(\mathbf{A}_{ij})\] where $\mathbf{A}_{ij}$ is the (n-1)×(n-1) submatrix obtained by removing the $i$-th row and $j$-th column.
     }
 
     \cor{
@@ -1979,19 +1979,19 @@
 
 \section{Laplace expansion}{
     \defn{Laplace expansion or cofactor expansion or expansion by minors}{
-        For an $n \times n$ square matrix $\mathbf{A}$, the determinant $\det(\mathbf{A}_{n \times n})$ can be computed using Laplace expansion along the i-th row as follows:
+        For an $n \times n$ square matrix $\mathbf{A}$, the determinant $\det(\mathbf{A}_{n \times n})$ can be computed using Laplace expansion along the $i$-th row as follows:
         \[\det(\mathbf{A}_{n \times n})=\sum_{j=1}^{n}(-1)^{i+j}a_{ij}\det(\mathbf{A}_{ij})\]
         \begin{itemize}
-            \item $a_{ij}$ is the element in the i-th row and j-th column of $\mathbf{A}$.
-            \item $\mathbf{A}_{ij}$ is the $(n-1)\times(n-1)$ submatrix formed by removing the i-th row and the j-th column from $\mathbf{A}_{n \times n}$.
+            \item $a_{ij}$ is the element in the $i$-th row and $j$-th column of $\mathbf{A}$.
+            \item $\mathbf{A}_{ij}$ is the $(n-1)\times(n-1)$ submatrix formed by removing the $i$-th row and the $j$-th column from $\mathbf{A}_{n \times n}$.
             \item $(-1)^{i+j}$ is the cofactor sign, which alternates in a checkerboard pattern.
         \end{itemize}
-        Similarly, the Laplace expansion can be performed along the j-th column:
+        Similarly, the Laplace expansion can be performed along the $j$-th column:
         \[\det(\mathbf{A}_{n \times n})=\sum_{i=1}^{n}(-1)^{i+j}a_{ij}\det(\mathbf{A}_{ij})\]
     }
 
     \cor{
-        In fact, this expansion by minors can be done across any row or down any column. The sign of each term in the expansion is given by $(-1)^{i+j}$ when the number multiplying each minor is drawn from the i-th row and j-th column. An easy way to remember the signs is to form a checkerboard pattern, exhibited here for the matrix:
+        In fact, this expansion by minors can be done across any row or down any column. The sign of each term in the expansion is given by $(-1)^{i+j}$ when the number multiplying each minor is drawn from the $i$-th row and $j$-th column. An easy way to remember the signs is to form a checkerboard pattern, exhibited here for the matrix:
         \begin{equation}
             \begin{pmatrix}
                 +      & -      & +      & \cdots\\
@@ -2015,8 +2015,8 @@
             \item $\tau$ or $\sigma$ represents a permutation of the set $\{1,2,\cdots,n\}$
             \item $\mathbf{S}_{n}$ is the set of all permutations of $\{1,2,\cdots,n\}$
             \item $\operatorname{sgn}(\tau)$ or $\operatorname{sgn}(\sigma)$ is the sign of the permutation, which is $+1$ for even permutations and $-1$ for odd permutations.
-            \item $a_{i,\tau(i)}$ is the matrix element in the i-th row and $\tau(i)$-th column.
-            \item $a_{\sigma(i),i}$ is the matrix element in the $\sigma(i)$-th row and i-th column.
+            \item $a_{i,\tau(i)}$ is the matrix element in the $i$-th row and $\tau(i)$-th column.
+            \item $a_{\sigma(i),i}$ is the matrix element in the $\sigma(i)$-th row and $i$-th column.
         \end{itemize}
         The Leibniz formula involves summing over all possible permutations of the matrix indices, where each term in the sum is the product of matrix elements, one from each row and each column, and is multiplied by the sign of the permutation.
     }
@@ -2651,7 +2651,7 @@
             \[\det(\mathbf{A}_{n \times n}-\lambda\mathbf{I}_{n \times n})=0\]
         }
 
-        This equation is called the \textbf{characteristic equation} of the matrix $\mathbf{A}_{n \times n}$. From the Leibniz formula, the characteristic equation of an n-by-n matrix is an n-th order polynomial equation in $\lambda$.
+        This equation is called the \textbf{characteristic equation} of the matrix $\mathbf{A}_{n \times n}$. From the Leibniz formula, the characteristic equation of an n-by-n matrix is an $n$-th order polynomial equation in $\lambda$.
         \[c_{1}\lambda^{n}+c_{2}\lambda^{n-1}+\cdots+c_{n}\lambda^{0}=0\]
         For each found $\lambda_{i}$, a corresponding eigenvector $\mathbf{x}_{i}$ can be determined directly by solving $(\mathbf{A}_{n \times n}-\lambda\mathbf{I}_{n \times n})\mathbf{x}=0$ for x.
     }
