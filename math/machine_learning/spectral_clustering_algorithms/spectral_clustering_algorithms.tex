@@ -7,7 +7,7 @@
 \usepackage{geometry}
 \usepackage{float}
 \usepackage{hyperref}
-\usepackage[utf8]{inputenc}
+\usepackage{inputenc}
 \usepackage[english]{babel}
 \usepackage{framed}
 \usepackage[dvipsnames]{xcolor}
@@ -78,7 +78,7 @@
     }
 
     \defn{Degree}{
-        The number of edges connected to a node. Node i’s degree is often written as $\deg(i)$.
+        The number of edges connected to a node. Node $i$’s degree is often written as $\deg(i)$.
     }
 
     \defn{Walk}{
@@ -134,15 +134,15 @@
 
 \section{Edges}{
     \defn{Undirected edge}{
-        A symmetric connection between nodes. If node i is connected to node j by an undirected edge, then node j also recognizes node i as its neighbor. A graph made of undirected edges is called an undirected graph. The Adjacency matrix of an undirected graph is always symmetric.
+        A symmetric connection between nodes. If node $i$ is connected to node $j$ by an undirected edge, then node $j$ also recognizes node $i$ as its neighbor. A graph made of undirected edges is called an undirected graph. The Adjacency matrix of an undirected graph is always symmetric.
     }
 
     \defn{Directed edge}{
-        An asymmetric connection from one node to another. Even if node i is connected to node j by a directed edge, the connection isn’t necessarily reciprocated from node j to node i. A graph made of directed edges is called a directed graph. The Adjacency matrix of a directed graph is generally asymmetric.
+        An asymmetric connection from one node to another. Even if node $i$ is connected to node $j$ by a directed edge, the connection isn’t necessarily reciprocated from node $j$ to node $i$. A graph made of directed edges is called a directed graph. The Adjacency matrix of a directed graph is generally asymmetric.
     }
 
     \defn{Unweighted edge}{
-        An edge without any weight value associated to it. There are only two possibilities between a pair of nodes in a network with unweighted edges; whether there is an edge between them or not. The Adjacency matrix of such a network is made of only 0’s and 1’s.
+        An edge without any weight value associated to it. There are only two possibilities between a pair of nodes in a network with unweighted edges; whether there is an edge between them or not. The Adjacency matrix of such a network is made of only $0$’s and $1$’s.
     }
 
     \defn{Weighted edge}{
@@ -171,10 +171,73 @@
 }
 
 \section{Matrices}{
+    \defn{Symmetric matrix}{
+        A real matrix is called symmetric if $\mathbf{A}^{\mathbf{T}}=\mathbf{A}$.\\
+        Symmetric matrices are also called selfadjoint.\\
+        For complex matrices we would ask $\mathbf{A}^{*}=\overline{\mathbf{A}}^{\mathbf{T}}=\mathbf{A}$.
+    }
+
+    \cor{
+        A symmetric matrix has real eigenvalues.
+    }
+    \pf{
+        Extend the dot product to complex vectors by $\langle\mathbf{v},\mathbf{w}\rangle=\sum_{i=1}^{n}\overline{\mathbf{v}_{i}}\mathbf{w}_{i}$, where $\overline{\mathbf{v}_{i}}$ is the complex conjugate of $\mathbf{v}_{i}$.\\
+        For real vectors it is the usual dot product $\langle\mathbf{v},\mathbf{w}\rangle=\sum_{i=1}^{n}\mathbf{v}_{i}\mathbf{w}_{i}=\mathbf{v}\cdot\mathbf{w}$.\\
+        For a real matrix $\mathbf{A}$, we have
+        \begin{align}
+            \langle\mathbf{A}\mathbf{v},\mathbf{w}\rangle
+                &=\sum_{i=1}^{n}\overline{(\mathbf{A}v)_{i}}w_{i}\\
+                &=\sum_{i=1}^{n}\overline{\left(\sum_{j=1}^{n}\mathbf{A}_{ij}v_{j}\right)}w_{i}\\
+                &=\sum_{i=1}^{n}\sum_{j=1}^{n}\overline{\mathbf{A}_{ij}\mathbf{v}_{j}}\mathbf{w}_{i}
+        \end{align}
+        Since $\mathbf{A}$ is a real matrix, then $\mathbf{A}_{ij}$ is real, therefore $\overline{\mathbf{A}_{ij}}=\mathbf{A}_{ij}$.\\
+        We can write the $j$-th component of the product of matrix $\mathbf{A}$ and vector $\mathbf{w}$ as:
+        \[\left(\mathbf{A}\mathbf{w}\right)_{j}=\sum_{i=1}^{n}\mathbf{A}_{ij}\mathbf{w}_{i}\]
+        When we compute the $j$-th component of the product of matrix $\mathbf{A}^{\mathbf{T}}$ and vector $\mathbf{w}$, we get:
+        \[\left(\mathbf{A}^{\mathbf{T}}\mathbf{w}\right)_{j}=\sum_{i=1}^{n}\left(\mathbf{A}^{\mathbf{T}}\right)_{ji}\mathbf{w}_{i}\]
+        Now, consider the transpose of matrix $\mathbf{A}$, denoted as $\mathbf{A}^{\mathbf{T}}$. The element $\left(\mathbf{A}^{\mathbf{T}}\right)_{ji}$ of the transpose matrix is equal to the element $\mathbf{A}_{ij}$ of the original matrix. Therefore, we have:
+        \[\mathbf{A}_{ij}=\left(\mathbf{A}^{\mathbf{T}}\right)_{ji}\]
+        then we obtain:
+        \begin{align}
+            \langle\mathbf{A}\mathbf{v},\mathbf{w}\rangle
+                &=\sum_{i=1}^{n}\sum_{j=1}^{n}\overline{\mathbf{A}_{ij}\mathbf{v}_{j}}\mathbf{w}_{i}\\
+                &=\sum_{i=1}^{n}\sum_{j=1}^{n}\mathbf{A}_{ij}\overline{\mathbf{v}_{j}}\mathbf{w}_{i}\\
+                &=\sum_{j=1}^{n}\overline{\mathbf{v}_{j}}\left(\sum_{i=1}^{n}\mathbf{A}_{ij}\mathbf{w}_{i}\right)\\
+                &=\sum_{j=1}^{n}\overline{\mathbf{v}_{j}}\left(\sum_{i=1}^{n}(\mathbf{A}^{\mathbf{T}})_{ji}\mathbf{w}_{i}\right)\\
+                &=\sum_{j=1}^{n}\overline{\mathbf{v}_{j}}\left(\mathbf{A}^{\mathbf{T}}\mathbf{w}\right)_{j}\\
+                &=\langle\mathbf{v},\mathbf{A}^{\mathbf{T}}\mathbf{w}\rangle
+        \end{align}
+        And assume that the symmetric matrix $\mathbf{A}$ has a complex eigenvalue $\lambda$, then
+        \begin{align}
+            \langle\lambda\mathbf{v},\mathbf{w}\rangle
+                &=\sum_{i=1}^{n}\overline{\lambda\mathbf{v}_{i}}\mathbf{w}_{i}\\
+                &=\sum_{i=1}^{n}\overline{\lambda}\overline{\mathbf{v}_{i}}\mathbf{w}_{i}\\
+                &=\overline{\lambda}\langle\mathbf{v},\mathbf{w}\rangle
+        \end{align}
+        as well as
+        \begin{align}
+            \langle\mathbf{v},\lambda\mathbf{w}\rangle
+                &=\sum_{i=1}^{n}\overline{\mathbf{v}_{i}}\lambda\mathbf{w}_{i}\\
+                &=\lambda\sum_{i=1}^{n}\overline{\mathbf{v}_{i}}\mathbf{w}_{i}\\
+                &=\lambda\langle\mathbf{v},\mathbf{w}\rangle
+        \end{align}
+        Now, we have:
+        \begin{align}
+            \overline{\lambda}\langle\mathbf{v},\mathbf{v}\rangle
+                &=\langle\lambda\mathbf{v},\mathbf{v}\rangle\\
+                &=\langle\mathbf{A}\mathbf{v},\mathbf{v}\rangle\\
+                &=\langle\mathbf{v},\mathbf{A}^{\mathbf{T}}\mathbf{v}\rangle\\
+                &=\langle\mathbf{v},\mathbf{A}\mathbf{v}\rangle\\
+                &=\langle\mathbf{v},\lambda\mathbf{v}\rangle\\
+                &=\lambda\langle\mathbf{v},\mathbf{v}\rangle
+        \end{align}
+        shows that $\overline{\lambda}=\lambda$ because $\langle\mathbf{v},\mathbf{v}\rangle\neq0$ for $\mathbf{v}\neq0$. That means $\lambda$ is real.
+    }
+
     \defn{Degree matrix}{
-        Given a graph \(G=(V,E)\) with $|V|=n$, $V$ is the vertex set, and $E$ is the edge set, the degree matrix $D_{n \times n}$ for $G$ is a $n \times n$ diagonal matrix defined as
+        Given a graph $\mathbf{G}=(\mathbf{V},\mathbf{E})$ with $|\mathbf{V}|=n$, $\mathbf{V}$ is the vertex set, and $\mathbf{E}$ is the edge set, the Degree matrix $\mathbf{D}_{n \times n}$ for $\mathbf{G}$ is a $n \times n$ diagonal matrix defined as
         \[
-            D_{ij}:=
+            \mathbf{D}_{ij}:=
                 \left\{
                     \begin{array}{ll}
                         \deg(v_{i}) & i=j \\
@@ -187,10 +250,15 @@
         In a \textbf{directed graph}, the term degree may refer either to indegree (the number of incoming edges at each vertex) or outdegree (the number of outgoing edges at each vertex)
     }
 
+    \cor{
+        Since the Degree matrix $\mathbf{D}_{n \times n}$ for $\mathbf{G}$ is a $n \times n$ diagonal matrix, it is also symmetric, meaning.
+        \[\mathbf{D}_{ij}=\mathbf{D}_{ji}\]
+    }
+
     \defn{Adjacency matrix}{
-        Given a graph $G=(V,E)$ with $|V|=n$, $V$ is the vertex set, and $E$ is the edge set, the Adjacency matrix $A_{n \times n}$ for $G$ is a $n \times n$ matrix defined as
+        Given a graph $\mathbf{G}=(\mathbf{V},\mathbf{E})$ with $|\mathbf{V}|=n$, $\mathbf{V}$ is the vertex set, and $\mathbf{E}$ is the edge set, the Adjacency matrix $\mathbf{A}_{n \times n}$ for $\mathbf{G}$ is a $n \times n$ matrix defined as
         \[
-            A_{ij}:=
+            \mathbf{A}_{ij}:=
                 \left\{
                     \begin{array}{ll}
                         1 & (v_{i},v_{j}) \in E \\
@@ -198,29 +266,82 @@
                     \end{array}
                 \right.
         \]
-        where $(v_i,v_j)$ is an edge in $E$.\\
-        A matrix with rows and columns labeled by nodes, whose i-th row, j-th column component  $a_{ij}$ is 1 if node i is a neighbor of node j, or 0 otherwise.
+        where $(v_i,v_j)$ is an edge in $\mathbf{E}$.\\
+        A matrix with rows and columns labeled by nodes, whose $i$-th row, $j$-th column component  $a_{ij}$ is 1 if node i is a neighbor of node j, or 0 otherwise.
     }
 
     \cor{
         The diagonal elements of the Adjacency matrix are all zero, since edges from a vertex to itself (loops) are not allowed in simple graphs.
-        \[A_{ii}=0\]
+        \[\mathbf{A}_{ii}=0\]
     }
 
     \cor{
-        For an undirected graph, the matrix is symmetric, meaning.
-        \[A_{ij}=A_{ji}\]
-        For a directed graph, the matrix may not be symmetric.
+        For an undirected graph, the Adjacency matrix is symmetric, meaning.
+        \[\mathbf{A}_{ij}=\mathbf{A}_{ji}\]
+        For a directed graph, the Adjacency matrix may not be symmetric.
     }
 
     \defn{Adjacency list}{
-        Adjacency list A list of lists of nodes whose i-th component is the list of node i’s neighbors.
+        Adjacency list $\mathbf{A}$ list of lists of nodes whose $i$-th component is the list of node $i$’s neighbors.
+    }
+
+    \defn{Weighted Adjacency matrix}{
+        Let $\mathbf{G}=(\mathbf{V},\mathbf{W})$ be an undirected graph, where V is the n vertex set, and $\mathbf{W}_{n \times n}$ is the $n \times n$ Weighted Adjacency matrix. Let $w_{ij}$ be the non-negative weight between nodes $i$, $j$.
+        \[
+            \mathbf{W}_{ij}:=
+                \left\{
+                    \begin{array}{ll}
+                        w_{ij} & (v_{i},v_{j}) \in E \\
+                        0      & (v_{i},v_{j}) \notin E
+                    \end{array}
+                \right.
+        \]
+        An edge exists between nodes i and j if $w_{ij}>0$.\\
+        For an unweighted graph, $w_{ij}=1$ if there is an edge; $w_{ij}=0$ otherwise.
+    }
+
+    \cor{
+        For undirected graphs, the Weighted Adjacency matrix is symmetric, meaning
+        \[\mathbf{W}_{ij}=\mathbf{W}_{ji}\]
+        For a directed graph, the Weighted Adjacency matrix may not be symmetric.
+    }
+
+    \defn{Vertex-edge matrix}{
+        The edge between nodes $i$ and $j$ can be represented as an n-dimensional vector:
+        \[\mathbf{e}=\sqrt{w_{ij}}\left[0,\cdots,0,1,0,\cdots,0,-1,0,\cdots,0\right]^{\mathbf{T}}\]
+        where the $i$-th location is 1, the $j$-th location is -1, and other locations are 0.
+        \[
+            \mathbf{e}(\tau)=
+                \left\{
+                    \begin{array}{ll}
+                        w_{ij}^{\frac{1}{2}}  & \text{if }\tau\text{ is }$i$,\\
+                        -w_{ij}^{\frac{1}{2}} & \text{if }\tau\text{ is }$j$,\\
+                        0                     & \text{otherwise}
+                    \end{array}
+                \right.
+        \]
+        Here, $\mathbf{e}(\tau)$ denotes the $\tau$-th value of the edge vector $\mathbf{e}$. For undirected graphs, the negative endpoint can be either at the $\tau=i$ location or at the $\tau=j$ location. Let $\mathbf{E}_{n \times m}=[\mathbf{e_{0}},\cdots\,\mathbf{e_{m-1}}]$
+        be the vertex-edge matrix of size $n \times m$ obtained by taking the $m$ edge vectors as its columns. (The order of the edges is arbitrary.)
     }
 
     \defn{Laplacian matrix}{
-        Given a simple $G$ with $n$ vertices $v_{1},\cdots,v_{n}$, its Laplacian matrix $L_{n \times n}$ is defined element-wise as
+        Given a simple $\mathbf{G}$ with $n$ vertices $v_{1},\cdots,v_{n}$, its Laplacian matrix $\mathbf{L}_{n \times n}$ is defined element-wise as
         \[
-            L_{ij}:=
+            \mathbf{L}_{ij}:=
+                \left\{
+                    \begin{array}{ll}
+                        \deg(v_i) & i=j \\
+                        -w_{ij}   & i \neq j \text{ and } (v_{i},v_{j}) \in E \\
+                        0         & \text{otherwise}
+                    \end{array}
+                \right.
+        \]
+        or equivalently by the matrix
+        \[\mathbf{L}_{n \times n}=\mathbf{D}_{n \times n}-\mathbf{W}_{n \times n}\]
+        where $\mathbf{D}_{n \times n}$ is the Degree matrix and $\mathbf{W}_{n \times n}$ is the Weighted Adjacency matrix of the graph $\mathbf{G}$.\\
+        For an unweighted graph, $w_{ij}=1$ if there is an edge. then
+        \[
+            \mathbf{L}_{ij}:=
                 \left\{
                     \begin{array}{ll}
                         \deg(v_i) & i=j \\
@@ -230,24 +351,129 @@
                 \right.
         \]
         or equivalently by the matrix
-        \[L_{n \times n}=D_{n \times n}-A_{n \times n}\]
-        where $D_{n \times n}$ is the degree matrix and $A_{n \times n}$ is the Adjacency matrix of the graph $G$.\\
-        Since $G$ is a simple graph, $A$ only contains 1s or 0s and its diagonal elements are all 0s.
+        \[\mathbf{L}_{n \times n}=\mathbf{D}_{n \times n}-\mathbf{A}_{n \times n}\]
+        where $\mathbf{D}_{n \times n}$ is the Degree matrix and $\mathbf{A}_{n \times n}$ is the Adjacency matrix of the graph $\mathbf{G}$.\\
+        Since $\mathbf{G}$ is a simple graph, $\mathbf{A}$ only contains $1$s or $0$s and its diagonal elements are all 0s.
     }
 
     \cor{
-        The Laplacian matrix $L$ is a symmetric matrix, and its eigenvalues are real and non-negative.
+        For an undirected graph, the Laplacian matrix $\mathbf{L}$ is a symmetric matrix.
+    }
+    \pf{
+        The Laplacian matrix $\mathbf{L}$ is defined as $\mathbf{L} = \mathbf{D} - \mathbf{W}$, where $\mathbf{D}$ is the degree matrix and $\mathbf{W}$ is the weighted adjacency matrix.\\
+        For an undirected graph, the adjacency matrix $\mathbf{W}$ is symmetric, meaning $\mathbf{W} = \mathbf{W}^T$.\\
+        The degree matrix $\mathbf{D}$ is diagonal and therefore symmetric.\\
+        Since both $\mathbf{D}$ and $\mathbf{W}$ are symmetric, their difference $\mathbf{L} = \mathbf{D} - \mathbf{W}$ is also symmetric.
     }
 
     \cor{
-        For the undirected graph that both the Adjacency matrix $A$ and the Laplacian matrix $L$ are symmetric, and that row- and column-sums of the Laplacian matrix are all zeros (which directly implies that the Laplacian matrix is singular).
+        For an undirected graph, the eigenvalues of the Laplacian matrix $\mathbf{L}$ are real and non-negative.
+    }
+    \pf{
+
+    }
+
+    \cor{
+        For the undirected graph that both the Adjacency matrix $\mathbf{A}$ and the Laplacian matrix $\mathbf{L}$ are symmetric, and that row- and column-sums of the Laplacian matrix are all zeros (which directly implies that the Laplacian matrix is singular).
     }
 
     \defn{Eigendecomposition}{
         Let $\mathbf{A}$ be a square $n \times n$ matrix with n linearly independent eigenvectors $q_{i}$ (where $i=1,\cdots,n$). Then $\mathbf{A}$ can be factored as
         \[\mathbf{A}=\mathbf{Q}\mathbf{\Lambda}\mathbf{Q}^{-1}\]
-        where $\mathbf{Q}$ is the square $n \times n$ matrix whose i-th column is the eigenvector $q_{i}$ of $\mathbf{A}$, and $\Lambda$ is the diagonal matrix whose diagonal elements are the corresponding eigenvalues, $\Lambda_{ii}=\lambda_{i}$. Note that only diagonalizable matrices can be factorized in this way.\\
+        where $\mathbf{Q}$ is the square $n \times n$ matrix whose $i$-th column is the eigenvector $q_{i}$ of $\mathbf{A}$, and $\Lambda$ is the diagonal matrix whose diagonal elements are the corresponding eigenvalues, $\Lambda_{ii}=\lambda_{i}$. Note that only diagonalizable matrices can be factorized in this way.\\
         The n eigenvectors $q_{i}$ are usually normalized, but they don't have to be. A non-normalized set of n eigenvectors, $v_{i}$ can also be used as the columns of $\mathbf{Q}$.
+    }
+
+    \fact{
+        Assume $\mathbf{A}$ has non-degenerate eigenvalues $\lambda_{1},lambda_{2},\cdots,\lambda_{k}$ and corresponding linearly independent eigenvectors $\mathbf{X}_{1},\mathbf{X}_{2},\cdots,\mathbf{X}_{k}$ which can be denoted
+        $
+            \begin{bmatrix}
+                x_{11}\\
+                x_{12}\\
+                \vdots\\
+                x_{1k}
+            \end{bmatrix}
+            ,
+            \begin{bmatrix}
+                x_{21}\\
+                x_{22}\\
+                \vdots\\
+                x_{2k}
+            \end{bmatrix}
+            ,\cdots,
+            \begin{bmatrix}
+                x_{k1}\\
+                x_{k2}\\
+                \vdots\\
+                x_{kk}
+            \end{bmatrix}
+        $.\\
+        Define the matrices composed of eigenvectors
+        \begin{align}
+            \mathbf{Q}&=
+                \begin{bmatrix}
+                    \mathbf{X}_{1} & \mathbf{X}_{2} & \cdots & \mathbf{X}_{k}
+                \end{bmatrix}\\
+                &=
+                \begin{bmatrix}
+                    x_{11} & x_{21} & \cdots & x_{k1}\\
+                    x_{12} & x_{22} & \cdots & x_{k2}\\
+                    \vdots & \vdots & \ddots & \vdots\\
+                    x_{1k} & x_{2k} & \cdots & x_{kk}
+                \end{bmatrix}
+        \end{align}
+        and eigenvalues
+        \[
+            \Lambda=
+                \begin{bmatrix}
+                    \lambda_{1} & 0           & \cdots & 0\\
+                    0           & \lambda_{2} & \cdots & 0\\
+                    \vdots      & \vdots      & \ddots & \vdots\\
+                    0           & 0           & \cdots & \lambda_{k}
+                \end{bmatrix}
+                .
+        \]
+        where $\Lambda$ is a diagonal matrix. Then
+        \begin{align}
+            \mathbf{A}\mathbf{Q}&=
+                \mathbf{A}
+                \begin{bmatrix}
+                    \mathbf{X}_{1} & \mathbf{X}_{2} & \cdots & \mathbf{X}_{k}
+                \end{bmatrix}\\
+                &=
+                \begin{bmatrix}
+                    \mathbf{A}\mathbf{X}_{1} & \mathbf{A}\mathbf{X}_{2} & \cdots & \mathbf{A}\mathbf{X}_{k}
+                \end{bmatrix}\\
+                &=
+                \begin{bmatrix}
+                    \lambda_{1}\mathbf{X}_{1} & \lambda_{2}\mathbf{X}_{2} & \cdots & \lambda_{k}\mathbf{X}_{k}
+                \end{bmatrix}\\
+                &=
+                \begin{bmatrix}
+                    \lambda_{1}x_{11} & \lambda_{2}x_{21} & \cdots & \lambda_{k}x_{k1}\\
+                    \lambda_{1}x_{12} & \lambda_{2}x_{22} & \cdots & \lambda_{k}x_{k2}\\
+                    \vdots            & \vdots            & \ddots & \vdots\\
+                    \lambda_{1}x_{1k} & \lambda_{2}x_{2k} & \cdots & \lambda_{k}x_{kk}
+                \end{bmatrix}\\
+                &=
+                \begin{bmatrix}
+                    x_{11} & x_{21} & \cdots & x_{k1}\\
+                    x_{12} & x_{22} & \cdots & x_{k2}\\
+                    \vdots & \vdots & \ddots & \vdots\\
+                    x_{1k} & x_{2k} & \cdots & x_{kk}
+                \end{bmatrix}
+                \begin{bmatrix}
+                    \lambda_{1} & 0           & \cdots & 0\\
+                    0           & \lambda_{2} & \cdots & 0\\
+                    \vdots      & \vdots      & \ddots & \vdots\\
+                    0           & 0           & \cdots & \lambda_{k}
+                \end{bmatrix}\\
+                &=
+                \mathbf{Q}\Lambda
+        \end{align}
+        giving the amazing decomposition of $\mathbf{A}$ into a similarity transformation involving $\mathbf{Q}$ and $\Lambda$,
+        \[\mathbf{A}=\mathbf{Q}\Lambda\mathbf{Q}^{-1}\]
+        The fact that this decomposition is always possible for a square matrix $\mathbf{A}$ as long as $\mathbf{Q}$ is a square matrix is known in this work as the Eigendecomposition theorem.
     }
 
     \clm{How to Perform Eigendecomposition?}{
@@ -258,13 +484,139 @@
             \[\det(\mathbf{A}-\lambda\mathbf{I})=0\]
             Here, $\mathbf{A}$ is the square matrix, $\lambda$ is the eigenvalue, and $\mathbf{I}$ is the identity matrix of the same dimension as $\mathbf{A}$.
             \item \textbf{Find the Eigenvectors}:\\
-            For each eigenvalue λ, substitute it back into the equation:
+            For each eigenvalue $\lambda$, substitute it back into the equation:
             \[(\mathbf{A}-\lambda\mathbf{I})\mathbf{v}=0\]
             This represents a system of linear equations where $\mathbf{v}$ is the eigenvector corresponding to the eigenvalue $\lambda$.
-            \item \textbf{Construct the Eigenvector Matrix V}:
-            \item \textbf{Form the Diagonal Matrix Λ}:
-            \item \textbf{Calculate the Inverse of V}:
+            \item \textbf{Construct the Eigenvector Matrix $\mathbf{Q}$}:\\
+            Place all the eigenvectors as columns in the matrix $\mathbf{Q}$. If there are n distinct eigenvalues, $\mathbf{Q}$ will be an $n \times n$ matrix.
+            \item \textbf{Form the Diagonal Matrix $\Lambda$}:\\
+            Construct a diagonal matrix $\Lambda$ by placing the eigenvalues on its diagonal
+            \item \textbf{Calculate the Inverse of $\mathbf{Q}$}:\\
+            Find $\mathbf{Q}^{-1}$, the inverse of the eigenvector matrix $\mathbf{Q}$, if the matrix is invertible.
+            \item \textbf{Combine to Form the Decomposition}:\\
+            Express the original matrix $\mathbf{A}$ as
+            \[\mathbf{A}=\mathbf{Q}\Lambda\mathbf{Q}^{-1}\]
         \end{enumerate}
+    }
+
+    \cor{
+        For general positive integer powers n > 0,
+        \[\mathbf{A}^{n}=\mathbf{Q}\Lambda^{n}\mathbf{Q}^{-1}\]
+    }
+
+    \cor{
+        The inverse of $\mathbf{A}$ is
+        \begin{align}
+            \mathbf{A}^{-1}&=(\mathbf{Q}\Lambda\mathbf{Q}^{-1})^{-1}\\
+                           &=(\mathbf{Q}^{-1})^{-1}(\Lambda)^{-1}(\mathbf{Q})^{-1}\\
+                           &=\mathbf{Q}\Lambda^{-1}\mathbf{Q}^{-1}
+        \end{align}
+    }
+
+    \cor{
+        The inverse of the diagonal matrix $\Lambda$ is trivially given by
+        \[
+            \Lambda^{-1}=
+                \begin{bmatrix}
+                    \lambda_{1}^{-1} & 0                & \cdots & 0\\
+                    0                & \lambda_{2}^{-1} & \cdots & 0\\
+                    \vdots           & \vdots           & \ddots & \vdots\\
+                    0                & 0                & \cdots & \lambda_{k}^{-1}
+                \end{bmatrix}
+        \]
+    }
+
+    \defn{Matrix Exponential}{
+        The power series that defines the exponential map $e^{x}$ also defines a map between matrices. In particular,
+        \begin{align}
+            \exp(\mathbf{A})&=e^{\mathbf{A}}\\
+                            &=\sum_{n=0}^{\infty}\frac{\mathbf{A}^{n}}{n!}\\
+                            &=\mathbf{I}+\mathbf{A}+\frac{\mathbf{A}\mathbf{A}}{2!}+\frac{\mathbf{A}\mathbf{A}\mathbf{A}}{3!}+\cdots
+        \end{align}
+        converges for any square matrix $\mathbf{A}$, where $\mathbf{I}$ is the identity matrix.
+    }
+
+    \cor{
+        Since $\Lambda$ is a diagonal matrix
+        \[
+            \Lambda=
+                \begin{bmatrix}
+                    \lambda_{1} & 0           & \cdots & 0\\
+                    0           & \lambda_{2} & \cdots & 0\\
+                    \vdots      & \vdots      & \ddots & \vdots\\
+                    0           & 0           & \cdots & \lambda_{k}
+                \end{bmatrix}
+        \]
+        Then
+        \begin{align}
+            \exp(\Lambda)&=e^{\Lambda}\\
+                         &=\sum_{n=0}^{\infty}\frac{\Lambda^{n}}{n!}\\
+                         &=\sum_{n=0}^{\infty}\frac{1}{n!}
+                            \begin{bmatrix}
+                                \lambda_{1}^{n} & 0               & \cdots & 0\\
+                                0               & \lambda_{2}^{n} & \cdots & 0\\
+                                \vdots          & \vdots          & \ddots & \vdots\\
+                                0               & 0               & \cdots & \lambda_{k}^{n}
+                            \end{bmatrix}\\
+                         &=
+                            \begin{bmatrix}
+                                \sum_{n=0}^{\infty}\frac{\Lambda_{1}^{n}}{n!} & 0               & \cdots & 0\\
+                                0                                             & \sum_{n=0}^{\infty}\frac{\Lambda_{2}^{n}}{n!} & \cdots & 0\\
+                                \vdots                                        & \vdots                                        & \ddots & \vdots\\
+                                0                                             & 0                                             & \cdots & \sum_{n=0}^{\infty}\frac{\Lambda_{k}^{n}}{n!}
+                            \end{bmatrix}\\
+                         &=
+                            \begin{bmatrix}
+                                e^\lambda_{1} & 0               & \cdots & 0\\
+                                0               & e^\lambda_{2} & \cdots & 0\\
+                                \vdots          & \vdots          & \ddots & \vdots\\
+                                0               & 0               & \cdots & e^\lambda_{k}
+                            \end{bmatrix}
+        \end{align}
+        Since $\mathbf{A}^{n}=\mathbf{Q}\Lambda^{n}\mathbf{Q}^{-1}$, then
+        \begin{align}
+            \exp(\mathbf{A})&=e^{\mathbf{A}}\\
+                            &=\sum_{n=0}^{\infty}\frac{\mathbf{A}^{n}}{n!}\\
+                            &=\sum_{n=0}^{\infty}\frac{\mathbf{Q}\Lambda^{n}\mathbf{Q}^{-1}}{n!}\\
+                            &=\mathbf{Q}\left(\sum_{n=0}^{\infty}\frac{\mathbf{\Lambda}^{n}}{n!}\right)\mathbf{Q}^{-1}\\
+                            &=\mathbf{Q}e^{\Lambda}\mathbf{Q}^{-1}
+        \end{align}
+        so $e^{\mathbf{A}}$ can be found using $\Lambda$.
+    }
+
+    \cor{
+        For the zero matrix $\mathbf{A}=0$,
+        \[
+            \exp(\mathbf{A})=e^{0}=\mathbf{I}
+        \]
+        i.e., the identity matrix.\\
+        In general,
+        \[
+            e^{\mathbf{A}}e^{-\mathbf{A}}=e^{0}=\mathbf{I}
+        \]
+        so the exponential of a matrix is always invertible, with inverse the exponential of the negative of the matrix.
+    }
+
+    \cor{
+        \[\exp(\mathbf{A}^{\mathbf{T}})=\exp(\mathbf{A})^{\mathbf{T}}\]
+    }
+
+    \cor{
+        If $\mathbf{Q}$ is invertible, then
+        \[e^{\mathbf{Q}\mathbf{A}\mathbf{Q}^{-1}}=\mathbf{Q}e^{\mathbf{A}}\mathbf{Q}^{-1}\]
+    }
+
+    \cor{
+        If $\mathbf{A}\mathbf{B}=\mathbf{B}\mathbf{A}$, then
+        \[e^{\mathbf{A}}e^{\mathbf{B}}=e^{\mathbf{A}+\mathbf{B}}\]
+    }
+
+    \cor{
+        \[e^{a\mathbf{A}}e^{b\mathbf{A}}=e^{(a+b)\mathbf{A}}\]
+    }
+
+    \defn{Edge matrix}{
+
     }
 }
 
