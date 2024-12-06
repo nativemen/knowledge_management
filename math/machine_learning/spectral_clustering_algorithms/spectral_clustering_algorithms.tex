@@ -170,70 +170,105 @@
     }
 }
 
-\section{Matrices}{
+\section{Matrices}
+
+\subsection{Symmetric matrix}{
     \defn{Symmetric matrix}{
         A real matrix is called symmetric if $\mathbf{A}^{\mathbf{T}}=\mathbf{A}$.\\
         Symmetric matrices are also called selfadjoint.\\
         For complex matrices we would ask $\mathbf{A}^{*}=\overline{\mathbf{A}}^{\mathbf{T}}=\mathbf{A}$.
     }
+    \label{Symmetric matrix}
 
     \cor{
         A symmetric matrix has real eigenvalues.
     }
     \pf{
-        Extend the dot product to complex vectors by $\langle\mathbf{v},\mathbf{w}\rangle=\sum_{i=1}^{n}\overline{\mathbf{v}_{i}}\mathbf{w}_{i}$, where $\overline{\mathbf{v}_{i}}$ is the complex conjugate of $\mathbf{v}_{i}$.\\
+        Extend the dot product to complex vectors by
+        \[\langle\mathbf{v},\mathbf{w}\rangle=\sum_{i=1}^{n}\mathbf{v}_{i}\overline{\mathbf{w}_{i}}\], where $\overline{\mathbf{w}_{i}}$ is the complex conjugate of $\mathbf{w}_{i}$.\\
         For real vectors it is the usual dot product $\langle\mathbf{v},\mathbf{w}\rangle=\sum_{i=1}^{n}\mathbf{v}_{i}\mathbf{w}_{i}=\mathbf{v}\cdot\mathbf{w}$.\\
         For a real matrix $\mathbf{A}$, we have
         \begin{align}
             \langle\mathbf{A}\mathbf{v},\mathbf{w}\rangle
-                &=\sum_{i=1}^{n}\overline{(\mathbf{A}v)_{i}}w_{i}\\
-                &=\sum_{i=1}^{n}\overline{\left(\sum_{j=1}^{n}\mathbf{A}_{ij}v_{j}\right)}w_{i}\\
-                &=\sum_{i=1}^{n}\sum_{j=1}^{n}\overline{\mathbf{A}_{ij}\mathbf{v}_{j}}\mathbf{w}_{i}
+                &=\sum_{i=1}^{n}(\mathbf{A}\mathbf{v})_{i}\overline{w_{i}}\\
+                &=\sum_{i=1}^{n}\left(\sum_{j=1}^{n}\mathbf{A}_{ij}v_{j}\right)\overline{w_{i}}\\
+                &=\sum_{i=1}^{n}\sum_{j=1}^{n}\mathbf{A}_{ij}\mathbf{v}_{j}\overline{\mathbf{w}_{i}}
         \end{align}
         Since $\mathbf{A}$ is a real matrix, then $\mathbf{A}_{ij}$ is real, therefore $\overline{\mathbf{A}_{ij}}=\mathbf{A}_{ij}$.\\
-        We can write the $j$-th component of the product of matrix $\mathbf{A}$ and vector $\mathbf{w}$ as:
-        \[\left(\mathbf{A}\mathbf{w}\right)_{j}=\sum_{i=1}^{n}\mathbf{A}_{ij}\mathbf{w}_{i}\]
-        When we compute the $j$-th component of the product of matrix $\mathbf{A}^{\mathbf{T}}$ and vector $\mathbf{w}$, we get:
-        \[\left(\mathbf{A}^{\mathbf{T}}\mathbf{w}\right)_{j}=\sum_{i=1}^{n}\left(\mathbf{A}^{\mathbf{T}}\right)_{ji}\mathbf{w}_{i}\]
+        We can write the $j$-th component of the complex conjugate of the product of matrix $\mathbf{A}$ and vector $\mathbf{w}$ as:
+        \[\overline{\left(\mathbf{A}\mathbf{w}\right)_{j}}=\sum_{i=1}^{n}\overline{\mathbf{A}_{ji}\mathbf{w}_{i}}\]
+        When we compute the $j$-th component of the complex conjugate of the product of matrix $\mathbf{A}^{\mathbf{T}}$ and vector $\mathbf{w}$, we get:
+        \[\overline{\left(\mathbf{A}^{\mathbf{T}}\mathbf{w}\right)_{j}}=\sum_{i=1}^{n}\overline{\left(\mathbf{A}^{\mathbf{T}}\right)_{ji}\mathbf{w}_{i}}\]
         Now, consider the transpose of matrix $\mathbf{A}$, denoted as $\mathbf{A}^{\mathbf{T}}$. The element $\left(\mathbf{A}^{\mathbf{T}}\right)_{ji}$ of the transpose matrix is equal to the element $\mathbf{A}_{ij}$ of the original matrix. Therefore, we have:
         \[\mathbf{A}_{ij}=\left(\mathbf{A}^{\mathbf{T}}\right)_{ji}\]
         then we obtain:
         \begin{align}
             \langle\mathbf{A}\mathbf{v},\mathbf{w}\rangle
-                &=\sum_{i=1}^{n}\sum_{j=1}^{n}\overline{\mathbf{A}_{ij}\mathbf{v}_{j}}\mathbf{w}_{i}\\
-                &=\sum_{i=1}^{n}\sum_{j=1}^{n}\mathbf{A}_{ij}\overline{\mathbf{v}_{j}}\mathbf{w}_{i}\\
-                &=\sum_{j=1}^{n}\overline{\mathbf{v}_{j}}\left(\sum_{i=1}^{n}\mathbf{A}_{ij}\mathbf{w}_{i}\right)\\
-                &=\sum_{j=1}^{n}\overline{\mathbf{v}_{j}}\left(\sum_{i=1}^{n}(\mathbf{A}^{\mathbf{T}})_{ji}\mathbf{w}_{i}\right)\\
-                &=\sum_{j=1}^{n}\overline{\mathbf{v}_{j}}\left(\mathbf{A}^{\mathbf{T}}\mathbf{w}\right)_{j}\\
+                &=\sum_{i=1}^{n}\sum_{j=1}^{n}\mathbf{A}_{ij}\mathbf{v}_{j}\overline{\mathbf{w}_{i}}\\
+                &=\sum_{i=1}^{n}\sum_{j=1}^{n}\overline{\mathbf{A}_{ij}}\mathbf{v}_{j}\overline{\mathbf{w}_{i}}\\
+                &=\sum_{j=1}^{n}\mathbf{v}_{j}\left(\sum_{i=1}^{n}\overline{\mathbf{A}_{ij}}\overline{\mathbf{w}_{i}}\right)\\
+                &=\sum_{j=1}^{n}\mathbf{v}_{j}\left(\sum_{i=1}^{n}\overline{\mathbf{A}_{ij}\mathbf{w}_{i}}\right)\\
+                &=\sum_{j=1}^{n}\mathbf{v}_{j}\left(\sum_{i=1}^{n}\overline{(\mathbf{A}^{\mathbf{T}})_{ji}\mathbf{w}_{i}}\right)\\
+                &=\sum_{j=1}^{n}\mathbf{v}_{j}\overline{\left(\mathbf{A}^{\mathbf{T}}\mathbf{w}\right)_{j}}\\
                 &=\langle\mathbf{v},\mathbf{A}^{\mathbf{T}}\mathbf{w}\rangle
         \end{align}
         And assume that the symmetric matrix $\mathbf{A}$ has a complex eigenvalue $\lambda$, then
         \begin{align}
             \langle\lambda\mathbf{v},\mathbf{w}\rangle
-                &=\sum_{i=1}^{n}\overline{\lambda\mathbf{v}_{i}}\mathbf{w}_{i}\\
-                &=\sum_{i=1}^{n}\overline{\lambda}\overline{\mathbf{v}_{i}}\mathbf{w}_{i}\\
-                &=\overline{\lambda}\langle\mathbf{v},\mathbf{w}\rangle
+                &=\sum_{i=1}^{n}\lambda\mathbf{v}_{i}\overline{\mathbf{w}_{i}}\\
+                &=\lambda\sum_{i=1}^{n}\mathbf{v}_{i}\overline{\mathbf{w}_{i}}\\
+                &=\lambda\langle\mathbf{v},\mathbf{w}\rangle
         \end{align}
         as well as
         \begin{align}
             \langle\mathbf{v},\lambda\mathbf{w}\rangle
-                &=\sum_{i=1}^{n}\overline{\mathbf{v}_{i}}\lambda\mathbf{w}_{i}\\
-                &=\lambda\sum_{i=1}^{n}\overline{\mathbf{v}_{i}}\mathbf{w}_{i}\\
-                &=\lambda\langle\mathbf{v},\mathbf{w}\rangle
+                &=\sum_{i=1}^{n}\mathbf{v}_{i}\overline{\lambda\mathbf{w}_{i}}\\
+                &=\sum_{i=1}^{n}\mathbf{v}_{i}\overline{\lambda}\overline{\mathbf{w}_{i}}\\
+                &=\overline{\lambda}\sum_{i=1}^{n}\mathbf{v}_{i}\overline{\mathbf{w}_{i}}\\
+                &=\overline{\lambda}\langle\mathbf{v},\mathbf{w}\rangle
         \end{align}
         Now, we have:
         \begin{align}
-            \overline{\lambda}\langle\mathbf{v},\mathbf{v}\rangle
+            \lambda\langle\mathbf{v},\mathbf{v}\rangle
                 &=\langle\lambda\mathbf{v},\mathbf{v}\rangle\\
                 &=\langle\mathbf{A}\mathbf{v},\mathbf{v}\rangle\\
                 &=\langle\mathbf{v},\mathbf{A}^{\mathbf{T}}\mathbf{v}\rangle\\
                 &=\langle\mathbf{v},\mathbf{A}\mathbf{v}\rangle\\
                 &=\langle\mathbf{v},\lambda\mathbf{v}\rangle\\
-                &=\lambda\langle\mathbf{v},\mathbf{v}\rangle
+                &=\overline{\lambda}\langle\mathbf{v},\mathbf{v}\rangle
         \end{align}
-        shows that $\overline{\lambda}=\lambda$ because $\langle\mathbf{v},\mathbf{v}\rangle\neq0$ for $\mathbf{v}\neq0$. That means $\lambda$ is real.
+        Since $\mathbf{v}\neq0$, we have $\langle\mathbf{v},\mathbf{v}\rangle\neq0$. Thus $\lambda=\overline{\lambda}$, which means $\lambda \in \mathbb{R}$.
     }
 
+    \cor{
+        There is an orthogonal eigenbasis for a symmetric matrix $\mathbf{A}$ if all the eigenvalues of $\mathbf{A}$ are all different.
+    }
+    \pf{
+        Assume that the symmetric matrix $\mathbf{A}$ has different real eigenvalues $\lambda$ and $\mu$ with corresponding eigenvectors $\mathbf{v}$ and $\mathbf{w}$, that means,
+        \[\mathbf{A}\mathbf{v}=\lambda\mathbf{v}\ and\ \mathbf{A}\mathbf{w}=\mu\mathbf{w}\]
+        The relation
+        \begin{align}
+            \lambda(\mathbf{v},\mathbf{w})
+                &=(\lambda\mathbf{v},\mathbf{w})\\
+                &=(\mathbf{A}\mathbf{v},\mathbf{w})\\
+                &=(\mathbf{v},\mathbf{A}^{\mathbf{T}}\mathbf{w})\\
+                &=(\mathbf{v},\mathbf{A}\mathbf{w})\\
+                &=(\mathbf{v},\mu\mathbf{w})\\
+                &=\overline{\mu}(\mathbf{v},\mathbf{w})\\
+                &=\mu(\mathbf{v},\mathbf{w})
+        \end{align}
+        is only possible if $(\mathbf{v},\mathbf{w})=0$ if $\lambda\neq\mu$\\
+        Therefore, the eigenvectors $\mathbf{v}$ and $\mathbf{w}$ are orthogonal.
+    }
+
+    \thm{Spectral theorem}{
+        A symmetric matrix can be diagonalized with an orthonormal
+        matrix S.
+    }
+    \pf{\todo{need more proof}}
+}
+
+\subsection{Degree matrix}{
     \defn{Degree matrix}{
         Given a graph $\mathbf{G}=(\mathbf{V},\mathbf{E})$ with $|\mathbf{V}|=n$, $\mathbf{V}$ is the vertex set, and $\mathbf{E}$ is the edge set, the Degree matrix $\mathbf{D}_{n \times n}$ for $\mathbf{G}$ is a $n \times n$ diagonal matrix defined as
         \[
@@ -254,7 +289,9 @@
         Since the Degree matrix $\mathbf{D}_{n \times n}$ for $\mathbf{G}$ is a $n \times n$ diagonal matrix, it is also symmetric, meaning.
         \[\mathbf{D}_{ij}=\mathbf{D}_{ji}\]
     }
+}
 
+\subsection{Adjacency matrix}{
     \defn{Adjacency matrix}{
         Given a graph $\mathbf{G}=(\mathbf{V},\mathbf{E})$ with $|\mathbf{V}|=n$, $\mathbf{V}$ is the vertex set, and $\mathbf{E}$ is the edge set, the Adjacency matrix $\mathbf{A}_{n \times n}$ for $\mathbf{G}$ is a $n \times n$ matrix defined as
         \[
@@ -305,7 +342,9 @@
         \[\mathbf{W}_{ij}=\mathbf{W}_{ji}\]
         For a directed graph, the Weighted Adjacency matrix may not be symmetric.
     }
+}
 
+\subsection{Vertex-edge matrix}{
     \defn{Vertex-edge matrix}{
         The edge between nodes $i$ and $j$ can be represented as an n-dimensional vector:
         \[\mathbf{e}=\sqrt{w_{ij}}\left[0,\cdots,0,1,0,\cdots,0,-1,0,\cdots,0\right]^{\mathbf{T}}\]
@@ -323,7 +362,9 @@
         Here, $\mathbf{e}(\tau)$ denotes the $\tau$-th value of the edge vector $\mathbf{e}$. For undirected graphs, the negative endpoint can be either at the $\tau=i$ location or at the $\tau=j$ location. Let $\mathbf{E}_{n \times m}=[\mathbf{e_{0}},\cdots\,\mathbf{e_{m-1}}]$
         be the vertex-edge matrix of size $n \times m$ obtained by taking the $m$ edge vectors as its columns. (The order of the edges is arbitrary.)
     }
+}
 
+\subsection{Laplacian matrix}{
     \defn{Laplacian matrix}{
         Given a simple $\mathbf{G}$ with $n$ vertices $v_{1},\cdots,v_{n}$, its Laplacian matrix $\mathbf{L}_{n \times n}$ is defined element-wise as
         \[
@@ -370,13 +411,15 @@
         For an undirected graph, the eigenvalues of the Laplacian matrix $\mathbf{L}$ are real and non-negative.
     }
     \pf{
-
+        Since the Laplacian matrix $\mathbf{L}$ is symmetric, then its eigenvalues are real (\ref{Symmetric matrix}).
     }
 
     \cor{
         For the undirected graph that both the Adjacency matrix $\mathbf{A}$ and the Laplacian matrix $\mathbf{L}$ are symmetric, and that row- and column-sums of the Laplacian matrix are all zeros (which directly implies that the Laplacian matrix is singular).
     }
+}
 
+\subsection{Eigendecomposition}{
     \defn{Eigendecomposition}{
         Let $\mathbf{A}$ be a square $n \times n$ matrix with n linearly independent eigenvectors $q_{i}$ (where $i=1,\cdots,n$). Then $\mathbf{A}$ can be factored as
         \[\mathbf{A}=\mathbf{Q}\mathbf{\Lambda}\mathbf{Q}^{-1}\]
@@ -525,7 +568,9 @@
                 \end{bmatrix}
         \]
     }
+}
 
+\subsection{Matrix Exponential}{
     \defn{Matrix Exponential}{
         The power series that defines the exponential map $e^{x}$ also defines a map between matrices. In particular,
         \begin{align}
@@ -613,10 +658,6 @@
 
     \cor{
         \[e^{a\mathbf{A}}e^{b\mathbf{A}}=e^{(a+b)\mathbf{A}}\]
-    }
-
-    \defn{Edge matrix}{
-
     }
 }
 
