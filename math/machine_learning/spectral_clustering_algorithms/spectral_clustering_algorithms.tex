@@ -108,6 +108,7 @@
     \defn{Connected component}{
         A subgraph of a graph that is connected within itself but not connected to the rest of the graph.
     }
+}
 
 \section{Graphs}{
     \defn{Complete graph}{
@@ -268,11 +269,191 @@
     \pf{\todo{need more proof}}
 }
 
+\subsection{Standard basis}{
+    \defn{Standard basis or natural basis or canonical basis}{
+        In mathematics, the standard basis (also called natural basis or canonical basis) of a coordinate vector space (such as $\mathbb{R}^{n}$ or $\mathbb{C}^{n}$) is the set of vectors, each of whose components are all zero, except one that equals $1$. For example, in the case of the Euclidean plane
+        an $n$-dimensional vector space$\mathbb{R}^{n}$, the standard basis vectors are a set of $n$ vectors, each of which has a $1$ in one coordinate and $0$ in all other coordinates. Mathematically, the standard basis vectors can be represented as:
+        \[
+            \mathbf{e}_{1}=
+                \begin{bmatrix}
+                    1\\
+                    0\\
+                    \vdots\\
+                    0
+                \end{bmatrix}
+            ,
+            \mathbf{e}_{2}=
+                \begin{bmatrix}
+                    0\\
+                    1\\
+                    \vdots\\
+                    0
+                \end{bmatrix}
+            ,\cdots,
+            \mathbf{e}_{n}=
+            \begin{bmatrix}
+                0\\
+                0\\
+                \vdots\\
+                1
+            \end{bmatrix}
+        \]
+        Here, $\mathbf{e}_{i}$ denotes the $i$-th standard basis vector. In an $n$-dimensional space, the set of standard basis vectors $\{\mathbf{e}_{1},\mathbf{e}_{2},\cdots,\mathbf{e}_{n}\}$ forms a basis for the space. This means that any vector $v$ in the space can be expressed as a linear combination of these standard basis vectors:
+        \[\mathbf{v}=a_{1}\mathbf{e}_{1}+a_{2}\mathbf{e}_{2}+\cdots+a_{n}\mathbf{e}_{n}\]
+        where $a_{1},a_{2},\cdots,a_{n}$ are the coordinates of the vector $\mathbf{v}$ with respect to the standard basis.
+    }
+    \label{Standard basis}
+}
+
+\subsection{Diagonal matrix}{
+    \defn{Diagonal matrix}{
+        A diagonal matrix is a matrix in which all off-diagonal entries are zero. That is, the matrix $\mathbf{D}=(d_{ij})$ with n columns and n rows is diagonal if
+        \[\forall i,j \in {1,2,\cdots,n}, i \neq j \Longrightarrow d_{ij}=0\]
+        However, the main diagonal entries are unrestricted.\\
+        More often, however, diagonal matrix refers to square matrices, which can be specified explicitly as a square diagonal matrix. A square diagonal matrix is a symmetric matrix, so this can also be called a symmetric diagonal matrix. The main diagonal is the line of entries running from the top left to the bottom right of the matrix. Mathematically, a diagonal matrix $\mathbf{D}_{n \times n}$ can be represented as:
+        \[
+            \mathbf{D}_{n \times n}=
+                \begin{bmatrix}
+                    d_{1}  & 0     & \cdots & 0\\
+                    0      & d_{2} & \cdots & 0\\
+                    \vdots & 0     & \ddots & \vdots\\
+                    0      & 0     & \cdots & d_{n}
+                \end{bmatrix}
+        \]
+        where $d_{1},d_{2},\cdots,d_{n}$ are the diagonal elements of the matrix.
+    }
+
+    \cor{
+        A diagonal matrix is symmetric.
+        \[\mathbf{D}^{\mathbf{T}}=\mathbf{D}\]
+    }
+
+    \cor{
+        A diagonal matrix $\mathbf{D}_{n \times n}$ is invertible if all its diagonal elements are non-zero. The inverse of a diagonal matrix is also a diagonal matrix, with each diagonal element being the reciprocal of the original diagonal element.
+        \[
+            \mathbf{D}_{n \times n}^{-1}=
+                \begin{bmatrix}
+                    \frac{1}{d_{1}}  & 0               & \cdots & 0\\
+                    0                & \frac{1}{d_{2}} & \cdots & 0\\
+                    \vdots           & 0               & \ddots & \vdots\\
+                    0                & 0               & \cdots & \frac{1}{d_{n}}
+                \end{bmatrix}
+        \]
+        where $d_{i} \neq 0\ \ \forall i \in \{1,2,\cdots,n\}$
+    }
+
+    \cor{
+        The eigenvalues of a diagonal matrix $\mathbf{D}_{n \times n}$ are its diagonal elements $d_{1},d_{2},\cdots,d_{n}$, and the eigenvectors are the standard basis vectors $\{\mathbf{e}_{1},\mathbf{e}_{2},\cdots,\mathbf{e}_{n}\}$ (\ref{Standard basis}).
+    }
+
+    \cor{
+        The product of two diagonal matrices $\mathbf{D}_{n \times n}$ and $\mathbf{D'}_{n \times n}$ is another diagonal matrix, with diagonal elements being the product of the corresponding diagonal elements of the original matrices.
+        \[
+            \mathbf{D}_{n \times n}\mathbf{D'}_{n \times n}=
+                \begin{bmatrix}
+                    d_{1}  & 0      & \cdots & 0\\
+                    0      & d_{2}  & \cdots & 0\\
+                    \vdots & \vdots & \ddots & \vdots\\
+                    0      & 0      & \cdots & d_{n,n}
+                \end{bmatrix}
+                \begin{bmatrix}
+                    d'_{1} & 0      & \cdots & 0\\
+                    0      & d'_{2} & \cdots & 0\\
+                    \vdots & \vdots & \ddots & \vdots\\
+                    0      & 0      & \cdots & d'_{n}
+                \end{bmatrix}
+                =
+                \begin{bmatrix}
+                    d_{1}d'_{1} & 0             & \cdots & 0\\
+                    0           & d_{2}d'_{2,2} & \cdots & 0\\
+                    \vdots      & \vdots        & \ddots & \vdots\\
+                    0           & 0             & \cdots & d_{n}d'_{n}
+                    \end{bmatrix} \]
+    }
+
+    \cor{
+        The trace of a diagonal matrix $\mathbf{D}_{n \times n}$ (the sum of its diagonal elements) is equal to the sum of its eigenvalues.
+        \[\operatorname{Tr}(\mathbf{D}_{n \times n})=\sum_{i=1}^{n}d_{i}\]
+    }
+
+    \cor{
+        The determinant of a diagonal matrix $\mathbf{D}_{n \times n}$ is the product of its diagonal elements.
+        \[\det(\mathbf{D}_{n \times n})=\prod_{i=1}^{n}d_{i}\]
+    }
+
+    \cor{
+        For a diagonal matrix $\mathbf{D}_{n \times n}$ with diagonal elements $d_{1},d_{2},\cdots,d_{n}$, the $k$-th power of $\mathbf{D}_{n \times n}$ is another diagonal matrix, which can be expressed as:
+        \begin{itemize}
+            \item When $k=0$, $\mathbf{D}_{n \times n}^{0}$ is the identity matrix $\mathbf{I}$, provided all diagonal elements $d_{i}$ are non-zero ($d_{i}\neq0$):
+            \[
+                \mathbf{D}_{n \times n}^{0}=
+                    \mathbf{I}
+                    =
+                    \begin{bmatrix}
+                        1      & 0 & \cdots & 0\\
+                        0      & 1 & \cdots & 0\\
+                        \vdots & 0 & \ddots & \vdots\\
+                        0      & 0 & \cdots & 1
+                    \end{bmatrix}
+            \]
+            \item For positive integers $k$, $\mathbf{D}_{n \times n}^{k}$ is computed by raising each diagonal element to the $k$-th power:
+            \[
+                \mathbf{D}_{n \times n}^{k}=
+                    \begin{bmatrix}
+                        d_{1}^{k}  & 0         & \cdots & 0\\
+                        0          & d_{2}^{k} & \cdots & 0\\
+                        \vdots     & 0         & \ddots & \vdots\\
+                        0          & 0         & \cdots & d_{n}^{k}
+                    \end{bmatrix}
+            \]
+            \item For negative integers $-k$, $\mathbf{D}_{n \times n}^{-k}$ is computed by taking the reciprocal of each diagonal element raised to the $k$-th power, assuming all diagonal elements $d_{i}$ are non-zero ($d_{i}\neq0$):
+            \[
+                \mathbf{D}_{n \times n}^{-k}=
+                    \begin{bmatrix}
+                        d_{1}^{-k} & 0          & \cdots & 0\\
+                        0          & d_{2}^{-k} & \cdots & 0\\
+                        \vdots     & 0          & \ddots & \vdots\\
+                        0          & 0          & \cdots & d_{n}^{-k}
+                    \end{bmatrix}
+                    =
+                    \begin{bmatrix}
+                        \frac{1}{d_{1}^{k}} & 0                   & \cdots & 0\\
+                        0                   & \frac{1}{d_{2}^{k}} & \cdots & 0\\
+                        \vdots              & 0                   & \ddots & \vdots\\
+                        0                   & 0                   & \cdots & \frac{1}{d_{n}^{k}}
+                    \end{bmatrix}
+            \]
+            \item When $k$ is a fraction, the power of a diagonal matrix $\mathbf{D}_{n \times n}$ is still well-defined, provided that all the diagonal elements are non-negative ($d_{i}\geq0$ if $k$ is a real number) or positive ($d_{i}>0$ if $k$ is a complex number).\\
+            For example, if $k=\frac{1}{2}$, then $\mathbf{D}_{n \times n}^{\frac{1}{2}}$ (the square root of
+            $\mathbf{D}_{n \times n}$) is:
+            \[
+                \mathbf{D}_{n \times n}^{\frac{1}{2}}=
+                \begin{bmatrix}
+                    \sqrt{d_{1}} & 0            & \cdots & 0\\
+                    0            & \sqrt{d_{2}} & \cdots & 0\\
+                    \vdots       & 0            & \ddots & \vdots\\
+                    0            & 0            & \cdots & \sqrt{d_{n}}
+                \end{bmatrix}
+            \]
+            if if $k=-\frac{1}{2}$, then $\mathbf{D}_{n \times n}^{-\frac{1}{2}}$ is:
+            \[
+                \mathbf{D}_{n \times n}^{-\frac{1}{2}}=
+                \begin{bmatrix}
+                    \frac{1}{\sqrt{d_{1}}} & 0                      & \cdots & 0\\
+                    0                      & \frac{1}{\sqrt{d_{2}}} & \cdots & 0\\
+                    \vdots                 & 0                      & \ddots & \vdots\\
+                    0                      & 0                      & \cdots & \frac{1}{\sqrt{d_{n}}}
+                \end{bmatrix}
+            \]
+        \end{itemize}
+    }
+}
+
 \subsection{Degree matrix}{
     \defn{Degree matrix}{
         Given a graph $\mathbf{G}=(\mathbf{V},\mathbf{E})$ with $|\mathbf{V}|=n$, $\mathbf{V}$ is the vertex set, and $\mathbf{E}$ is the edge set, the Degree matrix $\mathbf{D}_{n \times n}$ for $\mathbf{G}$ is a $n \times n$ diagonal matrix defined as
         \[
-            \mathbf{D}_{ij}:=
+            \mathbf{D}_{ij}=
                 \left\{
                     \begin{array}{ll}
                         \deg(v_{i}) & i=j \\
@@ -284,6 +465,7 @@
         In an \textbf{undirected graph}, this means that each loop increases the degree of a vertex by two.\\
         In a \textbf{directed graph}, the term degree may refer either to indegree (the number of incoming edges at each vertex) or outdegree (the number of outgoing edges at each vertex)
     }
+    \label{Degree matrix}
 
     \cor{
         Since the Degree matrix $\mathbf{D}_{n \times n}$ for $\mathbf{G}$ is a $n \times n$ diagonal matrix, it is also symmetric, meaning.
@@ -295,7 +477,7 @@
     \defn{Adjacency matrix}{
         Given a graph $\mathbf{G}=(\mathbf{V},\mathbf{E})$ with $|\mathbf{V}|=n$, $\mathbf{V}$ is the vertex set, and $\mathbf{E}$ is the edge set, the Adjacency matrix $\mathbf{A}_{n \times n}$ for $\mathbf{G}$ is a $n \times n$ matrix defined as
         \[
-            \mathbf{A}_{ij}:=
+            \mathbf{A}_{ij}=
                 \left\{
                     \begin{array}{ll}
                         1 & (v_{i},v_{j}) \in E \\
@@ -306,6 +488,7 @@
         where $(v_i,v_j)$ is an edge in $\mathbf{E}$.\\
         A matrix with rows and columns labeled by nodes, whose $i$-th row, $j$-th column component  $a_{ij}$ is 1 if node i is a neighbor of node j, or 0 otherwise.
     }
+    \label{Adjacency matrix}
 
     \cor{
         The diagonal elements of the Adjacency matrix are all zero, since edges from a vertex to itself (loops) are not allowed in simple graphs.
@@ -321,11 +504,13 @@
     \defn{Adjacency list}{
         Adjacency list $\mathbf{A}$ list of lists of nodes whose $i$-th component is the list of node $i$’s neighbors.
     }
+}
 
+\subsection{Weighted Adjacency matrix}{
     \defn{Weighted Adjacency matrix}{
         Let $\mathbf{G}=(\mathbf{V},\mathbf{W})$ be an undirected graph, where V is the n vertex set, and $\mathbf{W}_{n \times n}$ is the $n \times n$ Weighted Adjacency matrix. Let $w_{ij}$ be the non-negative weight between nodes $i$, $j$.
         \[
-            \mathbf{W}_{ij}:=
+            \mathbf{W}_{ij}=
                 \left\{
                     \begin{array}{ll}
                         w_{ij} & (v_{i},v_{j}) \in E \\
@@ -336,16 +521,26 @@
         An edge exists between nodes i and j if $w_{ij}>0$.\\
         For an unweighted graph, $w_{ij}=1$ if there is an edge; $w_{ij}=0$ otherwise.
     }
+    \label{Weighted Adjacency matrix}
 
     \cor{
         For undirected graphs, the Weighted Adjacency matrix is symmetric, meaning
         \[\mathbf{W}_{ij}=\mathbf{W}_{ji}\]
         For a directed graph, the Weighted Adjacency matrix may not be symmetric.
     }
+
+    \cor{
+        The diagonal elements of the Degree Matrix $\mathbf{D}$ are the sums of the elements in each row of the Weighted Adjacency Matrix $\mathbf{W}$.\\
+        Let the diagonal element $\mathbf{D}_{ii}$ represents the degree of vertex $i$, which is the sum of the weights of the edges connected to vertex $i$. Specifically:
+        \[\mathbf{D}_{ii}=\sum_{j=0}^{n-1}\mathbf{W}_{ij}\]
+        Therefore, the Degree Matrix $\mathbf{D}$ can be expressed as:
+        \[\mathbf{D}=\operatorname{diag}\left(\sum_{j=0}^{n-1}\mathbf{W}_{ij}\right)\]
+        where $\operatorname{diag}(\cdot)$ denotes constructing a diagonal matrix with the values inside the parentheses as its diagonal elements.
+    }
 }
 
-\subsection{Vertex-edge matrix}{
-    \defn{Vertex-edge matrix}{
+\subsection{Weighted vertex-edge matrix}{
+    \defn{Weighted vertex-edge matrix}{
         The edge between nodes $i$ and $j$ can be represented as an n-dimensional vector:
         \[\mathbf{e}=\sqrt{w_{ij}}\left[0,\cdots,0,1,0,\cdots,0,-1,0,\cdots,0\right]^{\mathbf{T}}\]
         where the $i$-th location is 1, the $j$-th location is -1, and other locations are 0.
@@ -359,16 +554,39 @@
                     \end{array}
                 \right.
         \]
-        Here, $\mathbf{e}(\tau)$ denotes the $\tau$-th value of the edge vector $\mathbf{e}$. For undirected graphs, the negative endpoint can be either at the $\tau=i$ location or at the $\tau=j$ location. Let $\mathbf{E}_{n \times m}=[\mathbf{e_{0}},\cdots\,\mathbf{e_{m-1}}]$
-        be the vertex-edge matrix of size $n \times m$ obtained by taking the $m$ edge vectors as its columns. (The order of the edges is arbitrary.)
+        Here, $\mathbf{e}(\tau)$ denotes the $\tau$-th value of the edge vector $\mathbf{e}$. For undirected graphs, the negative endpoint can be either at the $\tau=i$ location or at the $\tau=j$ location. Let $\mathbf{E}_{n \times m}=[\mathbf{e}_{0},\cdots,\mathbf{e}_{m-1}]$
+        be the weighted vertex-edge matrix of size $n \times m$ obtained by taking the $m$ edge vectors as its columns. (The order of the edges is arbitrary.)
     }
+    \label{Weighted vertex-edge matrix}
+}
+
+\subsection{Normalized vertex-edge matrix}{
+    \defn{Normalized vertex-edge matrix}{
+        Let $\mathbf{D}$ be the Degree matrix of the graph with the $i$-th diagonal element:
+        \[d_{i}=\sum_{j=1}^{n}w_{ij}\]
+        Let $\mathcal{E}=[\epsilon_{0},\cdots,\epsilon_{m-1}]$ be the normalized vertex-edge matrix with each $n$-dimensional edge $\epsilon$ vector normalized:
+        $\epsilon=\sqrt{w_{ij}}[0,\cdots,0,\sqrt{d_{i}},0,\cdots,0,-\sqrt{d_{i}},0,\cdots,0]^{\mathbf{T}}$
+        where the $i$-th location is $\sqrt{d_{i}}$, the $j$-th location is $-\sqrt{d_{i}}$, and other locations are 0.
+        \[
+            \epsilon(\tau)=
+                \left\{
+                    \begin{array}{ll}
+                        d_{i}^{-\frac{1}{2}}w_{ij}^{\frac{1}{2}}  & \text{if }\tau\text{ is }$i$,\\
+                        -d_{i}^{-\frac{1}{2}}w_{ij}^{\frac{1}{2}} & \text{if }\tau\text{ is }$j$,\\
+                        0                                        & \text{otherwise}
+                    \end{array}
+                \right.
+        \]
+        Here, $\epsilon(\tau)$ denotes the $\tau$-th value of the edge vector $\epsilon$.
+    }
+    \label{Normalized vertex-edge matrix}
 }
 
 \subsection{Laplacian matrix}{
     \defn{Laplacian matrix}{
         Given a simple $\mathbf{G}$ with $n$ vertices $v_{1},\cdots,v_{n}$, its Laplacian matrix $\mathbf{L}_{n \times n}$ is defined element-wise as
         \[
-            \mathbf{L}_{ij}:=
+            \mathbf{L}_{ij}=
                 \left\{
                     \begin{array}{ll}
                         \deg(v_i) & i=j \\
@@ -382,7 +600,7 @@
         where $\mathbf{D}_{n \times n}$ is the Degree matrix and $\mathbf{W}_{n \times n}$ is the Weighted Adjacency matrix of the graph $\mathbf{G}$.\\
         For an unweighted graph, $w_{ij}=1$ if there is an edge. then
         \[
-            \mathbf{L}_{ij}:=
+            \mathbf{L}_{ij}=
                 \left\{
                     \begin{array}{ll}
                         \deg(v_i) & i=j \\
@@ -396,6 +614,7 @@
         where $\mathbf{D}_{n \times n}$ is the Degree matrix and $\mathbf{A}_{n \times n}$ is the Adjacency matrix of the graph $\mathbf{G}$.\\
         Since $\mathbf{G}$ is a simple graph, $\mathbf{A}$ only contains $1$s or $0$s and its diagonal elements are all 0s.
     }
+    \label{Laplacian matrix}
 
     \cor{
         For an undirected graph, the Laplacian matrix $\mathbf{L}$ is a symmetric matrix.
@@ -416,6 +635,85 @@
 
     \cor{
         For the undirected graph that both the Adjacency matrix $\mathbf{A}$ and the Laplacian matrix $\mathbf{L}$ are symmetric, and that row- and column-sums of the Laplacian matrix are all zeros (which directly implies that the Laplacian matrix is singular).
+    }
+
+    \cor{
+        Let $\mathbf{E}_{n \times m}=[\mathbf{e}_{0},\cdots,\mathbf{e}_{m-1}]$ be the $n \times m$ weighted vertex-edge matrix in the an undirected graph of $n$ vertices and $m$ edges (\ref{Weighted vertex-edge matrix}).\\
+        The graph Laplacian matrix can be computed as follows
+        \[\mathbf{L}_{n \times n}=\mathbf{E}\mathbf{E}^{\mathbf{T}}=\sum_{t=0}^{m-1}\mathbf{e}_{t}\mathbf{e}_{t}^{\mathbf{T}}\]
+    }
+    \pf{
+        Since $\mathbf{E}_{n \times m}=[\mathbf{e}_{0},\cdots,\mathbf{e}_{m-1}]$ be the $n \times m$ weighted vertex-edge matrix in the an undirected graph of $n$ vertices and $m$ edges.\\
+        Let $\mathbf{e}(\tau)$ denotes the $\tau$-th value of the edge vector $\mathbf{e}$. For undirected graphs, the negative endpoint can be either at the $\tau=i$ location or at the $\tau=j$ location.
+        \[
+            \mathbf{e}(\tau)=
+                \left\{
+                    \begin{array}{ll}
+                        w_{ij}^{\frac{1}{2}}  & \text{if }\tau\text{ is }$i$,\\
+                        -w_{ij}^{\frac{1}{2}} & \text{if }\tau\text{ is }$j$,\\
+                        0                     & \text{otherwise}
+                    \end{array}
+                \right.
+        \]
+        Then
+        \begin{align}
+            \mathbf{E}_{n \times m}\mathbf{E}_{n \times m}^{\mathbf{T}}
+                &=
+                \begin{bmatrix}
+                    \mathbf{e}_{0} & \cdots & \mathbf{e}_{m-1}
+                \end{bmatrix}
+                \begin{bmatrix}
+                    \mathbf{e}_{0}^{\mathbf{T}}\\
+                    \vdots\\
+                    \mathbf{e}_{m-1}^{\mathbf{T}}
+                \end{bmatrix}\\
+                &=\sum_{t=0}^{m-1}\mathbf{e}_{t}\mathbf{e}_{t}^{\mathbf{T}}\\
+                &=
+                \begin{bmatrix}
+                    0      & \cdots & 0       & \cdots & 0       & \cdots & 0 \\
+                    \vdots & \ddots & \vdots  & \ddots & \vdots  & \ddots & \vdots \\
+                    0      & \cdots & w_{ij}  & \cdots & -w_{ij} & \cdots & 0 \\
+                    \vdots & \ddots & \vdots  & \ddots & \vdots  & \ddots & \vdots \\
+                    0      & \cdots & -w_{ij} & \cdots & w_{ij}  & \cdots & 0 \\
+                    \vdots & \ddots & \vdots  & \ddots & \vdots  & \ddots & \vdots \\
+                    0      & \cdots & 0       & \cdots & 0       & \cdots & 0 \\
+                \end{bmatrix}
+            \end{align}
+        For each $\mathbf{e}_{t}$, its non-zero elements are at positions $i$ and $j$, with values $\sqrt{w_{ij}}$ and $-\sqrt{w_{ij}}$ respectively. Therefore,$\mathbf{e}_{t}\mathbf{e}_{t}^{\mathbf{T}}$ is an $n \times n$ matrix with $w_{ij}$ at positions $(i,i)$ and $(j,j)$, $-w_{ij}$ at positions $(i,j)$ and $(j,i)$, and 0 elsewhere.\\
+        Summing all $\mathbf{e}_{t}\mathbf{e}_{t}^{\mathbf{T}}$ matrices results in a matrix $\mathbf{E}_{n \times m}\mathbf{E}_{n \times m}^{\mathbf{T}}$ where the diagonal elements are the degrees of the vertices (i.e., the degree matrix $\mathbf{D}_{n \times n}$), and the off-diagonal elements are the negative weights of the edges (i.e., the negative of the weighted adjacency matrix $\mathbf{W}_{n \times n}$).\\
+        Specifically, for the $i$-th row and $i$-th column element of the matrix $\mathbf{E}_{n \times m}\mathbf{E}_{n \times m}^{\mathbf{T}}$:
+        \[(\mathbf{E}_{n \times m}\mathbf{E}_{n \times m}^{\mathbf{T}})_{ii}=\sum_{t=0}^{m-1}(\mathbf{e}_{t}\mathbf{e}_{t}^{\mathbf{T}})_{ii}=\sum_{j \neq i}w_{ij}=d_{i}\]
+        where $d_{i}$ is the degree of vertex i (\ref{Degree matrix}).\\
+        For the $i$-th row and $j$-th column element of the matrix $\mathbf{E}_{n \times m}\mathbf{E}_{n \times m}^{\mathbf{T}}$ (where $i \neq j$):
+        \[(\mathbf{E}_{n \times m}\mathbf{E}_{n \times m}^{\mathbf{T}})_{ij}=\sum_{t=0}^{m-1}(\mathbf{e}_{t}\mathbf{e}_{t}^{\mathbf{T}})_{ij}=-w_{ij}\]
+        where $w_{ij}$ is the weight of the edge between vertices $i$ and $j$ (\ref{Weighted Adjacency matrix}).\\
+        Thus, $\mathbf{E}_{n \times m}\mathbf{E}_{n \times m}^{\mathbf{T}}=\mathbf{D}_{n \times n}-\mathbf{W}_{n \times n}=\mathbf{L}_{n \times n}$.
+    }
+}
+
+\subsection{Normalized Laplacian matrix}{
+    \defn{Symmetrically normalized Laplacian matrix}{
+        The symmetrically normalized graph Laplacian matrix can be computed as:
+        \[\mathcal{L}_{sym}=\mathbf{D}^{-\frac{1}{2}}\mathbf{L}\mathbf{D}^{-\frac{1}{2}}=\mathbf{I}-\mathbf{D}^{-\frac{1}{2}}\mathbf{W}\mathbf{D}^{-\frac{1}{2}}\]
+        The elements of $\mathcal{L}_{sym}$ are thus given by
+        \[
+            (\mathcal{L}_{sym})_{ij}=
+                \left\{
+                    \begin{array}{ll}
+                        1                                        & if\ i=j\ and\ \deg(v_{i}) \neq 0\\
+                        -\frac{1}{\sqrt{\deg(v_{i})\deg(v_{j})}} & if\ i \neq j\ and\ v_{i}\ is\ adjacent\ to\ v_{j}\\
+                        0                                        & otherwise
+                    \end{array}
+                \right.
+        \]
+    }
+    \label{Symmetrically normalized Laplacian matrix}
+    \pf{
+
+    }
+
+    \cor{
+        \[\mathcal{L}_{sym}=\mathcal{E}\mathcal{E}^{\mathbf{T}}=\sum_{t=0}^{m-1}\mathbf{\epsilon}_{t}\mathbf{\epsilon}_{t}^{\mathbf{T}}\]
     }
 }
 
@@ -543,7 +841,7 @@
     }
 
     \cor{
-        For general positive integer powers n > 0,
+        For general positive integer powers $n>0$,
         \[\mathbf{A}^{n}=\mathbf{Q}\Lambda^{n}\mathbf{Q}^{-1}\]
     }
 
