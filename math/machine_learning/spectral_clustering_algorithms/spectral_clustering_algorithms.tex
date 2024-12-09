@@ -329,7 +329,7 @@
     }
 
     \cor{
-        A diagonal matrix $\mathbf{D}_{n \times n}$ is invertible if all its diagonal elements are non-zero. The inverse of a diagonal matrix is also a diagonal matrix, with each diagonal element being the reciprocal of the original diagonal element.
+        A diagonal matrix $\mathbf{D}_{n \times n}=\operatorname{diag}(d_{1},\cdots,d_{n})$ is invertible if and only if all its diagonal elements $d_{1},\cdots,d_{n}$ are non-zero. The inverse of a diagonal matrix is also a diagonal matrix, with each diagonal element being the reciprocal of the original diagonal element.
         \[
             \mathbf{D}_{n \times n}^{-1}=
                 \begin{bmatrix}
@@ -340,6 +340,7 @@
                 \end{bmatrix}
         \]
         where $d_{i} \neq 0\ \ \forall i \in \{1,2,\cdots,n\}$
+        \[\operatorname{diag}(d_{1},\cdots,d_{n})^{-1}=\operatorname{diag}(d_{1}^{-1},\cdots,d_{n}^{-1})\]
     }
 
     \cor{
@@ -368,7 +369,14 @@
                     0           & d_{2}d'_{2,2} & \cdots & 0\\
                     \vdots      & \vdots        & \ddots & \vdots\\
                     0           & 0             & \cdots & d_{n}d'_{n}
-                    \end{bmatrix} \]
+                    \end{bmatrix}
+        \]
+        \[\operatorname{diag}(a_{1},\cdots,a_{n})\operatorname{diag}(b_{1},\cdots,b_{n})=\operatorname{diag}(a_{1}b_{1},\cdots,a_{n}b_{n})\]
+    }
+
+    \cor{
+        For matrix multiplication:
+        \[\operatorname{diag}(a_{1},\cdots,a_{n})+\operatorname{diag}(b_{1},\cdots,b_{n})=\operatorname{diag}(a_{1}+b_{1},\cdots,a_{n}+b_{n})\]
     }
 
     \cor{
@@ -530,6 +538,11 @@
     }
 
     \cor{
+        For a simple graph, the diagonal elements of the Weighted Adjacency matrix are all 0, indicating no self-loops.
+        \[\mathbf{W}_{ii}=0\ \ \forall i \in \{0,1,\cdots,n\}\]
+    }
+
+    \cor{
         The diagonal elements of the Degree Matrix $\mathbf{D}$ are the sums of the elements in each row of the Weighted Adjacency Matrix $\mathbf{W}$.\\
         Let the diagonal element $\mathbf{D}_{ii}$ represents the degree of vertex $i$, which is the sum of the weights of the edges connected to vertex $i$. Specifically:
         \[\mathbf{D}_{ii}=\sum_{j=0}^{n-1}\mathbf{W}_{ij}\]
@@ -554,32 +567,76 @@
                     \end{array}
                 \right.
         \]
-        Here, $\mathbf{e}(\tau)$ denotes the $\tau$-th value of the edge vector $\mathbf{e}$. For undirected graphs, the negative endpoint can be either at the $\tau=i$ location or at the $\tau=j$ location. Let $\mathbf{E}_{n \times m}=[\mathbf{e}_{0},\cdots,\mathbf{e}_{m-1}]$
+        Here, $\mathbf{e}(\tau)$ denotes the $\tau$-th value of the edge vector $\mathbf{e}$. For undirected graphs, the negative endpoint can be either at the $\tau=i$ location or at the $\tau=j$ location. Let $\mathbf{E}_{n \times m}=[\mathbf{e}_{1},\cdots,\mathbf{e}_{m}]$
         be the weighted vertex-edge matrix of size $n \times m$ obtained by taking the $m$ edge vectors as its columns. (The order of the edges is arbitrary.)
     }
     \label{Weighted vertex-edge matrix}
 }
 
-\subsection{Normalized vertex-edge matrix}{
-    \defn{Normalized vertex-edge matrix}{
+\subsection{Normalized weighted vertex-edge matrix}{
+    \defn{Normalized weighted vertex-edge matrix}{
         Let $\mathbf{D}$ be the Degree matrix of the graph with the $i$-th diagonal element:
         \[d_{i}=\sum_{j=1}^{n}w_{ij}\]
-        Let $\mathcal{E}=[\epsilon_{0},\cdots,\epsilon_{m-1}]$ be the normalized vertex-edge matrix with each $n$-dimensional edge $\epsilon$ vector normalized:
-        $\epsilon=\sqrt{w_{ij}}[0,\cdots,0,\sqrt{d_{i}},0,\cdots,0,-\sqrt{d_{i}},0,\cdots,0]^{\mathbf{T}}$
-        where the $i$-th location is $\sqrt{d_{i}}$, the $j$-th location is $-\sqrt{d_{i}}$, and other locations are 0.
+        Let $\mathcal{E}_{n \times m}=[\epsilon_{1},\cdots,\epsilon_{m}]$ be the Normalized weighted vertex-edge matrix with each $n$-dimensional edge $\epsilon$ vector normalized:
+        \[\mathcal{E}_{n \times m}=\mathbf{D}_{n \times n}^{-\frac{1}{2}}\mathbf{E}_{n \times m}\]
+        with $\epsilon=\sqrt{w_{ij}}\left[0,\cdots,0,\frac{1}{\sqrt{d_{i}}},0,\cdots,0,-\frac{1}{\sqrt{d_{j}}},0,\cdots,0\right]^{\mathbf{T}}$
+        where the $i$-th location is $\sqrt{d_{i}}$, the $j$-th location is $-\sqrt{d_{j}}$, and other locations are 0.
         \[
             \epsilon(\tau)=
                 \left\{
                     \begin{array}{ll}
                         d_{i}^{-\frac{1}{2}}w_{ij}^{\frac{1}{2}}  & \text{if }\tau\text{ is }$i$,\\
-                        -d_{i}^{-\frac{1}{2}}w_{ij}^{\frac{1}{2}} & \text{if }\tau\text{ is }$j$,\\
+                        -d_{j}^{-\frac{1}{2}}w_{ij}^{\frac{1}{2}} & \text{if }\tau\text{ is }$j$,\\
                         0                                        & \text{otherwise}
                     \end{array}
                 \right.
         \]
         Here, $\epsilon(\tau)$ denotes the $\tau$-th value of the edge vector $\epsilon$.
+        \[\epsilon(\tau)=\mathbf{D}^{-\frac{1}{2}}\mathbf{e}(\tau)\]
     }
-    \label{Normalized vertex-edge matrix}
+    \label{Normalized weighted vertex-edge matrix}
+    \pf{
+        \begin{align}
+            \epsilon(\tau)
+                &=\mathbf{D}^{-\frac{1}{2}}\mathbf{e}(\tau)\\
+                &=
+                \begin{bmatrix}
+                    d_{1}^{-\frac{1}{2}} & 0                    & \cdots & 0\\
+                    0                    & d_{2}^{-\frac{1}{2}} & \cdots & 0\\
+                    \vdots               & \vdots               & \ddots & \vdots\\
+                    0                    & \cdots               & \cdots & d_{n}^{-\frac{1}{2}}
+                \end{bmatrix}
+                \sqrt{w_{ij}}
+                \begin{bmatrix}
+                    0\\
+                    \cdots\\
+                    0\\
+                    1\\
+                    0\\
+                    \cdots\\
+                    0\\
+                    -1\\
+                    0\\
+                    \cdots\\
+                    0
+                \end{bmatrix}\\
+                &=\sqrt{w_{ij}}
+                \begin{bmatrix}
+                    0\\
+                    \cdots\\
+                    0\\
+                    \frac{1}{\sqrt{d_{i}}}\\
+                    0\\
+                    \cdots\\
+                    0\\
+                    -\frac{1}{\sqrt{d_{j}}}\\
+                    0\\
+                    \cdots\\
+                    0
+                \end{bmatrix}\\
+                &=\sqrt{w_{ij}}\left[0,\cdots,0,\frac{1}{\sqrt{d_{i}}},0,\cdots,0,-\frac{1}{\sqrt{d_{j}}},0,\cdots,0\right]^{\mathbf{T}}
+        \end{align}
+    }
 }
 
 \subsection{Laplacian matrix}{
@@ -617,13 +674,13 @@
     \label{Laplacian matrix}
 
     \cor{
-        For an undirected graph, the Laplacian matrix $\mathbf{L}$ is a symmetric matrix.
+        For an undirected graph, the Laplacian matrix $\mathbf{L}_{n \times n}$ is a symmetric matrix.
     }
     \pf{
-        The Laplacian matrix $\mathbf{L}$ is defined as $\mathbf{L} = \mathbf{D} - \mathbf{W}$, where $\mathbf{D}$ is the degree matrix and $\mathbf{W}$ is the weighted adjacency matrix.\\
-        For an undirected graph, the adjacency matrix $\mathbf{W}$ is symmetric, meaning $\mathbf{W} = \mathbf{W}^T$.\\
-        The degree matrix $\mathbf{D}$ is diagonal and therefore symmetric.\\
-        Since both $\mathbf{D}$ and $\mathbf{W}$ are symmetric, their difference $\mathbf{L} = \mathbf{D} - \mathbf{W}$ is also symmetric.
+        The Laplacian matrix $\mathbf{L}_{n \times n}$ is defined as $\mathbf{L}_{n \times n} = \mathbf{D}_{n \times n}-\mathbf{W}_{n \times n}$, where $\mathbf{D}_{n \times n}$ is the degree matrix and $\mathbf{W}_{n \times n}$ is the weighted adjacency matrix.\\
+        For an undirected graph, the adjacency matrix $\mathbf{W}_{n \times n}$ is symmetric, meaning $\mathbf{W}_{n \times n}=\mathbf{W}_{n \times n}^T$.\\
+        The degree matrix $\mathbf{D}_{n \times n}$ is diagonal and therefore symmetric.\\
+        Since both $\mathbf{D}_{n \times n}$ and $\mathbf{W}_{n \times n}$ are symmetric, their difference $\mathbf{L}_{n \times n}=\mathbf{D}_{n \times n}-\mathbf{W}_{n \times n}$ is also symmetric.
     }
 
     \cor{
@@ -638,12 +695,12 @@
     }
 
     \cor{
-        Let $\mathbf{E}_{n \times m}=[\mathbf{e}_{0},\cdots,\mathbf{e}_{m-1}]$ be the $n \times m$ weighted vertex-edge matrix in the an undirected graph of $n$ vertices and $m$ edges (\ref{Weighted vertex-edge matrix}).\\
+        Let $\mathbf{E}_{n \times m}=[\mathbf{e}_{1},\cdots,\mathbf{e}_{m}]$ be the $n \times m$ weighted vertex-edge matrix in the an undirected graph of $n$ vertices and $m$ edges (\ref{Weighted vertex-edge matrix}).\\
         The graph Laplacian matrix can be computed as follows
-        \[\mathbf{L}_{n \times n}=\mathbf{E}\mathbf{E}^{\mathbf{T}}=\sum_{t=0}^{m-1}\mathbf{e}_{t}\mathbf{e}_{t}^{\mathbf{T}}\]
+        \[\mathbf{L}_{n \times n}=\mathbf{E}_{n \times m}\mathbf{E}_{n \times m}^{\mathbf{T}}=\sum_{t=1}^{m}\mathbf{e}_{t}\mathbf{e}_{t}^{\mathbf{T}}\]
     }
     \pf{
-        Since $\mathbf{E}_{n \times m}=[\mathbf{e}_{0},\cdots,\mathbf{e}_{m-1}]$ be the $n \times m$ weighted vertex-edge matrix in the an undirected graph of $n$ vertices and $m$ edges.\\
+        Since $\mathbf{E}_{n \times m}=[\mathbf{e}_{1},\cdots,\mathbf{e}_{m}]$ be the $n \times m$ weighted vertex-edge matrix in the an undirected graph of $n$ vertices and $m$ edges.\\
         Let $\mathbf{e}(\tau)$ denotes the $\tau$-th value of the edge vector $\mathbf{e}$. For undirected graphs, the negative endpoint can be either at the $\tau=i$ location or at the $\tau=j$ location.
         \[
             \mathbf{e}(\tau)=
@@ -660,14 +717,14 @@
             \mathbf{E}_{n \times m}\mathbf{E}_{n \times m}^{\mathbf{T}}
                 &=
                 \begin{bmatrix}
-                    \mathbf{e}_{0} & \cdots & \mathbf{e}_{m-1}
+                    \mathbf{e}_{1} & \cdots & \mathbf{e}_{m}
                 \end{bmatrix}
                 \begin{bmatrix}
-                    \mathbf{e}_{0}^{\mathbf{T}}\\
+                    \mathbf{e}_{1}^{\mathbf{T}}\\
                     \vdots\\
-                    \mathbf{e}_{m-1}^{\mathbf{T}}
+                    \mathbf{e}_{m}^{\mathbf{T}}
                 \end{bmatrix}\\
-                &=\sum_{t=0}^{m-1}\mathbf{e}_{t}\mathbf{e}_{t}^{\mathbf{T}}\\
+                &=\sum_{t=1}^{m}\mathbf{e}_{t}\mathbf{e}_{t}^{\mathbf{T}}\\
                 &=
                 \begin{bmatrix}
                     0      & \cdots & 0       & \cdots & 0       & \cdots & 0 \\
@@ -682,10 +739,10 @@
         For each $\mathbf{e}_{t}$, its non-zero elements are at positions $i$ and $j$, with values $\sqrt{w_{ij}}$ and $-\sqrt{w_{ij}}$ respectively. Therefore,$\mathbf{e}_{t}\mathbf{e}_{t}^{\mathbf{T}}$ is an $n \times n$ matrix with $w_{ij}$ at positions $(i,i)$ and $(j,j)$, $-w_{ij}$ at positions $(i,j)$ and $(j,i)$, and 0 elsewhere.\\
         Summing all $\mathbf{e}_{t}\mathbf{e}_{t}^{\mathbf{T}}$ matrices results in a matrix $\mathbf{E}_{n \times m}\mathbf{E}_{n \times m}^{\mathbf{T}}$ where the diagonal elements are the degrees of the vertices (i.e., the degree matrix $\mathbf{D}_{n \times n}$), and the off-diagonal elements are the negative weights of the edges (i.e., the negative of the weighted adjacency matrix $\mathbf{W}_{n \times n}$).\\
         Specifically, for the $i$-th row and $i$-th column element of the matrix $\mathbf{E}_{n \times m}\mathbf{E}_{n \times m}^{\mathbf{T}}$:
-        \[(\mathbf{E}_{n \times m}\mathbf{E}_{n \times m}^{\mathbf{T}})_{ii}=\sum_{t=0}^{m-1}(\mathbf{e}_{t}\mathbf{e}_{t}^{\mathbf{T}})_{ii}=\sum_{j \neq i}w_{ij}=d_{i}\]
+        \[(\mathbf{E}_{n \times m}\mathbf{E}_{n \times m}^{\mathbf{T}})_{ii}=\sum_{t=1}^{m}(\mathbf{e}_{t}\mathbf{e}_{t}^{\mathbf{T}})_{ii}=\sum_{j \neq i}w_{ij}=d_{i}\]
         where $d_{i}$ is the degree of vertex i (\ref{Degree matrix}).\\
         For the $i$-th row and $j$-th column element of the matrix $\mathbf{E}_{n \times m}\mathbf{E}_{n \times m}^{\mathbf{T}}$ (where $i \neq j$):
-        \[(\mathbf{E}_{n \times m}\mathbf{E}_{n \times m}^{\mathbf{T}})_{ij}=\sum_{t=0}^{m-1}(\mathbf{e}_{t}\mathbf{e}_{t}^{\mathbf{T}})_{ij}=-w_{ij}\]
+        \[(\mathbf{E}_{n \times m}\mathbf{E}_{n \times m}^{\mathbf{T}})_{ij}=\sum_{t=1}^{m}(\mathbf{e}_{t}\mathbf{e}_{t}^{\mathbf{T}})_{ij}=-w_{ij}\]
         where $w_{ij}$ is the weight of the edge between vertices $i$ and $j$ (\ref{Weighted Adjacency matrix}).\\
         Thus, $\mathbf{E}_{n \times m}\mathbf{E}_{n \times m}^{\mathbf{T}}=\mathbf{D}_{n \times n}-\mathbf{W}_{n \times n}=\mathbf{L}_{n \times n}$.
     }
@@ -693,7 +750,7 @@
 
 \subsection{Normalized Laplacian matrix}{
     \defn{Symmetrically normalized Laplacian matrix}{
-        The symmetrically normalized graph Laplacian matrix can be computed as:
+        The symmetrically normalized Laplacian matrix can be computed as:
         \[\mathcal{L}_{sym}=\mathbf{D}^{-\frac{1}{2}}\mathbf{L}\mathbf{D}^{-\frac{1}{2}}=\mathbf{I}-\mathbf{D}^{-\frac{1}{2}}\mathbf{W}\mathbf{D}^{-\frac{1}{2}}\]
         The elements of $\mathcal{L}_{sym}$ are thus given by
         \[
@@ -701,7 +758,7 @@
                 \left\{
                     \begin{array}{ll}
                         1                                        & if\ i=j\ and\ \deg(v_{i}) \neq 0\\
-                        -\frac{1}{\sqrt{\deg(v_{i})\deg(v_{j})}} & if\ i \neq j\ and\ v_{i}\ is\ adjacent\ to\ v_{j}\\
+                        -\frac{w_{ij}}{\sqrt{\deg(v_{i})\deg(v_{j})}} & if\ i \neq j\ and\ v_{i}\ is\ adjacent\ to\ v_{j}\\
                         0                                        & otherwise
                     \end{array}
                 \right.
@@ -709,11 +766,169 @@
     }
     \label{Symmetrically normalized Laplacian matrix}
     \pf{
-
+        The Degree matrix $\mathbf{D}_{n \times n}$ is a diagonal matrix, and when $d_{i} \neq 0\ \ \forall i \in \{1,2,\cdots,n\}$, then
+        \begin{align}
+            \mathbf{D}_{n \times n}^{-\frac{1}{2}}\mathbf{D}_{n \times n}\mathbf{D}_{n \times n}^{-\frac{1}{2}}
+                    &=
+                    \begin{bmatrix}
+                        \frac{1}{\sqrt{d_{1}}} & 0                      & \cdots & 0\\
+                        0                      & \frac{1}{\sqrt{d_{2}}} & \cdots & 0\\
+                        \vdots                 & \vdots                 & \ddots & \vdots\\
+                        0                      & 0                      & \cdots & \frac{1}{\sqrt{d_{n}}}
+                    \end{bmatrix}
+                    \begin{bmatrix}
+                        d_{1}  & 0      & \cdots & 0\\
+                        0      & d_{2}  & \cdots & 0\\
+                        \vdots & \vdots & \ddots & \vdots\\
+                        0      & 0      & \cdots & d_{n}
+                    \end{bmatrix}
+                    \begin{bmatrix}
+                        \frac{1}{\sqrt{d_{1}}} & 0                      & \cdots & 0\\
+                        0                      & \frac{1}{\sqrt{d_{2}}} & \cdots & 0\\
+                        \vdots                 & \vdots                 & \ddots & \vdots\\
+                        0                      & 0                      & \cdots & \frac{1}{\sqrt{d_{n}}}
+                    \end{bmatrix}\\
+                    &=
+                    \begin{bmatrix}
+                        \frac{d_{1}}{\sqrt{d_{1}}\sqrt{d_{1}}} & 0                                    & \cdots & 0\\
+                        0                                      & \frac{d_{2}}{\sqrt{d_{2}}\sqrt{d_{2}}} & \cdots & 0\\
+                        \vdots                                 & \vdots                               & \ddots & \vdots\\
+                        0                                      & 0                                    & \cdots & \frac{d_{n}}{\sqrt{d_{n}}\sqrt{d_{n}}}
+                    \end{bmatrix}\\
+                    &=
+                    \begin{bmatrix}
+                        1      & 0      & \cdots & 0\\
+                        0      & 1      & \cdots & 0\\
+                        \vdots & \vdots & \ddots & \vdots\\
+                        0      & 0      & \cdots & 1
+                    \end{bmatrix}\\
+                    &=
+                    \mathbf{I}_{n \times n}
+        \end{align}
+        Since $\mathbf{L}_{n \times n}=\mathbf{D}_{n \times n}-\mathbf{W}_{n \times n}$, then
+        \begin{align}
+            \mathcal{L}_{sym}
+                &=\mathbf{D}_{n \times n}^{-\frac{1}{2}}\mathbf{L}_{n \times n}\mathbf{D}_{n \times n}^{-\frac{1}{2}}\\
+                &=\mathbf{D}_{n \times n}^{-\frac{1}{2}}(\mathbf{D}_{n \times n}-\mathbf{W}_{n \times n})\mathbf{D}_{n \times n}^{-\frac{1}{2}}\\
+                &=\mathbf{D}_{n \times n}^{-\frac{1}{2}}\mathbf{D}_{n \times n}\mathbf{D}_{n \times n}^{-\frac{1}{2}}-\mathbf{D}_{n \times n}^{-\frac{1}{2}}\mathbf{W}_{n \times n}\mathbf{D}_{n \times n}^{-\frac{1}{2}}\\
+                &=\mathbf{I}_{n \times n}-\mathbf{D}_{n \times n}^{-\frac{1}{2}}\mathbf{W}_{n \times n}\mathbf{D}_{n \times n}^{-\frac{1}{2}}
+        \end{align}
+        And we have
+        \begin{align}
+            \mathbf{D}_{n \times n}^{-\frac{1}{2}}\mathbf{W}_{n \times n}\mathbf{D}_{n \times n}^{-\frac{1}{2}}
+                &=
+                \begin{bmatrix}
+                    \frac{1}{\sqrt{d_{1}}} & 0                      & \cdots & 0\\
+                    0                      & \frac{1}{\sqrt{d_{2}}} & \cdots & 0\\
+                    \vdots                 & \vdots                 & \ddots & \vdots\\
+                    0                      & 0                      & \cdots & \frac{1}{\sqrt{d_{n}}}
+                \end{bmatrix}
+                \begin{bmatrix}
+                    w_{11} & w_{12} & \cdots & w_{1n}\\
+                    w_{21} & w_{22} & \cdots & w_{2n}\\
+                    \vdots & \vdots & \ddots & \vdots\\
+                    w_{n1} & w_{n2} & \cdots & w_{nn}
+                \end{bmatrix}
+                \begin{bmatrix}
+                    \frac{1}{\sqrt{d_{1}}} & 0                      & \cdots & 0\\
+                    0                      & \frac{1}{\sqrt{d_{2}}} & \cdots & 0\\
+                    \vdots                 & \vdots                 & \ddots & \vdots\\
+                    0                      & 0                      & \cdots & \frac{1}{\sqrt{d_{n}}}
+                \end{bmatrix}\\
+                &=
+                \begin{bmatrix}
+                    \frac{w_{11}}{\sqrt{d_{1}}} & \frac{w_{12}}{\sqrt{d_{1}}} & \cdots & \frac{w_{1n}}{\sqrt{d_{1}}}\\
+                    \frac{w_{21}}{\sqrt{d_{2}}} & \frac{w_{22}}{\sqrt{d_{2}}} & \cdots & \frac{w_{2n}}{\sqrt{d_{2}}}\\
+                    \vdots                      & \vdots                      & \ddots & \vdots\\
+                    \frac{w_{n1}}{\sqrt{d_{n}}} & \frac{w_{n2}}{\sqrt{d_{n}}} & \cdots & \frac{w_{nn}}{\sqrt{d_{n}}}
+                \end{bmatrix}
+                \begin{bmatrix}
+                    \frac{1}{\sqrt{d_{1}}} & 0                      & \cdots & 0\\
+                    0                      & \frac{1}{\sqrt{d_{2}}} & \cdots & 0\\
+                    \vdots                 & \vdots                 & \ddots & \vdots\\
+                    0                      & 0                      & \cdots & \frac{1}{\sqrt{d_{n}}}
+                \end{bmatrix}\\
+                &=
+                \begin{bmatrix}
+                    \frac{w_{11}}{\sqrt{d_{1}}\sqrt{d_{1}}} & \frac{w_{12}}{\sqrt{d_{1}}\sqrt{d_{2}}} & \cdots & \frac{w_{1n}}{\sqrt{d_{1}}\sqrt{d_{n}}}\\
+                    \frac{w_{21}}{\sqrt{d_{2}}\sqrt{d_{1}}} & \frac{w_{22}}{\sqrt{d_{2}}\sqrt{d_{2}}} & \cdots & \frac{w_{2n}}{\sqrt{d_{2}}\sqrt{d_{n}}}\\
+                    \vdots                                  & \vdots                                  & \ddots & \vdots\\
+                    \frac{w_{n1}}{\sqrt{d_{n}}\sqrt{d_{1}}} & \frac{w_{n2}}{\sqrt{d_{n}}\sqrt{d_{2}}} & \cdots & \frac{w_{nn}}{\sqrt{d_{n}}\sqrt{d_{n}}}
+                \end{bmatrix}
+        \end{align}
+        We know that the diagonal elements of the Weighted Adjacency matrix are all zero, that means $w_{ii}=0\ \ \forall i \in \{0,1,\cdots,n\}$ (\ref{Weighted Adjacency matrix}). And the $w_{ij}=0$ if $i \neq j$ and vertex $i$ is not adjacent to vertex $j$, then
+        \[
+            \mathbf{D}_{n \times n}^{-\frac{1}{2}}\mathbf{W}_{n \times n}\mathbf{D}_{n \times n}^{-\frac{1}{2}}=
+                \begin{bmatrix}
+                    0                                       & \frac{w_{12}}{\sqrt{d_{1}}\sqrt{d_{2}}} & \cdots & \frac{w_{1n}}{\sqrt{d_{1}}\sqrt{d_{n}}}\\
+                    \frac{w_{21}}{\sqrt{d_{2}}\sqrt{d_{1}}} & 0                                       & \cdots & \frac{w_{2n}}{\sqrt{d_{2}}\sqrt{d_{n}}}\\
+                    \vdots                                  & \vdots                                  & \ddots & \vdots\\
+                    \frac{w_{n1}}{\sqrt{d_{n}}\sqrt{d_{1}}} & \frac{w_{n2}}{\sqrt{d_{n}}\sqrt{d_{2}}} & \cdots & 0
+                \end{bmatrix}
+        \]
+        Thus, we have
+        \begin{align}
+            \mathcal{L}_{sym}
+                &=\mathbf{I}_{n \times n}-\mathbf{D}_{n \times n}^{-\frac{1}{2}}\mathbf{W}_{n \times n}\mathbf{D}_{n \times n}^{-\frac{1}{2}}\\
+                &=
+                \begin{bmatrix}
+                    1      & 0      & \cdots & 0\\
+                    0      & 1      & \cdots & 0\\
+                    \vdots & \vdots & \ddots & \vdots\\
+                    0      & 0      & \cdots & 1
+                \end{bmatrix}
+                -
+                \begin{bmatrix}
+                    0                                       & \frac{w_{12}}{\sqrt{d_{1}}\sqrt{d_{2}}} & \cdots & \frac{w_{1n}}{\sqrt{d_{1}}\sqrt{d_{n}}}\\
+                    \frac{w_{21}}{\sqrt{d_{2}}\sqrt{d_{1}}} & 0                                       & \cdots & \frac{w_{2n}}{\sqrt{d_{2}}\sqrt{d_{n}}}\\
+                    \vdots                                  & \vdots                                  & \ddots & \vdots\\
+                    \frac{w_{n1}}{\sqrt{d_{n}}\sqrt{d_{1}}} & \frac{w_{n2}}{\sqrt{d_{n}}\sqrt{d_{2}}} & \cdots & 0
+                \end{bmatrix}\\
+                &=
+                \begin{bmatrix}
+                    1                                        & -\frac{w_{12}}{\sqrt{d_{1}}\sqrt{d_{2}}} & \cdots & -\frac{w_{1n}}{\sqrt{d_{1}}\sqrt{d_{n}}}\\
+                    -\frac{w_{21}}{\sqrt{d_{2}}\sqrt{d_{1}}} & 1                                        & \cdots & -\frac{w_{2n}}{\sqrt{d_{2}}\sqrt{d_{n}}}\\
+                    \vdots                                   & \vdots                                   & \ddots & \vdots\\
+                    -\frac{w_{n1}}{\sqrt{d_{n}}\sqrt{d_{1}}} & -\frac{w_{n2}}{\sqrt{d_{n}}\sqrt{d_{2}}} & \cdots & 1
+                \end{bmatrix}
+        \end{align}
+        We know that the degree of the vertex $i$ is $d_{i}=\deg(v_{i})$, then the elements of $\mathcal{L}_{sym}$ are
+        \[
+            (\mathcal{L}_{sym})_{ij}=
+                \left\{
+                    \begin{array}{ll}
+                        1                                        & if\ i=j\ and\ \deg(v_{i}) \neq 0\\
+                        -\frac{w_{ij}}{\sqrt{\deg(v_{i})\deg(v_{j})}} & if\ i \neq j\ and\ v_{i}\ is\ adjacent\ to\ v_{j}\\
+                        0                                        & otherwise
+                    \end{array}
+                \right.
+        \]
     }
 
     \cor{
-        \[\mathcal{L}_{sym}=\mathcal{E}\mathcal{E}^{\mathbf{T}}=\sum_{t=0}^{m-1}\mathbf{\epsilon}_{t}\mathbf{\epsilon}_{t}^{\mathbf{T}}\]
+        \[\mathcal{L}_{sym}=\mathcal{E}\mathcal{E}^{\mathbf{T}}=\sum_{t=1}^{m}\mathbf{\epsilon}_{t}\mathbf{\epsilon}_{t}^{\mathbf{T}}\]
+    }
+    \pf{
+        Since $\mathbf{L}_{n \times n}=\mathbf{E}_{n \times m}\mathbf{E}_{n \times m}^{\mathbf{T}}=\sum_{t=1}^{m}\mathbf{e}_{t}\mathbf{e}_{t}^{\mathbf{T}}$, $\mathcal{E}_{n \times m}=\mathbf{D}_{n \times n}^{-\frac{1}{2}}\mathbf{E}_{n \times m}$ and $\mathbf{D}_{n \times n}^{\mathbf{T}}=\mathbf{D}_{n \times n}$, then
+        \begin{align}
+            \mathcal{L}_{sym}
+                &=\mathbf{D}_{n \times n}^{-\frac{1}{2}}\mathbf{L}_{n \times n}\mathbf{D}_{n \times n}^{-\frac{1}{2}}\\
+                &=\mathbf{D}_{n \times n}^{-\frac{1}{2}}\mathbf{E}_{n \times m}\mathbf{E}_{n \times m}^{\mathbf{T}}(\mathbf{D}_{n \times n}^{\mathbf{T}})^{-\frac{1}{2}}\\
+                &=\mathbf{D}_{n \times n}^{-\frac{1}{2}}\mathbf{E}_{n \times m}\mathbf{E}_{n \times m}^{\mathbf{T}}(\mathbf{D}_{n \times n}^{-\frac{1}{2}})^{\mathbf{T}}\\
+                &=(\mathbf{D}_{n \times n}^{-\frac{1}{2}}\mathbf{E}_{n \times m})(\mathbf{D}_{n \times n}^{-\frac{1}{2}}\mathbf{E}_{n \times m})^{\mathbf{T}}\\
+                &=\mathcal{E}\mathcal{E}^{\mathbf{T}}
+        \end{align}
+        And we have $\epsilon_{t}=\mathbf{D}^{-\frac{1}{2}}\mathbf{e}_{t}$, then
+        \begin{align}
+            \mathcal{L}_{sym}
+                &=\mathbf{D}_{n \times n}^{-\frac{1}{2}}\mathbf{L}_{n \times n}\mathbf{D}_{n \times n}^{-\frac{1}{2}}\\
+                &=\mathbf{D}_{n \times n}^{-\frac{1}{2}}\left(\sum_{t=1}^{m}\mathbf{e}_{t}\mathbf{e}_{t}^{\mathbf{T}}\right)\mathbf{D}_{n \times n}^{-\frac{1}{2}}\\
+                &=\sum_{t=1}^{m}\left(\mathbf{D}_{n \times n}^{-\frac{1}{2}}\mathbf{e}_{t}\mathbf{e}_{t}^{\mathbf{T}}\mathbf{D}_{n \times n}^{-\frac{1}{2}}\right)\\
+                &=\sum_{t=1}^{m}\left[\mathbf{D}_{n \times n}^{-\frac{1}{2}}\mathbf{e}_{t}\mathbf{e}_{t}^{\mathbf{T}}\left(\mathbf{D}_{n \times n}^{\mathbf{T}}\right)^{-\frac{1}{2}}\right]\\
+                &=\sum_{t=1}^{m}\left[\mathbf{D}_{n \times n}^{-\frac{1}{2}}\mathbf{e}_{t}\mathbf{e}_{t}^{\mathbf{T}}\left(\mathbf{D}_{n \times n}^{-\frac{1}{2}}\right)^{\mathbf{T}}\right]\\
+                &=\sum_{t=1}^{m}\left(\mathbf{D}_{n \times n}^{-\frac{1}{2}}\mathbf{e}_{t}\right)\left(\mathbf{D}_{n \times n}^{-\frac{1}{2}}\mathbf{e}_{t}\right)^{\mathbf{T}}\\
+                &=\sum_{t=1}^{m}\epsilon_{t}\epsilon_{t}^{\mathbf{T}}
+        \end{align}
     }
 }
 
