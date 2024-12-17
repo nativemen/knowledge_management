@@ -1174,6 +1174,124 @@
     }
 }
 
+\subsection{QR decomposition}{
+    \defn{QR decomposition or QR factorization or QU factorization}{
+        Any real square matrix $\mathbf{A}$ may be decomposed as
+        \[\mathbf{A}=\mathbf{Q}\mathbf{R}\]
+        where $\mathbf{Q}$ is an orthogonal matrix (its columns are orthogonal unit vectors meaning
+        \[\mathbf{Q}^{\mathbf{T}}=\mathbf{Q}^{-1}\quad or \quad\mathbf{Q}^{\mathbf{T}}\mathbf{Q}=\mathbf{Q}\mathbf{Q}^{\mathbf{T}}=\mathbf{I}\]
+        and $\mathbf{R}$ is an upper triangular matrix (also called right triangular matrix). If $\mathbf{A}$ is invertible, then the factorization is unique if we require the diagonal elements of R to be positive.\\
+        If instead $\mathbf{A}$ is a complex square matrix, then there is a decomposition $\mathbf{A}=\mathbf{Q}\mathbf{R}$ where $\mathbf{Q}$ is a unitary matrix (so the conjugate transpose $\mathbf{Q}^{\dagger}=\mathbf{Q}^{-1}$).
+    }
+
+    \cor{
+        QR decomposition is often used to solve linear systems, eigenvalue problems and the linear least squares (LLS) problem and is the basis for a particular eigenvalue algorithm, the QR algorithm.
+    }
+
+    \cor{
+        If $\mathbf{A}$ has n linearly independent columns, then the first n columns of $\mathbf{Q}$ form an orthonormal basis for the column space of $\mathbf{A}$. More generally, the first k columns of $\mathbf{Q}$ form an orthonormal basis for the span of the first k columns of $\mathbf{A}$ for any $1 \leq k \leq n$. The fact that any column k of $\mathbf{A}$ only depends on the first k columns of $\mathbf{Q}$ corresponds to the triangular form of $\mathbf{R}$.
+    }
+
+    \cor{
+        More generally, we can factor a complex $m \times n$ matrix $\mathbf{A}$, with $m \geq n$, as the product of an $m \times n$ unitary matrix $\mathbf{Q}$ and an $m \times n$ upper triangular matrix $\mathbf{R}$. As the bottom $(m-n)$ rows of an $m \times n$ upper triangular matrix consist entirely of zeroes, it is often useful to partition $\mathbf{R}$, or both $\mathbf{R}$ and $\mathbf{Q}$:
+        \[
+            \mathbf{A}
+                =\mathbf{Q}\mathbf{R}
+                =\mathbf{Q}{
+                    \begin{bmatrix}
+                        \mathbf{R}_{1}\\
+                        0
+                    \end{bmatrix}
+                }
+                ={
+                    \begin{bmatrix}
+                        \mathbf{Q}_{1} & \mathbf{Q}_{2}
+                    \end{bmatrix}
+                }{
+                    \begin{bmatrix}
+                        \mathbf{R}_{1}\\
+                        0
+                    \end{bmatrix}
+                }
+                =\mathbf{Q}_{1}\mathbf{R}_{1}
+        \]
+        where $\mathbf{R}_{1}$ is an $n \times n$ upper triangular matrix, 0 is an $(m-n) \times n$ zero matrix, $\mathbf{Q}_{1}$ is $m \times n$, $\mathbf{Q}_{2}$ is $m \times (m-n)$, and $\mathbf{Q}_{1}$ and $\mathbf{Q}_{2}$ both have orthogonal columns.\\
+        Golub $\&$ Van Loan (1996) call $\mathbf{Q}_{1}\mathbf{R}_{1}$ the \textbf{thin QR factorization} of $\mathbf{A}$; Trefethen and Bau call this the \textbf{reduced QR factorization}. If $\mathbf{A}$ is of full rank $n$ and we require that the diagonal elements of $\mathbf{R}_{1}$ are positive then $\mathbf{R}_{1}$ and $\mathbf{Q}_{1}$ are unique, but in general $\mathbf{Q}_{2}$ is not. $\mathbf{R}_{1}$ is then equal to the upper triangular factor of the Cholesky decomposition of $\mathbf{A}^{*}\mathbf{A}$ (= $\mathbf{A}^{\mathbf{T}}\mathbf{A}$ if $\mathbf{A}$ is real).
+    }
+
+    \defn{QL, RQ and LQ decompositions}{
+        Analogously, we can define QL, RQ, and LQ decompositions, with L being a lower triangular matrix.
+    }
+
+    \clm{Computing the QR decomposition: Using the Gram–Schmidt process}{
+        There are several methods for actually computing the QR decomposition, such as the \textbf{Gram–Schmidt process}, \textbf{Householder transformations}, or \textbf{Givens rotations}. Each has a number of advantages and disadvantages.\\
+        \textbf{Using the Gram–Schmidt process}\\
+        Consider the Gram–Schmidt process applied to the columns of the full column rank matrix
+        \[
+            \mathbf{A}={
+                \begin{bmatrix}
+                    \mathbf{a} _{1} & \cdots & \mathbf{a} _{n}
+                \end{bmatrix}
+            }
+        \]
+        , with inner product
+        $\langle\mathbf{v},\mathbf{w}\rangle=\mathbf{v}^{\textbf{T}}\mathbf{w}$ (or $\langle\mathbf{v},\mathbf{w}\rangle=\mathbf{v}^{\dagger}\mathbf{w}$ for the complex case).\\
+        Define the projection:
+        \[\operatorname{proj}_{u}=\mathbf{a}=\frac{\langle\mathbf{u},\mathbf{a}\rangle}{\langle\mathbf{u},\mathbf{u}\rangle}\mathbf{u}\]
+        then:
+        \[
+            \begin{alignedat}{2}
+                \mathbf{u}_{1}&=\mathbf{a}_{1}, \quad & \mathbf{e}_{1}&=\frac{\mathbf{u}_{1}}{\|\mathbf{u}_{1}\|},\\
+                \mathbf{u}_{2}&= \mathbf{a}_{2}-\text{proj}_{\mathbf{u}_{1}}\mathbf{a}_{2}, \quad & \mathbf{e}_{2}&=\frac{\mathbf{u}_{2}}{\|\mathbf{u}_{2}\|},\\
+                \mathbf{u}_{3}&=\mathbf{a}_{3}-\text{proj}_{\mathbf{u}_{1}}\mathbf{a}_{3}-\text{proj}_{\mathbf{u}_{2}} \mathbf{a}_{3}, \quad & \mathbf{e}_{3}&=\frac{\mathbf{u}_{3}}{\|\mathbf{u}_{3}\|},\\
+                &\vdots \quad & &\vdots\\
+                \mathbf{u}_{k}&=\mathbf{a}_{k}-\sum_{j=1}^{k-1}\text{proj}_{\mathbf{u}_{j}}\mathbf{a}_{k}, \quad & \mathbf{e}_{k}&=\frac{\mathbf{u}_{k}}{\|\mathbf{u}_{k}\|}.
+            \end{alignedat}
+        \]
+        We can now express the a $\mathbf{a}_{i}$s over our newly computed orthonormal basis:
+        \[
+            \begin{aligned}
+                \mathbf{a}_{1}&=\langle\mathbf{e}_{1},\mathbf{a}_{1}\rangle\mathbf{e}_{1},\\
+                \mathbf{a}_{2}&=\langle\mathbf{e}_{1},\mathbf{a}_{2}\rangle\mathbf{e}_{1}+\langle\mathbf{e}_{2},\mathbf{a}_{2}\rangle\mathbf{e}_{2},\\
+                \mathbf{a}_{3}&=\langle\mathbf{e}_{1},\mathbf{a}_{3}\rangle\mathbf{e}_{1}+\langle\mathbf{e}_{2},\mathbf{a}_{3}\rangle\mathbf{e}_{2}+\langle \mathbf{e}_{3},\mathbf{a}_{3}\rangle\mathbf{e}_{3},\\
+                &\vdots\\
+                \mathbf{a}_{k}&=\sum_{j=1}^{k}\langle\mathbf{e}_{j},\mathbf{a}_{k}\rangle\mathbf{e}_{j}.
+            \end{aligned}
+        \]
+        where $\left\langle\mathbf{e}_{i},\mathbf{a}_{i}\right\rangle =\left\|\mathbf{u}_{i}\right\|$. This can be written in matrix form:
+        \[\mathbf{A}=\mathbf{Q}\mathbf{R}\]
+        where:
+        \[
+            \mathbf{Q}={
+                \begin{bmatrix}
+                    \mathbf{e}_{1} & \cdots & \mathbf{e}_{n}
+                \end{bmatrix}
+            }
+        \]
+        and
+        \[
+            \mathbf{R}=
+                \begin{bmatrix}
+                    \langle\mathbf{e}_{1},\mathbf{a}_{1}\rangle & \langle\mathbf{e}_{1},\mathbf{a}_{2}\rangle & \langle\mathbf{e}_{1},\mathbf{a}_{3}\rangle & \cdots & \langle\mathbf{e}_{1},\mathbf{a}_{n}\rangle\\
+                    0                                           & \langle\mathbf{e}_{2},\mathbf{a}_{2}\rangle & \langle\mathbf{e}_{2},\mathbf{a}_{3}\rangle & \cdots & \langle\mathbf{e}_{2},\mathbf{a}_{n}\rangle\\
+                    0                                           & 0                                           & \langle\mathbf{e}_{3},\mathbf{a}_{3}\rangle & \cdots & \langle\mathbf{e}_{3},\mathbf{a}_{n}\rangle\\
+                    \vdots                                      & \vdots                                      & \vdots                                      & \ddots & \vdots\\
+                    0                                           & 0                                           & 0                                           & \cdots & \langle\mathbf{e}_{n},\mathbf{a}_{n}\rangle
+                \end{bmatrix}.
+        \]
+    }
+
+    \clm{Relation to RQ decomposition}{
+        The RQ decomposition transforms a matrix $\mathbf{A}$ into the product of an upper triangular matrix $\mathbf{R}$ (also known as right-triangular) and an orthogonal matrix $\mathbf{Q}$. The only difference from QR decomposition is the order of these matrices.\\
+        QR decomposition is Gram–Schmidt orthogonalization of columns of $\mathbf{A}$, started from the first column.\\
+        RQ decomposition is Gram–Schmidt orthogonalization of rows of $\mathbf{A}$, started from the last row.
+    }
+
+    \clm{Advantages and disadvantages}{
+        The Gram-Schmidt process is inherently numerically unstable. While the application of the projections has an appealing geometric analogy to orthogonalization, the orthogonalization itself is prone to numerical error. A significant advantage is the ease of implementation.
+    }
+}
+
 \chapter{Classical Spectral Clustering Algorithm}
 
 \section{Classical Spectral Clustering Algorithm}{
