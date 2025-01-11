@@ -43,7 +43,7 @@
 }
 
 % Variables
-\def\notetitle{Rust语言圣经学习笔记\\Rust Course Learning Notes}
+\def\notetitle{Rust语言圣经学习笔记\\Rust Course Learning Notes\cite{Sunface}}
 \def\noteauthor{
     \textbf{Learner}\\
     {\LaTeX} by Xin Wang\\
@@ -574,10 +574,7 @@ Windows & \texttt{Download and run rustup-init.exe} \\
         }
 
         \fact{
-            \textbf{Miri}还提供了试验性的模式: "-Zmiri-tag-raw-pointers"。可以通过环境的方式来开启该模式:\\
-            \texttt{MIRIFLAGS="-Zmiri-tag-raw-pointers" cargo +nightly miri test}\\
-            如果是\textbf{Windows}，你需要设置全局变量:\\
-            \texttt{\$env:MIRIFLAGS="-Zmiri-tag-raw-pointers"}\\
+            \textbf{Miri}还提供了试验性的模式，可以通过环境的方式来开启该模式:\\
             \texttt{cargo +nightly miri test}
         }
 
@@ -1019,7 +1016,7 @@ Windows & \texttt{Download and run rustup-init.exe} \\
     }
 }
 
-% \bibliographystyle{plain}  % 参考文献样式，可选：plain, unsrt, alpha, abbrv
-% \bibliography{spectral_clustering_algorithms}  % 引用 references.bib 文件
+\bibliographystyle{plain}  % 参考文献样式，可选：plain, unsrt, alpha, abbrv
+\bibliography{rust_course_learning_notes}  % 引用 references.bib 文件
 
 \end{document}
