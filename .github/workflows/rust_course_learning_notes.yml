@@ -37,9 +37,9 @@ jobs:
         run: |
           wget https://github.com/googlefonts/noto-cjk/releases/download/Serif2.003/09_NotoSerifCJKsc.zip
           wget https://github.com/googlefonts/noto-cjk/releases/download/Sans2.004/13_NotoSansMonoCJKsc.zip
-          unzip -d noto 09_NotoSerifCJKsc.zip -x LICENSE
-          unzip -d noto 13_NotoSansMonoCJKsc.zip -x LICENSE
-          sudo cp -fv noto/*.otf /usr/share/fonts/opentype/noto/
+          unzip -j -d noto 09_NotoSerifCJKsc.zip -x LICENSE
+          unzip -j -d noto 13_NotoSansMonoCJKsc.zip -x LICENSE
+          sudo cp -rfv noto /usr/share/fonts/opentype/
           fc-cache -fv
 
       - name: Install Pygments
