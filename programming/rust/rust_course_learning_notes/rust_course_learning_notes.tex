@@ -1,0 +1,1025 @@
+\documentclass[oneside]{book}
+
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage{thmtools}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{inputenc}
+\usepackage[english]{babel}
+\usepackage{framed}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{environ}
+\usepackage{tcolorbox}
+\usepackage{todonotes}
+\usepackage{booktabs}       % 专业表格线
+\usepackage{multirow}       % 合并单元格
+\usepackage{caption}        % 表格标题
+\usepackage{makecell}
+\usepackage{natbib}         % 推荐的参考文献宏包
+
+\usepackage{minted}
+\usepackage{xcolor}
+
+\usepackage{xeCJK}
+\usepackage{fontspec}
+\setCJKmainfont[AutoFakeSlant]{Noto Serif CJK SC}
+\setCJKmonofont{Noto Sans Mono CJK SC}
+
+\tcbuselibrary{theorems,skins,breakable}
+
+\usetikzlibrary{calc,arrows.meta,bending}
+
+\setstretch{1.2}
+\geometry{
+    textheight=9in,
+    textwidth=7in,
+    top=1in,
+    headheight=12pt,
+    headsep=25pt,
+    footskip=30pt
+}
+
+% Variables
+\def\notetitle{Rust语言圣经学习笔记\\Rust Course Learning Notes}
+\def\noteauthor{
+    \textbf{Learner}\\
+    {\LaTeX} by Xin Wang\\
+}
+\def\notedate{Notes}
+
+% The theorem system and user-defined commands
+\input{theorems.tex}
+\input{commands.tex}
+
+% ------------------------------------------------------------------------------
+
+\begin{document}
+\title{
+    \textbf{
+        \LARGE{\notetitle} \vspace*{10\baselineskip}
+    }
+}
+\author{\noteauthor}
+\date{\notedate}
+
+\maketitle
+\newpage
+
+\tableofcontents  % 目录
+\listoffigures    % 图目录
+\listoftables     % 表目录
+\newpage
+
+% ------------------------------------------------------------------------------
+
+\part{\textbf{Rust}语言基础学习}
+
+\chapter{寻找牛刀，以便小试}
+
+\section{安装\textbf{Rust}}{
+\begin{table}[h]
+\centering
+\begin{tabular}{|c|l|}
+\hline
+操作系统 & 命令 \\
+\hline
+Unix & \texttt{curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh} \\
+\hline
+Windows & \texttt{Download and run rustup-init.exe} \\
+\hline
+\end{tabular}
+\caption{Rust 安装命令}
+\end{table}
+}
+
+\chapter{手把手带你实现链表}
+
+\section{我们到底需不需要链表}{
+    \fact{
+        链表真的是一种糟糕的数据结构，尽管它在部分场景下确实很有用：
+        \begin{itemize}
+            \item 对列表进行大量的分割和合并操作
+            \item 无锁并发
+            \item 要实现内核或嵌入式的服务
+            \item 你在使用一个纯函数式语言，由于受限的语法和缺少可变性，因此你需要使用链表来解决这些问题
+        \end{itemize}
+        但是实事求是的说，这些场景对于几乎任何\textbf{Rust}开发都是很少遇到的，$99\%$的场景你可以使用\textbf{Vec}来替代，然后$1\%$中的$99\%$可以使用\textbf{VecDeque}。 由于它们具有更少的内存分配次数、更低的内存占用、随机访问和缓存亲和特性，因此能够适用于绝大多数工作场景。总之，类似于trie树，链表也是一种非常小众的数据结构，特别是对于\textbf{Rust}开发而言。
+    }
+
+    \rmkb{
+        本书只是为了学习链表该如何实现，如果大家只是为了使用链表，强烈推荐直接使用标准库或者社区提供的现成实现，例如\texttt{std::collections::LinkedList}
+    }
+
+    \clm{链表有\textbf{O(1)}的分割、合并、插入、移除性能}{
+        是的，但是你首先要考虑的是，这些代码被调用的频率是怎么样的？是否在热点路径？ 答案如果是否定的，那么还是强烈建议使用\textbf{Vec}等传统数据结构，况且整个数组的拷贝也是相当快的！\\
+        况且，\textbf{Vec}上的\textbf{push}和\textbf{pop}操作是\textbf{O(1)}的，它们比链表提供的\textbf{push}和\textbf{pop}要更快！我们只需要通过一个\textbf{指针+内存偏移}就可以访问了。\\
+        但是如果你的整体项目确实因为某一段分割、合并的代码导致了性能低下，那么就放心大胆的使用链表吧。
+    }
+
+    \clm{我无法接受内存重新分配的代价}{
+        是的，\textbf{Vec}当\textbf{capacity}不够时，会重新分配一块内存，然后将之前的\textbf{Vec}全部拷贝过去，但是对于绝大多数使用场景，要么\textbf{Vec}不在热点路径中，要么\textbf{Vec}的容量可以提前预测。\\
+        对于前者，那性能如何自然无关紧要。而对于后者，我们只需要使用\texttt{Vec::with\_capacity}提前分配足够的空间即可，同时，\textbf{Rust}中所有的迭代器还提供了\texttt{size\_hint}也可以解决这种问题。\\
+        当然，如果这段代码在热点路径，且你无法提前预测所需的容量，那么链表确实会更提升性能。
+    }
+
+    \clm{链表更节省内存空间}{
+        首先，这个问题较为复杂。一个标准的数组调整策略是：增加或减少数组的长度使数组最多有一半为空，例如\textbf{capacity}增长是翻倍的策略。这确实会导致内存空间的浪费，特别是在\textbf{Rust}中，我们不会自动收缩集合类型。\\
+        但是上面说的是最坏的情况，如果是最好的情况，那整个数组其实只有3个指针大小(指针在\textbf{Rust}中占用一个\textbf{word}的空间，例如64位机器就是8个字节的大小)的内存浪费，或者说，没有浪费。\\
+        而且链表实际上也有内存浪费，例如链表中的每个元素都会占用额外的内存：单向链表浪费一个指针，双向链表浪费两个指针。当然，如果你的链表中每个元素都很大，那相对来说，这种浪费也微不足道，但是如果链表的元素较小且数量很多呢？那浪费的空间就相当可观了！\\
+        当然，这个也和使用的内存分配器有关(\textbf{allocator})：对链表节点的分配和回收会经常发生，这样就不会浪费内存。\\
+        总之，如果链表的元素较大，你也无法预测数组的空间，同时还有一个不错的内存分配器，那链表确实可以节省空间！
+    }
+
+    \clm{我在函数语言中一直使用链表}{
+        对于函数语言而言，链表确实非常棒，因为你可以解决可变性问题，还能递归地去使用，当然，可能还有一定的图方便的因素，因为链表不用操心长度等问题。\\
+        但彼之蜜糖不等于吾之蜜糖，函数语言的一些使用习惯不应该带入到其它语言中，例如\textbf{Rust}。
+        \begin{itemize}
+            \item 函数语言往往将链表用于迭代，但是\textbf{Rust}中最适合迭代的数据结构是迭代器\textbf{Iterator}
+            \item 函数式语言的不可变对于\textbf{Rust}也不是问题
+            \item \textbf{Rust}还支持对数组进行切片以获取其中一部分连续的元素，而在函数语言中你可能得通过链表的\textbf{head\/tail}分割来完成
+        \end{itemize}
+        其实，在函数语言中，我们也应该选择合适的数据结构来解决适合的场景，而不是一根链表挂腰间，潇潇洒洒走天下。
+    }
+
+    \clm{链表适合构建并发数据结构}{
+        是这样的，如果有这样的需求，那么链表会非常合适！但是只有在你确实需要并发数据结构，且没有其它办法时，再考虑链表！
+    }
+
+    \clm{链表非常适合教学目的}{
+        额... 这么说也没错，毕竟所有的编程语言课程都以链表来作为最常见的练手项目，包括本书也是服务于这个目的的。
+    }
+}
+
+\section{不太优秀的单向链表：栈}{
+    \subsection{数据布局}{
+        \fact{
+            对于\textbf{Rust}编译器而言，所\textbf{Box}有栈上的类型都必须在编译期有固定的长度，一个简单的解决方案就是使用将值封装到堆上，然后使用栈上的定长指针来指向堆上不定长的值。
+        }
+
+        \fact{
+            枚举有一个特点，枚举成员占用的内存空间大小跟最大的成员对齐
+        }
+
+        \fact{
+            \textbf{pub enum}会要求它的所有成员必须是\textbf{pub}
+        }
+
+        \fact{
+            从编程的角度而言，我们还是希望让实现细节只保留在内部，而不是对外公开
+        }
+    }
+
+    \subsection{基本操作}{
+        \fact{
+            \texttt{mem::replace}这个非常有用的函数允许我们从一个借用中偷出一个值的同时再放入一个新值。
+        }
+
+        \fact{
+            \textbf{unimplemented!()}该宏可以明确地说明目前的代码还没有实现，一旦代码执行到\textbf{unimplemented!()}的位置，就会发生一个\textbf{panic}。
+        }
+
+        \fact{
+            \textbf{panic}是一种发散函数，该函数永不返回任何值，因此可以用于需要返回任何类型的地方。
+        }
+    }
+
+    \subsection{最后实现}{
+        \fact{
+            \textbf{Drop}特征，若变量实现了该特征，则在它离开作用域时将自动调用解构函数以实现资源清理释放工作，最妙的是，这一切都发生在编译期，因此没有多余的性能开销。
+        }
+
+        \fact{
+            事实上，我们无需手动为自定义类型实现\textbf{Drop}特征，原因是\textbf{Rust}自动为几乎所有类型都实现了\textbf{Drop}，例如我们自定义的结构体，只要结构体的所有字段都实现了\textbf{Drop}，那结构体也会自动实现\textbf{Drop}!
+        }
+
+        \inputminted[
+            linenos=true,
+            style=rainbow_dash,
+            frame=single,
+        ]{rust}{first.rs}
+    }
+}
+
+\section{还可以的单向链表}{
+    \subsection{优化类型定义}{
+        \clm{Option}{
+            \fact{
+                为了代码可读性，我们不能直接使用冗长的类型，为此可以使用类型别名。\\
+                \texttt{type Link = Option<Box<Node>>;}
+            }
+
+            \fact{
+                之前咱们用到了\texttt{mem::replace}这个让人胆战心惊但是又非常有用的函数，而\textbf{Option}直接提供了一个方法\textbf{take}用于替代它
+            }
+
+            \fact{
+                \texttt{match option \{ None => None, Some(x) => Some(y) \}}这段代码可以直接使用\textbf{map}方法代替，\textbf{map}会对\textbf{Some(x)}中的值进行映射，最终返回一个新的\textbf{Some(y)}值。
+            }
+        }
+
+        \clm{泛型}{
+            \fact{
+                泛型参数也是类型定义的一部分
+            }
+        }
+    }
+
+    \subsection{定义\textbf{Peek}函数}{
+        \fact{
+            peek函数，它会返回链表的表头元素的引用\\
+            \mintinline[
+                linenos=true,
+                style=rainbow_dash,
+                frame=single,
+            ]{rust}{pub fn peek(&self) -> Option<&T>}
+        }
+    }
+
+    \subsection{\textbf{IntoIter}和\textbf{Iter}}{
+        \fact{
+            集合类型可以通过\textbf{IntoIter}特征进行迭代
+        }
+        \begin{minted}[
+            linenos=true,
+            style=rainbow_dash,
+            frame=single,
+        ]{rust}
+            pub trait Iterator {
+                type Item;
+                fn next(&mut self) -> Option<Self::Item>;
+            }
+        \end{minted}
+
+        \fact{
+            需要注意，每个集合类型应该实现3种迭代器类型：
+            \begin{itemize}
+                \item IntoIter - T
+                \item IterMut - \&mut T
+                \item Iter - \&T
+            \end{itemize}
+            \textbf{IntoIter}类型迭代器的next方法会拿走被迭代值的所有权\\
+            \textbf{IterMut}是可变借用\\
+            \textbf{Iter}是不可变借用
+        }
+
+        \fact{
+            \textbf{map}是一个泛型函数:\\
+            \mintinline[
+                    linenos=true,
+                    style=rainbow_dash,
+                    frame=single,
+            ]{rust}{pub fn map<U, F>(self, f: F) -> Option<U>}
+        }
+
+        \fact{
+            \textbf{turbofish}形式的符号\texttt{::<>}可以告诉编译器我们希望用哪个具体的类型来替代泛型类型
+        }
+    }
+
+    \subsection{\textbf{IterMut}以及完整代码}{
+        \fact{
+            “Sugar”指的是让语言更易读写的语法特性\\
+            “Desugar”是将这些便利语法转换回编译器能够理解的更基础的形式的过程
+        }
+        \inputminted[
+            linenos=true,
+            style=rainbow_dash,
+            frame=single,
+        ]{rust}{second.rs}
+    }
+}
+
+\section{持久化单向链表}{
+    \subsection{数据布局和基本操作}{
+        \fact{
+            对于新的链表来说，最重要的就是我们可以自由地操控列表的尾部(\textbf{tail})。
+        }
+
+        \fact{
+            标准库为我们提供了引用计数的数据结构: \textbf{Rc/Arc}，引用计数可以被认为是一种简单的\textbf{GC}，对于很多场景来说，引用计数的数据吞吐量要远小于垃圾回收，而且引用计数还存在循环引用的风险！但我们没有其它选择。
+        }
+
+        \fact{
+            使用\textbf{Rc}意味着我们的数据将无法被改变，因为它不具备内部可变性。
+        }
+
+        \fact{
+            需要注意的是, \textbf{Rc}在\textbf{Rust}中并不是一等公民，它没有被包含在\texttt{std::prelude}中，因此我们必须手动引入\texttt{use std::rc::Rc}
+        }
+
+        \fact{
+            \texttt{Rc::clone}，对于该方法而言，clone 仅仅是增加引用计数，并不是复制底层的数据。虽然 \textbf{Rc}的性能要比\textbf{Box}的引用方式低一点，但是它依然是多所有权前提下最好的解决方式或者说之一。
+        }
+    }
+
+    \subsection{\textbf{Drop}、\textbf{Arc}及完整代码}{
+        \fact{
+            \texttt{Rc::Try\_unwrap}，该方法会判断当前的\textbf{Rc}是否只有一个强引用，若是，则返回 \textbf{Rc}持有的值，否则返回一个错误。
+        }
+
+        \fact{
+            不可变链表的一个很大的好处就在于多线程访问时自带安全性，毕竟共享可变性是多线程危险的源泉，最好也是最简单的解决办法就是直接干掉可变性。\\
+            但是\textbf{Rc<T>}本身并不是线程安全的，原因是它内部的引用计数器并不是线程安全的，通俗来讲，计数器没有加锁也没有实现原子性。\\
+            \textbf{Arc<T>}是线程安全的。
+        }
+
+        \fact{
+            \textbf{Rust}通过提供\textbf{Send}和\textbf{Sync}两个特征来保证线程安全
+        }
+        \inputminted[
+            linenos=true,
+            style=rainbow_dash,
+            frame=single,
+        ]{rust}{third.rs}
+    }
+}
+
+\section{不咋样的双端队列}{
+    \subsection{数据布局和基本操作}{
+        \fact{
+            让\textbf{Rc}可变，就需要使用\textbf{RefCell}的配合
+        }
+
+        \fact{
+            \textbf{Rc}最怕的就是引用形成循环，而双向链表恰恰如此。因此，当使用默认的实现来\textbf{drop}我们的链表时，两个节点会将各自的引用计数减少到1，然后就不会继续减少，最终造成内存泄漏。\\
+            所以，这里最好的实现就是将每个节点\textbf{pop}出去，直到获得\textbf{None}
+        }
+    }
+
+    \subsection{Peek}{
+        \fact{
+            \textbf{borrow}的定义:\\
+            \mintinline[
+                    linenos=true,
+                    style=rainbow_dash,
+                    frame=single,
+            ]{rust}{fn borrow<'a>(&'a self) -> Ref<'a, T>}\\
+            \mintinline[
+                    linenos=true,
+                    style=rainbow_dash,
+                    frame=single,
+            ]{rust}{fn borrow_mut<'a>(&'a self) -> RefMut<'a, T>}
+        }
+
+        \fact{
+            这里返回的并不是\texttt{\&T}或\texttt{\&mut T}，而是一个\textbf{Ref}和\textbf{RefMut}，它们就是在借用到的引用外包裹了一层。而且\textbf{Ref}和\textbf{RefMut}分别实现了\textbf{Deref}和\textbf{DerefMut}，在绝大多数场景中，我们都可以像使用\texttt{\&T}一样去使用它们。\\
+            \texttt{Ref::map}是一个将\textbf{Ref}映射到另一个\textbf{Ref}的函数
+        }
+        \begin{minted}[
+            linenos=true,
+            style=rainbow_dash,
+            frame=single,
+        ]{rust}
+            fn map<U, F>(orig: Ref<'b, T>, f: F) -> Ref<'b, U>
+                where F: FnOnce(&T) -> &U,
+                      U: ?Sized
+        \end{minted}
+    }
+
+    \subsection{基本操作的对称镜像}{
+        \fact{
+            双向链表的对称操作：
+            \begin{itemize}
+                \item tail <-> head
+                \item next <-> prev
+                \item front -> back
+            \end{itemize}
+        }
+    }
+
+    \subsection{迭代器}{
+        \fact{
+            由于是转移所有权，因此\textbf{IntoIter}一直都是最好实现的
+        }
+
+        \fact{
+            关于双向链表，有一个有趣的事实，它不仅可以从前向后迭代，还能反过来。\\
+            \textbf{DoubleEndedIterator}，它继承自\textbf{Iterator}(通过\textbf{supertrait})，因此意味着要实现该特征，首先需要实现\textbf{Iterator}。\\
+            只要为\textbf{DoubleEndedIterator}实现\textbf{next\_back}方法，就可以支持双向迭代了:\textbf{Iterator}的\textbf{next}方法从前往后，而\textbf{next\_back}从后向前。
+        }
+
+        \fact{
+            \textbf{map\_split}是\textbf{Rust}中一个用于将借用的值拆分为两部分的函数。其主要作用是允许你在处理一个整体对象时，将其安全地分割成两个独立的部分，从而能够更灵活地操作数据结构。\\
+            具体来说，\textbf{map\_split}函数接收一个对类型\textbf{T}引用，并通过一个闭包（函数）将其分割成两个部分，分别返回对类型\textbf{U}和\textbf{V}的引用。这在处理复杂数据结构时尤其有用，因为它允许你在不违反\textbf{Rust}的借用规则的前提下，安全地访问和修改数据。
+        }
+        \begin{minted}[
+            linenos=true,
+            style=rainbow_dash,
+            frame=single,
+        ]{rust}
+            pub fn map_split<U, V, F>(orig: Ref<'b, T>, f: F) -> (Ref<'b, U>, Ref<'b, V>) where
+                F: FnOnce(&T) -> (&U, &V),
+                U: ?Sized,
+                V: ?Sized,
+        \end{minted}
+    }
+
+    \subsection{最终代码}{
+        \fact{
+            我们实现了一个$100\%$安全但是功能残缺的双向链表
+        }
+
+        \inputminted[
+            linenos=true,
+            style=rainbow_dash,
+            frame=single,
+        ]{rust}{fourth.rs}
+    }
+}
+
+\section{不错的\textbf{unsafe}队列}{
+    \subsection{数据布局}{
+        \fact{
+            \textbf{Box}并没有实现\textbf{Copy}特征
+        }
+
+        \fact{
+            the lifetime must be valid for the lifetime 'a as defined on the impl\\
+            意思是说生命周期至少要和\textbf{'a}一样长
+        }
+
+        \fact{
+            自引用(self-referential)是指在结构体内部持有对自身其他部分的引用，这在\textbf{Rust}中是一个常见问题，因为\textbf{Rust}的借用检查器无法安全地处理这种情况。\textbf{Rust}的安全性和所有权系统使得创建自引用结构体变得非常困难。这是因为：
+            \begin{itemize}
+                \item 当结构体的字段持有对同一结构体中其他字段的引用时，在移动或克隆结构体时引用会失效。
+                \item \textbf{Rust}无法推断出在这种情况下如何正确地管理内存，从而避免数据竞争和悬挂引用。
+            \end{itemize}
+            为了解决自引用问题，可以使用裸指针,就不会形成自引用的问题，也不再违反\textbf{Rust}严苛的借用规则。
+        }
+    }
+
+    \subsection{基本操作}{
+        \fact{
+            \texttt{*mut}裸指针通过\texttt{std::ptr::null\_mut}函数可以获取一个\textbf{null}，当然，还可以使用 0 as \texttt{*mut \_}。
+        }
+
+        \fact{
+            通过强制转换\textbf{Coercions}，将一个普通的引用变成裸指针。\\
+            \mintinline[
+                    linenos=true,
+                    style=rainbow_dash,
+                    frame=single,
+            ]{rust}{let raw_tail: *mut _ = &mut *new_tail;}
+        }
+
+        \fact{
+            当使用裸指针时，一些\textbf{Rust}提供的便利条件也将不复存在，例如由于不安全性的存在，裸指针需要我们手动去解引用(\textbf{deref})
+        }
+
+        \fact{
+            不是所有的裸指针代码都有\textbf{unsafe}的身影。原因在于：\textbf{创建原生指针是安全的行为，而解引用原生指针才是不安全的行为}。
+        }
+    }
+
+    \subsection{\textbf{Miri}}{
+        \fact{
+            \textbf{Miri}目前只能在\textbf{nightly Rust}上安装\\
+            \texttt{\$ rustup +nightly component add miri}
+        }
+
+        \fact{
+            是一种临时性的规则运用，如果你不想每次都使用\textbf{+nightly-2022-01-21}，可以使用\texttt{rustup override set}命令对当前项目的\textbf{Rust}版本进行覆盖
+        }
+
+        \fact{
+            miri 可以生成 Rust 的中间层表示 MIR，对于编译器来说，我们的 Rust 代码首先会被编译为 MIR ，然后再提交给 LLVM 进行处理。\\
+            可以通过 rustup component add miri 来安装它，并通过 cargo miri 来使用，同时还可以使用 cargo miri test 来运行测试代码。\\
+            miri 可以帮助我们检查常见的未定义行为(UB = Undefined Behavior)，以下列出了一部分:
+            \begin{itemize}
+                \item 内存越界检查和内存释放后再使用(use-after-free)
+                \item 使用未初始化的数据
+                \item 数据竞争
+                \item 内存对齐问题
+            \end{itemize}
+            UB 检测是必须的，因为它发生在运行时，因此很难发现，如果 miri 能在编译期检测出来，那自然是最好不过的。
+        }
+
+        \fact{
+            miri 的使用很简单:\\
+            \texttt{\$ cargo +nightly miri test}
+        }
+    }
+
+    \subsection{栈借用}{
+        \defn{栈借用(Stacked Borrows)}{
+            \textbf{栈借用(Stacked Borrows)}是一种用于确保\textbf{Rust}编程语言内存安全的借用机制。它通过追踪每个借用的栈帧，确保变量在生命周期内不会被不安全地访问或修改。这个机制利用了一种栈(\textbf{stack})来管理借用的引用，从而避免数据竞争和未定义行为。\\
+            具体来说，每次变量被借用时，都会记录到这个“栈”中。这样在同一时间内，只能有一个可变引用或多个不可变引用，从而严格遵守\textbf{Rust}的借用规则。这种机制特别有助于在多线程编程和复杂的数据结构中保持内存安全。
+        }
+
+        \defn{指针混叠(Pointer Aliasing)}{
+            对于同一块内存，存在多个指针指向，或者说，两个指针指向的内存存在重叠。
+        }
+
+        \clm{指针混叠有什么问题？}{
+            \textbf{Rust}一方面通过借用规则来保证安全，给程序加了很多限制，让我们写起来很费劲。另一方面因为这些限制的存在，\textbf{Rust}编译器可以对程序做很多优化。\\
+            比如当一个值的引用是不可变引用时，编译器知道无论怎么操作，最终这块内存的内容不会发生改变。那么再次读取时就只需读\textbf{cache}，而不需要去内存中读。\\
+            编译器可以跟踪所有引用的情况，从而在可以的时候做出优化。没有了不可变的保证，编译器的优化很可能导致问题，程序产生未定义行为(\textbf{UB})。
+        }
+
+        \clm{\textbf{Rust}是怎么解决这个问题的？}{
+            借用栈(borrow stack)。
+        }
+
+        \defn{借用(\textbf{Reborrow})}{
+            指的是在已经存在对某个对象的引用的情况下，创建该对象的新引用。这通常用于延长引用的生命周期或创建具有不同可变性的引用（例如，从可变引用创建不可变引用）。\\
+            重借是\textbf{Rust}所有权和借用系统中的一个关键概念，它确保了内存安全并防止数据竞争。当你重借一个引用时，原始引用会暂时被挂起，而使用新的引用。
+        }
+
+        \fact{
+            这个栈的顶部借用就是当前正在使用(\textbf{live})的借用，而它清晰的知道在它使用的期间不会发生混叠。当对一个指针进行再借用时，新的借用会被插入到栈的顶部，并变成\textbf{live}状态。如果要将一个旧的指针变成\textbf{live}，就需要将借用栈上在它之前的借用全部弹出(\textbf{pop})。\\
+            \textbf{只要保证使用时只能使用栈顶的指针，指针混叠就不会出现问题。反过来，这样是不允许的。}\\
+            这一切都是\textbf{safe Rust}所保证的，使用顺序不对，就不让过编译。\\
+            通过栈借用的方式，我们保证了尽管存在多个再借用，但是在同一个时间，只会有一个可变引用访问目标内存，再也不用担心指针混叠的问题了。只要不去访问一个已经被弹出借用栈的指针，就会非常安全！
+        }
+
+        \clm{那在 unsafe 中呢？}{
+            对于引用，在unsafe中也是一样的规则。\\
+            但是如果出现裸指针，就无法保证了。\\
+            在unsafe中正需要你自己来保证正确性，不留神的话就会写出UB来。
+        }
+
+        \defn{什么是UB(Undefined Behavior)？}{
+            按照\textbf{Rust}的规则写代码，\textbf{Rust}保证给你正确的程序。\\
+            超出\textbf{Rust}的规则写代码，\textbf{Rust}不保证给你写出什么东西来。
+        }
+
+        \clm{有没有什么办法检测不小心写出的UB?}{
+            这就是miri做的事。
+        }
+
+        \clm{为了保证不出UB，应该遵守哪些规则？}{
+            \begin{enumerate}
+                \item 对于引用和该引用产生的指针\\
+                    可以想象引用和其产生的指针之间，遵守借用栈的规则。对于不同引用产生的指针，\textbf{Miri}可以区分出各自属于哪个引用（用\textbf{Miri}的术语，属于哪个\textbf{tag}），从而遵守借用栈规则。
+                \item 对于同一引用产生的多个指针\\
+                    当一个引用产生一个指针，然后用该指针产生更多指针时，这些指针之间可以不区分先后顺序随意使用。它们共享同一个\textbf{tag}。\textbf{Miri}表示没意见。因为编译器只会根据引用来调整优化，裸指针的信息它无法获知。因此你一旦获得一个引用的指针，就可以用它生成更多指针来随意使用。因此当我们需要使用裸指针时，最好在用引用生成裸指针后，就一直只使用裸指针，不要和引用混在一起用。最后需要返回引用时，再将裸指针转回引用。
+                \item 对于不可变引用\\
+                    对于不可变引用，可以随意产生更多的不可变引用，使用顺序也没有限制。同时，不可变引用不能产生可变引用。当一个不可变引用入栈，需要保证：在其出栈时，其引用的值不会发生任何变化。换到指针，也是一样的。强行转换成可变指针，编译可通过，但miri会有意见。但如果你不真正修改值，miri可以网开一面。
+                \item 对于数组\\
+                    普通情况下，\textbf{Rust}无法通过下标来判断对数组不同部分的借用是不相交的。不允许对数组进行两次可变引用。但是\textbf{Rust}提供了一个方法，将不安全操作封装成一个安全方法\textbf{split\_at\_mut}，将一个切片拆成两个切片，通过\textbf{split\_at\_mut}，把一个可变切片引用，变成了多个可变切片引用。
+                \item 对于\textbf{Cell/RefCell}\\
+                    由于这两个具有内部可变性，因此其不可变引用可以修改其内部的值。\textbf{Cell/RefCell}是两个特例。当出现这两个东西时，\textbf{Rust}知道它们没有不变性保证，不会去优化它们。因为其不可变引用实际上可变的特性，其栈式借用也有些不一样的地方。对于\texttt{\&UnsafeCell<T>}，其实际上是可变的，而且可以无限复制(因为在名义上是一个不可变引用)，其行为和\texttt{*mut T}一样。从一个引用产生的多个裸指针可以随意顺序使用。
+            \end{enumerate}
+        }
+
+        \fact{
+            Once a shared reference is on the borrow-stack, everything that gets pushed on top of it only has read permissions.
+        }
+
+        \fact{
+            在代码中混杂地使用Box和裸指针，很容易写出UB的代码。因此后面的实现中会尝试不去操作Box，完全使用裸指针。
+        }
+
+        \fact{
+            \textbf{Miri}还提供了试验性的模式: "-Zmiri-tag-raw-pointers"。可以通过环境的方式来开启该模式:\\
+            \texttt{MIRIFLAGS="-Zmiri-tag-raw-pointers" cargo +nightly miri test}\\
+            如果是\textbf{Windows}，你需要设置全局变量:\\
+            \texttt{\$env:MIRIFLAGS="-Zmiri-tag-raw-pointers"}\\
+            \texttt{cargo +nightly miri test}
+        }
+
+        \fact{
+            \textbf{使用裸指针，应该遵守一个原则：一旦开始使用裸指针，就要尝试着只使用它。}\\
+            现在，我们依然希望在接口中使用安全的引用去构建一个安全的抽象，例如在函数参数中使用引用而不是裸指针，这样我们的用户就无需操心\textbf{unsafe}的问题。\\
+            为此，我们需要做以下事情:
+            \begin{itemize}
+                \item 在开始时，将输入参数中的引用转换成裸指针
+                \item 在函数体中只使用裸指针
+                \item 返回之前，将裸指针转换成安全的指针
+            \end{itemize}
+            但是由于数据结构中的字段都是私有的，无需暴露给用户，因此无需这么麻烦，直接使用裸指针即可。\\
+            事实上，一个依然存在的问题就是还在继续使用\textbf{Box}, 它会告诉编译器: hey，这个看上去很像是\texttt{\&mut}，因为它唯一的持有那个指针。\\
+            但是我们在链表中一直使用的裸指针是指向\textbf{Box}的内部，所以无论何时我们通过正常的方式访问\textbf{Box}，我们都有可能让该裸指针的再借用变得不合法。
+        }
+
+        \clm{总结}{
+            \begin{itemize}
+                \item \textbf{Rust}通过借用栈来处理再借用
+                \item 只有栈顶的元素是处于\textbf{live}状态的(被借用)
+                \item 当访问栈顶下面的元素时，该元素会变为\textbf{live}，而栈顶元素会被弹出(\textbf{pop})
+                \item 从借用栈中弹出的元素无法再被借用
+                \item 借用检查器会保证我们的安全代码遵守以上规则
+                \item \textbf{Miri}可以在一定程度上保证裸指针在运行时也遵循以上规则
+            \end{itemize}
+        }
+    }
+
+    \subsection{测试栈借用}{
+        \fact{
+            \textbf{Miri}为何可以一定程度上提前发现这些\textbf{UB}问题？因为它会去获取\textbf{rustc}对我们的程序最原生、且没有任何优化的视角，然后对看到的内容进行解释和跟踪。只要这个过程能够开始，那这个解决方法就相当有效，但是问题来了，该如何让这个过程开始？要知道\textbf{Miri}和\textbf{rustc}是不可能去逐行分析代码中的所有行为的，这样做的结果就是编译时间大大增加！\\
+            因此我们需要使用测试用例来让程序中可能包含\textbf{UB}的代码路径被真正执行到，当然，就算你这么做了，也不能完全依赖 \textbf{Miri}。既然是分析，就有可能遗漏，也可能误杀友军。
+        }
+
+        \fact{
+            \textbf{Miri}对于这种裸指针派生是相当纵容的：当它们都共享同一个借用时(\textbf{borrowing}, 也可以用\textbf{Miri}的称呼:\textbf{tag})。\\
+            当代码足够简单时，编译器是有可能介入跟踪所有派生的裸指针，并尽可能去优化它们的。但是这套规则比引用的那套脆弱得多！
+        }
+
+        \fact{
+            \textbf{Rust}不允许我们对数组的不同元素进行单独的借用，注意到提示了吗？可以使用\texttt{.split\_at\_mut(position)}来将一个数组分成多个部分
+        }
+
+        \fact{
+            将一个切片转换成指针，那指针是否还拥有访问整个切片的权限。
+        }
+
+        \fact{
+            在借用栈中，一个不可变引用，它上面的所有引用(在它之后被推入借用栈的引用)都只能拥有只读的权限。
+        }
+
+        \fact{
+            \textbf{Rust}中用于内部可变性的核心原语(primitive)。\\
+            如果你拥有一个引用\texttt{\&T}，那一般情况下, \textbf{Rust}编译器会基于\texttt{\&T}指向不可变的数据这一事实来进行相关的优化。通过别名或者将\texttt{\&T}强制转换成\texttt{\&mut T}是一种\textbf{UB}行为。\\
+            而\texttt{UnsafeCell<T>}移除\texttt{\&T}的不可变保证：一个不可变引用\texttt{\&UnsafeCell<T>}指向一个可以改变的数据。这就是内部可变性。
+        }
+    }
+
+    \subsection{数据布局 2}{
+        \fact{
+            将安全的指针\texttt{\&}、\texttt{\&mut}和\textbf{Box}跟不安全的裸指针\texttt{*mut}和\textbf{*const}混用是\textbf{UB}的根源之一，原因是安全指针会引入额外的约束，但是裸指针并不会遵守这些约束。
+        }
+
+        \fact{
+            请大家牢记：当使用裸指针时，\textbf{Option}对我们是相当不友好的，所以这里不再使用。
+        }
+
+        \fact{
+            \texttt{pub fn into\_raw(b: Box<T>) -> *mut T}\\
+            消费掉\textbf{Box}(拿走所有权)，返回一个裸指针。该指针会被正确的对齐且不为\textbf{null}在调用该函数后，调用者需要对之前被\textbf{Box}所管理的内存负责，特别地，调用者需要正确的清理\textbf{T}并释放相应的内存。最简单的方式是通过\texttt{Box::from\_raw}函数将裸指针再转回到\textbf{Box}，然后\textbf{Box}的析构器就可以自动执行清理了。\\
+            注意：这是一个关联函数，因此\texttt{b.into\_raw()}是不正确的，我们得使用\texttt{Box::into\_raw(b)}。因此该函数不会跟内部类型的同名方法冲突。
+        }
+
+        \fact{
+            从安全的东东开始，将其转换成裸指针，最后再将裸指针转回安全的东东以实现安全的\textbf{drop}。\\
+            \mintinline[
+                    linenos=true,
+                    style=rainbow_dash,
+                    frame=single,
+            ]{rust}{let x = Box::new(String::from("Hello"));}\\
+            \mintinline[
+                    linenos=true,
+                    style=rainbow_dash,
+                    frame=single,
+            ]{rust}{let ptr = Box::into_raw(x);}\\
+            \mintinline[
+                    linenos=true,
+                    style=rainbow_dash,
+                    frame=single,
+            ]{rust}{let x = unsafe { Box::from_raw(ptr) };}
+        }
+    }
+
+    \subsection{额外的操作}{
+        \defn{PhantomData}{
+            \textbf{PhantomData}是零大小zero sized的类型。\\
+            在你的类型中添加一个\texttt{PhantomData<T>}字段，可以告诉编译器你的类型对\textbf{T}进行了使用，虽然并没有。说白了，就是让编译器不再给出\textbf{T}未被使用的警告或者错误。
+        }
+
+        \fact{
+            大概最适用于\textbf{PhantomData}的场景就是一个结构体拥有未使用的生命周期，典型的就是在\textbf{unsafe}中使用。
+        }
+
+        \fact{
+            你必须要遵循混叠(\textbf{Aliasing})的规则，原因是返回的生命周期\textbf{'a}只是任意选择的，并不能代表数据真实的生命周期。特别的，在这段生命周期的过程中，指针指向的内存区域绝不能被其它指针所访问。
+        }
+    }
+
+    \subsection{最终代码}{
+        \inputminted[
+            linenos=true,
+            style=rainbow_dash,
+            frame=single,
+        ]{rust}{fifth.rs}
+    }
+}
+
+\section{生产级的双向unsafe队列}{
+    \subsection{数据布局}{
+        \fact{
+            传统的方法是对堆栈的简单扩展——只需将头部和尾部指针存储在堆栈上。这很好，但它有一个缺点：极端情况。现在我们的列表有两个边缘，这意味着极端情况的数量增加了一倍。很容易忘记一个并有一个严重的错误。
+        }
+        \begin{verbatim}
+            [ptr, ptr] <-> (ptr, A, ptr) <-> (ptr, B, ptr)
+              ↑                                        ↑
+              +----------------------------------------+
+        \end{verbatim}
+
+        \fact{
+            虚拟节点方法试图通过在我们的列表中添加一个额外的节点来消除这些极端情况，该节点不包含任何数据，但将两端链接成一个环。
+        }
+        \begin{verbatim}
+            [ptr] -> (ptr, ?DUMMY?, ptr) <-> (ptr, A, ptr) <-> (ptr, B, ptr)
+                       ↑                                                 ↑
+                       +-------------------------------------------------+
+        \end{verbatim}
+
+        \fact{
+            通过执行此操作，每个节点始终具有指向列表中上一个和下一个节点的实际指针。即使你从列表中删除了最后一个元素，你最终也只是拼接了虚拟节点以指向它自己。
+        }
+        \begin{verbatim}
+            [ptr] -> (ptr, ?DUMMY?, ptr)
+                       ↑             ↑
+                       +-------------+
+        \end{verbatim}
+
+        \fact{
+            对于像\textbf{Rust}这样的语言来说，这些虚拟节点方案的问题确实超过了便利性，所以我们将坚持传统的布局。
+        }
+    }
+
+    \subsection{型变与子类型}{
+        \fact{
+            建造 Rust collections 时，有这五个可怕的难题：
+            \begin{itemize}
+                \item Variance
+                \item Drop Check
+                \item NonNull Optimizations
+                \item The isize::MAX Allocation Rule
+                \item Zero-Sized Types
+            \end{itemize}
+        }
+
+        \fact{
+            基本上子类型并不总是安全的。特别是，当涉及可变引用时，它就更不安全了，。因为你可能会使用诸如\texttt{mem::swap}的东西
+        }
+
+        \fact{
+            可变引用是\textbf{invariant}(不变的)，这意味着它们会阻止对泛型参数子类型化。因此，为了安全起见，\texttt{\&mut T}在\textbf{T}上是不变的，并且\texttt{Cell<T>}在\textbf{T}上也是不变的(因为内部可变性)，因为\texttt{\&Cell<T>}本质上就像\texttt{\&mut T}。
+        }
+
+        \fact{
+            几乎所有不是\textbf{invariant}的东西都是\textbf{covariant}(协变的) ，这意味着子类型可以正常工作（也有\textbf{contravariant}(逆变的) 的类型使子类型倒退，但它们真的很少见，没有人喜欢它们，所以我不会再提到它们）。
+        }
+
+        \fact{
+            由于\textbf{Rust}的所有权系统，\textbf{Vec<T>}在语义上等同于\textbf{T}，这意味着它可以安全地保持\textbf{covariant}(协变的)
+        }
+
+        \fact{
+            \textbf{*mut T}是\textbf{invariant}(不变的)，因为它很有可能被 "作为"\texttt{\&mut T}使用。
+        }
+
+        \fact{
+            与\textbf{mut T}不同，\textbf{NonNull}在\textbf{T}上是\textbf{covariant}(协变的)。这使得使用 \textbf{NonNull}构建\textbf{covariant}(协变的)*类型成为可能，但如果在不应该是\textbf{covariant}(协变的)的地方中使用，则会带来不健全的风险。
+        }
+
+        \fact{
+            \textbf{NonNull}只是滥用了\textbf{*const T}是\textbf{covariant}(协变的) 这一事实，并将其存储起来。这就是\textbf{Rust}中集合的协变方式！
+        }
+    }
+
+    \subsection{基础结构}{
+        \fact{
+            \textbf{PhantomData}是一种奇怪的类型，没有字段，所以你只需说出它的类型名称就能创建一个。
+        }
+    }
+
+    \subsection{恐慌与安全}{
+        \fact{
+            在默认情况下，恐慌会被\textbf{unwinding}。\textbf{unwind}只是 "让每个函数立即返回 "的一种花哨说法。\\
+            当函数返回时，析构函数会运行，而且可以捕获\textbf{unwind}。在这两种情况下，代码都可能在恐慌发生后继续运行，因此我们必须非常小心，确保我们的不安全的集合在恐慌发生时始终处于某种一致的状态，因为每次恐慌都是隐式的提前返回！
+        }
+
+        \fact{
+            调试断言哪行在某种意义上更糟糕，因为它可能将一个小问题升级为关键问题。
+        }
+
+        \fact{
+            \textbf{Rust}的集合所有权和借用系统的"杀手级应用"之一：如果一个操作需要一个\texttt{\&mut Self}，那么我们就能保证对我们的集合拥有独占访问权，而且我们可以暂时破坏\textbf{invariants}(不可变性)，因为我们知道没有人能偷偷摸摸地破坏它。
+        }
+    }
+
+    \subsection{无聊的组合}{
+        \fact{
+            双端迭代器(\textbf{DoubleEndedIterator})是\textbf{Rust}中的一种特殊迭代器，它不仅可以从前向后遍历集合，还可以从后向前遍历。这种迭代器非常适合需要双向遍历的场景。\\
+            在实现双端迭代器时，需要实现\textbf{DoubleEndedIterator} trait，该trait继承自\textbf{Iterator} trait，并额外要求实现\textbf{next\_back}方法。\textbf{next\_back}方法用于从后向前返回集合中的下一个元素。
+        }
+
+        \fact{
+            精确大小迭代器(\textbf{ExactSizeIterator})是\textbf{Rust}中的一种迭代器，它不仅实现了\textbf{Iterator} trait，还提供了一个额外的方法\textbf{len}，用于返回迭代器中剩余元素的数量。这个特性使得精确大小迭代器在处理需要知道确切元素数量的场景中非常有用。\\
+            要实现\textbf{ExactSizeIterator}，需要在实现\textbf{Iterator} trait 的基础上，额外实现\textbf{len}方法。
+        }
+    }
+
+    \subsection{其它特征}{
+        \fact{
+            在计算哈希值时，确保将集合的长度包含在内是非常重要的。这可以避免前缀碰撞。
+        }
+    }
+
+    \subsection{测试}{
+
+    }
+
+    \subsection{\textbf{Send},\textbf{Sync}和编译测试}{
+        \begin{table}[h!]
+        \centering
+        \begin{tabular}{|>{\centering\arraybackslash}m{2.5cm}|>{\raggedright\arraybackslash}m{6cm}|>{\centering\arraybackslash}m{2cm}|>{\raggedright\arraybackslash}m{3cm}|}
+            \hline
+            \textbf{概念} & \textbf{定义} & \textbf{默认状态} & \textbf{用户操作} \\
+            \hline
+            Opt-in & 某个功能默认关闭，用户需主动启用。 & 关闭 & 用户选择加入 \\
+            \hline
+            Opt-out & 某个功能默认开启，用户需主动禁用。 & 开启 & 用户选择退出 \\
+            \hline
+            Built-in & 某个功能是语言原生支持的，无需额外安装或配置。 & 原生支持 & 无需额外操作 \\
+            \hline
+            Built-out & 某个功能通过外部库或扩展实现，或默认自动实现某些特性（较少见）。 & 非原生 & 无需操作（或显式禁用） \\
+            \hline
+        \end{tabular}
+        \caption{Opt-in、Opt-out、Built-in 和 Built-out 概念的对比}
+        \label{tab:concepts}
+        \end{table}
+
+        \fact{
+            \textbf{unsafe}的\textbf{Opt-in Built-out}特征(\textbf{OIBITs}): \textbf{Send}和\textbf{Sync}，它们实际上是(\textbf{opt-out})和(\textbf{built-out})。
+        }
+
+        \fact{
+            \textbf{Send}表示你的类型可以安全地发送到另一个线程。\\
+            \textbf{Sync}表示你的类型可以在线程间安全共享(\texttt{\&Self: Send}, 当且仅当\texttt{\&T}是\textbf{Send}时，\textbf{T}是\textbf{Sync}的)
+        }
+
+        \fact{
+            \textbf{Send}和\textbf{Sync}是\textbf{Rust}的并发故事的基础。因此，存在大量的特殊工具来使它们正常工作。首先，它们是不安全的\textbf{Trait},这意味着它们的实现是不安全的，而其他不安全的代码可以认为它们是正确实现的。由于它们是标记特性(它们没有像方法那样的相关项目)，正确实现仅仅意味着它们具有实现者应该具有的内在属性。不正确地实现\textbf{Send}或\textbf{Sync}会导致未定义行为。
+        }
+
+        \fact{
+            \textbf{Send}和\textbf{Sync}也是自动派生的\textbf{Trait}。这意味着，与其它\textbf{Trait}不同，如果一个类型完全由\textbf{Send}\textbf{Sync}类型组成，那么它就\textbf{Send}或\textbf{Sync}。几乎所有的基本数据类型都是\textbf{Send}和\textbf{Sync}，因此，几乎所有你将与之交互的类型都是\textbf{Send}和\textbf{Sync}。
+        }
+
+        \fact{
+            主要的例外情况包括:
+            \begin{itemize}
+                \item 原始指针既不是\textbf{Send}也不是\textbf{Sync}(因为它们没有安全防护)
+                \item \textbf{UnsafeCell}不是\textbf{Sync}的(因此\textbf{Cell}和\textbf{RefCell}也不是)
+                \item \textbf{Rc}不是\textbf{Send}或\textbf{Sync}的(因为\textbf{Refcount}是共享的、不同步的)
+            \end{itemize}
+        }
+
+        \fact{
+            在\textbf{Rust}中，\textbf{compile\_fail}是一个用于文档测试的注释，它表示代码块应该无法编译。它通常用于验证某些代码在特定情况下会产生编译错误。\\
+            可以在\textbf{compile\_fail}后面指定一个错误代码，以确保代码块因特定错误而无法编译。这在验证特定错误时非常有用。(但这只适用于nightly，在not-nightly版本运行时，它将被默默忽略)。\\
+            使用\textbf{compile\_fail}可以帮助你在编写文档和测试时确保代码的正确性，并验证某些代码在特定情况下会产生编译错误。这对于编写安全和可靠的\textbf{Rust}代码非常重要。
+        }
+    }
+
+    \subsection{实现游标}{
+        \fact{
+            游标用于遍历和操作链表。
+        }
+
+        \fact{
+            一个非常重要的注意事项：这些方法必须通过\texttt{\&mut self}借用我们的游标，并且结果必须与借用绑定。我们不能让用户获得可变引用的多个副本，也不能让他们在持有该引用的情况下使用我们的API！
+        }
+    }
+
+    \subsection{测试游标}{
+        \fact{
+            \texttt{cargo test}\\
+            \texttt{cargo +nightly miri test}\\
+            \texttt{cargo clippy}\\
+            \texttt{cargo fmt}
+        }
+    }
+
+    \subsection{最终代码}{
+        \inputminted[
+            linenos=true,
+            style=rainbow_dash,
+            frame=single,
+        ]{rust}{sixth.rs}
+    }
+}
+
+\section{使用高级技巧实现链表}{
+    \subsection{双单向链表}{
+
+    }
+
+    \subsection{栈上的链表}{
+
+    }
+}
+
+\part{Reference}
+
+\chapter{Rus借用机制}
+
+\section{编译时借用检查(Compile-time Borrow Checking)}{
+    \textbf{Rust}的借用规则是确保安全并发和避免数据竞争的核心机制
+
+    \subsection{借用类型}{
+        \begin{itemize}
+            \item 不可变借用(\texttt{\&T}): 你可以同时拥有多个不可变借用，但不能有任何可变借用。
+            \item 可变借用(\texttt{\&mut T}): 你只能有一个可变借用，并且在这个可变借用存在期间不能有任何不可变借用。
+        \end{itemize}
+    }
+
+    \subsection{借用规则}{
+        \begin{enumerate}
+            \item 规则1: 在给定的作用域中，任意时刻只能有一个可变借用(\texttt{\&mut T})，或者任意数量的不可变借用(\texttt{\&T})，但不能同时存在。
+            \item 规则2: 借用必须始终是有效的(\textbf{lifetime})。
+        \end{enumerate}
+    }
+
+    \subsection{借用检查}{
+        编译时检查: \textbf{Rust}编译器会在编译时进行借用检查，确保所有借用规则都被遵守。这意味着在编译时，所有可能的借用冲突都会被捕捉并引发错误。
+    }
+}
+
+\section{运行时借用检查(Runtime Borrow Checking)}{
+    \textbf{Rust}的运行时借用检查(Runtime Borrow Checking)主要通过\textbf{RefCell<T>}类型实现。\textbf{RefCell}是\textbf{Rust}标准库中的一种类型，它允许你在编译时无法确定借用规则的情况下，通过运行时借用检查来实现内部可变性。
+
+    \subsection{什么是\textbf{RefCell<T>}}{
+        \textbf{RefCell<T>}是\textbf{Rust}中的一种智能指针类型，提供了内部可变性的功能。
+        内部可变性(Interior Mutability): 允许通过不可变引用来修改数据。
+        \textbf{RefCell}提供了类似于\texttt{\&T}和\texttt{\&mut T}的借用机制，但这些借用检查是在运行时进行的。
+    }
+
+    \subsection{工作原理}{
+
+        \subsubsection{不可变借用(\textbf{Ref<T>})}{
+            \begin{itemize}
+                \item 通过调用\texttt{RefCell::borrow}方法获取。
+                \item 运行时检查当前是否存在可变借用，如果没有，则允许获取不可变借用。
+                \item 允许同时存在多个不可变借用。
+            \end{itemize}
+        }
+
+        \subsubsection{可变借用(\textbf{RefMut<T>})}{
+            \begin{itemize}
+                \item 通过调用\texttt{RefCell::borrow\_mut}方法获取。
+                \item 运行时检查当前是否存在任何借用(包括不可变借用和其他可变借用)，如果没有，则允许获取可变借用。
+                \item 只能存在一个可变借用，并且在它存在时不能有其他借用。
+            \end{itemize}
+        }
+    }
+
+    \subsection{违反借用规则}{
+        如果在运行时违反了借用规则，\textbf{RefCell}会触发恐慌(\textbf{panic})，以防止不安全操作。
+    }
+
+    \subsection{用途}{
+        \begin{itemize}
+            \item \textbf{RefCell}经常用于实现复杂数据结构，如图、树、链表等。
+            \item 特别适合那些需要在运行时动态管理借用规则的场景。
+        \end{itemize}
+    }
+
+    \subsection{多线程和\textbf{RefCell}}{
+        \textbf{RefCell}不是线程安全的。在多线程环境中，可以使用\texttt{std::sync::Mutex}或\texttt{std::sync::RwLock}来代替\textbf{RefCell}，以实现线程安全的内部可变性。
+    }
+}
+
+\section{对比}{
+    \subsection{编译时 vs 运行时}{
+        \begin{itemize}
+            \item \texttt{\&T}和\texttt{\&mut T}: 借用检查是在编译时完成的。这意味着在编译时，你的代码必须符合借用规则，否则编译器会报错。
+            \item \textbf{Ref<T>}和\textbf{RefMut<T>}: 借用检查是在运行时完成的。这允许你在编译时无法确定借用规则的情况下，仍然能够安全地借用。
+        \end{itemize}
+    }
+
+    \subsection{使用场景}{
+        \begin{itemize}
+            \item \texttt{\&T}和\texttt{\&mut T}: 用于编译时可以确定借用规则的场景。通常在大部分Rust代码中使用。适用于大多数情况下，你能清晰地在编译时知道借用规则。
+            \item \textbf{Ref<T>}和\textbf{RefMut<T>}: 用于编译时无法确定借用规则，但可以在运行时安全地检查借用规则的场景。适用于更复杂的场景，比如需要在运行时管理借用规则，特别是在实现复杂的数据结构时。
+        \end{itemize}
+    }W
+
+    \subsection{内部可变性}{
+        \begin{itemize}
+            \item \texttt{\&T}和\texttt{\&mut T}: 使用常规的借用类型，无法实现内部可变性(即，在不可变引用下修改数据)。
+            \item \textbf{Ref<T>}和\textbf{RefMut<T>}: \textbf{RefCell<T>}通过 \textbf{Ref<T>}和\textbf{RefMut<T>}允许在内部实现可变性，允许你在不可变引用下修改数据，这在某些场景下非常有用。
+        \end{itemize}
+    }
+
+    \subsection{性能影响}{
+        \begin{itemize}
+            \item \texttt{\&T}和\texttt{\&mut T}: 因为它们的借用是在编译时检查的，所以性能损失很小。
+            \item \textbf{Ref<T>}和\textbf{RefMut<T>}: 因为借用是运行时检查的，所以在使用RefCell的地方会有额外的性能开销(例如，每次借用时都会进行借用检查)。
+        \end{itemize}
+    }
+
+    \subsection{错误处理}{
+        \begin{itemize}
+            \item \texttt{\&T}和\texttt{\&mut T}: 如果违反借用规则，编译器会直接报错。
+            \item \textbf{Ref<T>}和\textbf{RefMut<T>}: 如果在运行时违反借用规则，会导致程序恐慌(\textbf{panic})。因此，使用\textbf{RefCell}时要小心避免运行时借用错误。
+        \end{itemize}
+    }
+
+    \subsection{多线程}{
+        \begin{itemize}
+            \item \texttt{\&T}和\texttt{\&mut T}: 可以安全地在线程间共享（前提是满足 Send 和 Sync trait）。
+            \item \textbf{Ref<T>}和\textbf{RefMut<T>}: \textbf{RefCell}不在线程间安全。如果需要多线程中的内部可变性，可以使用\texttt{std::sync::Mutex}或\texttt{std::sync::RwLock}。
+        \end{itemize}
+    }
+}
+
+% \bibliographystyle{plain}  % 参考文献样式，可选：plain, unsrt, alpha, abbrv
+% \bibliography{spectral_clustering_algorithms}  % 引用 references.bib 文件
+
+\end{document}
