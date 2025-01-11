@@ -33,20 +33,33 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y texlive-full
 
+      - name: Install Google Fonts
+        run: |
+          wget https://github.com/googlefonts/noto-cjk/releases/download/Serif2.003/09_NotoSerifCJKsc.zip
+          wget https://github.com/googlefonts/noto-cjk/releases/download/Sans2.004/13_NotoSansMonoCJKsc.zip
+          unzip -d noto 09_NotoSerifCJKsc.zip -x LICENSE
+          unzip -d noto 13_NotoSansMonoCJKsc.zip -x LICENSE
+          sudo cp -fv noto/*.otf /usr/share/fonts/opentype/noto/
+          fc-cache -fv
+
+      - name: Install Pygments
+        run: |
+          pip install Pygments
+
       # Modified to support multiple compilation passes
       - name: Compile LaTeX document
         working-directory: ${{ env.SOURCE_DIR }}
         run: |
           # First pass - generates aux files
-          xelatex -interaction=nonstopmode ${{ env.MAIN_FILE }}
+          xelatex -shell-escape -interaction=nonstopmode ${{ env.MAIN_FILE }}
           # Generate bibliography if you have citations
           if [ -f "${{ env.MAIN_FILE }}.bib" ]; then
             bibtex ${{ env.MAIN_FILE }}
           fi
           # Second pass - generates TOC
-          xelatex -interaction=nonstopmode ${{ env.MAIN_FILE }}
+          xelatex -shell-escape -interaction=nonstopmode ${{ env.MAIN_FILE }}
           # Final pass - ensures all references are correct
-          xelatex -interaction=nonstopmode ${{ env.MAIN_FILE }}
+          xelatex -shell-escape -interaction=nonstopmode ${{ env.MAIN_FILE }}
 
       - name: Create output directory
         run: |
